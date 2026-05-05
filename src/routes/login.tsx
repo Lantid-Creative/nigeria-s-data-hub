@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Sparkles, ShieldCheck, Lock } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { useAuth } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -17,19 +19,31 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Stubbed role-based redirect. Real auth comes when backend is wired:
-  // server validates credentials, returns role, we route accordingly.
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    setTimeout(() => {
-      const isNgf = /@ngf\.|@nggovernorsforum/i.test(email);
+    const { error: err } = await signIn(email, password);
+    if (err) {
+      setError(err);
+      setLoading(false);
+      return;
+    }
+    // Resolve role to choose destination
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: roles } = await supabase
+        .from("user_roles").select("role").eq("user_id", user.id);
+      const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
       navigate({ to: isNgf ? "/ngf" : "/state" });
-    }, 600);
+    }
+    setLoading(false);
   }
 
   return (
@@ -140,10 +154,22 @@ function LoginPage() {
                 value={password} onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            {error && (
+              <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                {error}
+              </div>
+            )}
             <Button type="submit" className="w-full bg-primary" disabled={loading}>
               {loading ? "Signing in…" : <>Sign in <ArrowRight className="ml-1.5 h-4 w-4" /></>}
             </Button>
           </form>
+
+          <div className="mt-4 rounded-md border border-dashed bg-secondary/40 p-3 text-[11px] text-muted-foreground">
+            <div className="font-semibold text-foreground">Demo credentials</div>
+            <div>State · <code>state@kadunastate.gov.ng</code></div>
+            <div>NGF · <code>ngf@nggovernorsforum.org</code></div>
+            <div>Password · <code>Demo1234!</code></div>
+          </div>
 
           <div className="mt-6 flex items-start gap-2 rounded-md border bg-secondary/30 p-3 text-xs text-muted-foreground">
             <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
