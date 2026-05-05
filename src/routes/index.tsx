@@ -733,48 +733,6 @@ function Newsroom() {
 }
 
 /* ------------------------------ Footer ------------------------------- */
-function Footer() {
-  return (
-    <footer className="border-t bg-background py-10">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 md:grid-cols-4 md:px-8">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-              <Sparkles className="h-5 w-5 text-gold-foreground" />
-            </div>
-            <div className="font-display">NGF Futures Lab</div>
-          </div>
-          <p className="mt-3 max-w-sm text-xs text-muted-foreground">
-            The intelligence engine of the Nigeria Governors' Forum, measuring
-            sub-national resilience and shaping the next decade of state governance.
-          </p>
-        </div>
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-foreground">Explore</div>
-          <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-            <li><a href="#about" className="hover:text-foreground">About the Lab</a></li>
-            <li><a href="#pillars" className="hover:text-foreground">Pillars</a></li>
-            <li><a href="#how" className="hover:text-foreground">How it works</a></li>
-            <li><Link to="/research" className="hover:text-foreground">Research</Link></li>
-            <li><Link to="/press" className="hover:text-foreground">Press</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-foreground">Access</div>
-          <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-            <li><Link to="/login" className="hover:text-foreground">State Login</Link></li>
-            <li>Credentials issued by NGF Secretariat</li>
-            <li>Contact: lab@nggovernorsforum.org</li>
-          </ul>
-        </div>
-      </div>
-      <div className="mx-auto mt-8 max-w-7xl border-t px-4 pt-6 text-xs text-muted-foreground md:px-8">
-        © 2026 Nigeria Governors' Forum Secretariat · NGF Futures Lab
-      </div>
-    </footer>
-  );
-}
-
 /* ------------------------------ Back to top ------------------------------ */
 function BackToTop() {
   const [show, setShow] = useState(false);
