@@ -740,42 +740,6 @@ function LatestLibrary() {
   );
 }
 
-/* ------------------------------ Voices ------------------------------- */
-function Voices() {
-  const quotes = [
-    { q: "The Lab gives our PRS unit a single source of truth — and a way to learn from our peers without waiting for an annual report.",
-      a: "Commissioner of Planning", r: "South-South State" },
-    { q: "Foresight is no longer a slide in a workshop. It is becoming part of how we plan budgets.",
-      a: "Director-General, EIU", r: "NGF Secretariat" },
-    { q: "Comparable, timely data across the federation is what we have always needed to govern at scale.",
-      a: "Senior Special Adviser", r: "North-West State" },
-  ];
-  return (
-    <section className="bg-secondary/40 py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">In their own words</span>
-          <h2 className="mt-2 font-display text-3xl md:text-4xl">Built with the people who use it.</h2>
-        </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {quotes.map((q, i) => (
-            <Card key={i} className="shadow-soft">
-              <CardContent className="p-6">
-                <div className="font-display text-3xl leading-none text-gold">"</div>
-                <p className="mt-3 text-sm leading-relaxed text-foreground">{q.q}</p>
-                <div className="mt-5 border-t pt-3">
-                  <div className="text-sm font-semibold">{q.a}</div>
-                  <div className="text-xs text-muted-foreground">{q.r}</div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ----------------------------- Newsroom ------------------------------ */
 function Newsroom() {
   const items = [
