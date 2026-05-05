@@ -1,77 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SectionHeader, StatCard } from "@/components/platform/widgets";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { SectionHeader } from "@/components/platform/widgets";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { FlaskConical, FileText, Plus, Users, BookOpen } from "lucide-react";
-import { RESEARCH_PROJECTS } from "@/lib/mock-data";
+import { FlaskConical } from "lucide-react";
+import { useResearchProjects } from "@/lib/state-data";
 
-export const Route = createFileRoute("/ngf/research")({
-  component: Research,
-});
+export const Route = createFileRoute("/ngf/research")({ component: Research });
 
 function Research() {
+  const { data: rows = [] } = useResearchProjects();
   return (
     <div className="space-y-6">
-      <SectionHeader
-        title="Research Lab"
-        description="Active studies, working papers and futures research"
-        action={<Button className="bg-primary"><Plus className="mr-2 h-4 w-4" />New study</Button>}
-      />
-
-      <div className="grid gap-4 md:grid-cols-4">
-        <StatCard label="Active Studies" value="14" icon={FlaskConical} accent="primary" />
-        <StatCard label="Working Papers" value="38" icon={FileText} accent="gold" />
-        <StatCard label="Researchers" value="22" icon={Users} accent="info" />
-        <StatCard label="Knowledge Assets" value="412" icon={BookOpen} />
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-2">
-        {RESEARCH_PROJECTS.map((p) => (
-          <Card key={p.title} className="shadow-soft transition hover:border-primary/40">
+      <SectionHeader title="Research Lab" description="Active research projects and field studies" />
+      <div className="grid gap-4 md:grid-cols-2">
+        {(rows as any[]).map((r) => (
+          <Card key={r.id} className="shadow-soft">
             <CardContent className="p-5">
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="font-display text-base">{p.title}</h3>
-                  <p className="mt-1 text-xs text-muted-foreground">Lead: {p.lead}</p>
+                <div className="flex items-center gap-2">
+                  <FlaskConical className="h-4 w-4 text-primary" />
+                  <div className="font-semibold">{r.title}</div>
                 </div>
-                <Badge variant="outline">{p.status}</Badge>
+                <Badge variant="outline">{r.status}</Badge>
               </div>
-              <div className="mt-4 flex items-center gap-3">
-                <Progress value={p.progress} className="h-1.5" />
-                <span className="text-xs text-muted-foreground">{p.progress}%</span>
-              </div>
-              <div className="mt-4 flex gap-2">
-                <Button variant="outline" size="sm">Open workspace</Button>
-                <Button variant="ghost" size="sm">Share findings</Button>
+              <div className="mt-2 text-xs text-muted-foreground">Lead: {r.lead_name}</div>
+              {r.summary && <p className="mt-2 text-sm text-muted-foreground">{r.summary}</p>}
+              <div className="mt-3">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Progress</span>
+                  <span className="font-medium">{r.progress}%</span>
+                </div>
+                <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${r.progress}%` }} />
+                </div>
               </div>
             </CardContent>
           </Card>
         ))}
+        {!rows.length && <Card className="md:col-span-2"><CardContent className="p-8 text-center text-sm text-muted-foreground">No research projects yet.</CardContent></Card>}
       </div>
-
-      <Card className="shadow-soft">
-        <CardHeader>
-          <CardTitle className="font-display text-lg">Research methodologies</CardTitle>
-          <p className="text-xs text-muted-foreground">Frameworks deployed across the Futures Lab</p>
-        </CardHeader>
-        <CardContent className="grid gap-3 md:grid-cols-3">
-          {[
-            { t: "Strategic foresight", d: "Three-horizons, scenario planning, backcasting." },
-            { t: "Systems mapping", d: "Causal loops, leverage analysis, archetypes." },
-            { t: "Quantitative modelling", d: "Bayesian, ML, time-series, agent-based." },
-            { t: "Ethnographic", d: "Community ethnographies, sensemaking workshops." },
-            { t: "Resilience indices", d: "SNRI v2, sectoral and zonal sub-indices." },
-            { t: "Policy experiments", d: "RCTs, quasi-experiments, living labs." },
-          ].map((m) => (
-            <div key={m.t} className="rounded-lg border p-4">
-              <div className="text-sm font-semibold">{m.t}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{m.d}</div>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
     </div>
   );
 }

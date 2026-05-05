@@ -160,3 +160,114 @@ export function scoreFor(score: any, dimCode: string): number | null {
   const v = score[k];
   return v == null ? null : Number(v);
 }
+
+// ---------- NGF (admin) hooks ----------
+
+export function useAllStates() {
+  return useQuery({
+    queryKey: ["states-all"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("states").select("*, zones(name)").order("name");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useZones() {
+  return useQuery({
+    queryKey: ["zones"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("zones").select("*").order("name");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useScenarios() {
+  return useQuery({
+    queryKey: ["scenarios"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("scenarios").select("*").order("sort_order");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useResearchProjects() {
+  return useQuery({
+    queryKey: ["research"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("research_projects").select("*").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useInnovationPilots() {
+  return useQuery({
+    queryKey: ["pilots"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("innovation_pilots").select("*, states(name)").order("created_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useAllSubmissions() {
+  return useQuery({
+    queryKey: ["all-submissions"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("survey_submissions")
+        .select("*, surveys(code,title,due_date), states(name,zone_code)")
+        .order("updated_at", { ascending: false });
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+}
+
+export function useNationalSnriTrend() {
+  // Avg resilience_index per cycle across all states
+  return useQuery({
+    queryKey: ["snri-trend"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("state_scores")
+        .select("resilience_index, reporting_cycles(code,label,starts_on)")
+        .order("created_at", { ascending: true });
+      if (error) throw error;
+      const groups = new Map<string, { period: string; sum: number; n: number; sort: string }>();
+      for (const row of (data ?? []) as any[]) {
+        const c = row.reporting_cycles;
+        if (!c) continue;
+        const key = c.code;
+        const g = groups.get(key) ?? { period: c.label, sum: 0, n: 0, sort: c.starts_on };
+        g.sum += Number(row.resilience_index ?? 0);
+        g.n += 1;
+        groups.set(key, g);
+      }
+      return Array.from(groups.values())
+        .sort((a, b) => a.sort.localeCompare(b.sort))
+        .map((g) => ({ period: g.period, index: +(g.sum / Math.max(g.n, 1)).toFixed(1) }));
+    },
+  });
+}
+
+export type ScoreRow = {
+  state_code: string;
+  resilience_index: number | null;
+  fiscal: number | null;
+  human_capital: number | null;
+  climate: number | null;
+  security: number | null;
+  economic: number | null;
+  governance: number | null;
+  social: number | null;
+  states?: { name: string; zone_code: string } | null;
+};
