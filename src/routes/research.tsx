@@ -1,13 +1,15 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowRight, Sparkles, Search, FileText, FlaskConical, Telescope,
-  Lightbulb, BookOpen, Download, Calendar, BarChart3,
+  Search, FileText, FlaskConical, Telescope,
+  Lightbulb, BookOpen, Download, Calendar,
 } from "lucide-react";
 import { useState } from "react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
 
 export const Route = createFileRoute("/research")({
   component: ResearchPage,
@@ -88,7 +90,7 @@ function ResearchPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <TopBar />
+      <SiteHeader />
       <section className="border-b bg-secondary/40">
         <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">Research Library</span>
@@ -165,39 +167,3 @@ function ResearchPage() {
   );
 }
 
-/* shared chrome — kept lightweight here to avoid a refactor */
-function TopBar() {
-  return (
-    <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-            <Sparkles className="h-5 w-5 text-gold-foreground" />
-          </div>
-          <div className="leading-tight">
-            <div className="font-display text-base text-foreground">NGF Futures Lab</div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Nigeria Governors' Forum</div>
-          </div>
-        </Link>
-        <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-          <Link to="/" className="hover:text-foreground">Home</Link>
-          <Link to="/research" activeProps={{ className: "text-foreground font-medium" }} className="hover:text-foreground">Research</Link>
-          <Link to="/press" activeProps={{ className: "text-foreground font-medium" }} className="hover:text-foreground">Press</Link>
-        </nav>
-        <Button asChild size="sm" className="bg-primary">
-          <Link to="/login">State Login <ArrowRight className="ml-1 h-3.5 w-3.5" /></Link>
-        </Button>
-      </div>
-    </header>
-  );
-}
-
-function SiteFooter() {
-  return (
-    <footer className="mt-10 border-t bg-background py-10">
-      <div className="mx-auto max-w-7xl px-4 text-xs text-muted-foreground md:px-8">
-        © 2026 Nigeria Governors' Forum Secretariat · NGF Futures Lab
-      </div>
-    </footer>
-  );
-}
