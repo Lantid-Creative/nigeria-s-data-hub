@@ -46,92 +46,93 @@ function Landing() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden gradient-hero text-primary-foreground">
-        <div className="absolute inset-0 grid-pattern opacity-50" />
-        <div className="absolute inset-0 gradient-radial-gold" />
-        <div className="relative mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-7">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium backdrop-blur">
-                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-                Strategic foresight for Nigeria's 36 states
-              </span>
-              <h1 className="mt-5 font-display text-4xl leading-[1.05] text-balance md:text-6xl">
-                Anticipatory governance.<br />
-                <span className="text-gold">Data-driven futures.</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-base text-white/80 md:text-lg">
-                The intelligence platform powering the NGF Futures Lab — where Nigeria's
-                sub-national governments diagnose risk, plan for the future, and turn
-                evidence into policy that works.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="bg-gold text-gold-foreground hover:bg-gold/90">
-                  <Link to="/ngf">Enter NGF Command Centre <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/15">
-                  <Link to="/state">State Government Portal</Link>
-                </Button>
-              </div>
+      {/* Hero — NDIP-inspired clean editorial */}
+      <section className="relative overflow-hidden bg-secondary/30">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--primary) 10%, transparent), transparent 70%), radial-gradient(40% 40% at 90% 100%, color-mix(in oklab, var(--gold) 14%, transparent), transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-5xl px-4 pt-20 pb-16 text-center md:px-8 md:pt-28 md:pb-24">
+          <span className="inline-flex items-center gap-2 rounded-full border bg-background/80 px-3 py-1 text-xs font-medium text-foreground shadow-soft backdrop-blur">
+            <Activity className="h-3.5 w-3.5 text-primary" />
+            Real-time sub-national intelligence
+          </span>
 
-              <div className="mt-10 grid max-w-lg grid-cols-3 gap-6">
-                {[
-                  { v: "36", l: "States covered" },
-                  { v: "220M+", l: "Citizens" },
-                  { v: "40%", l: "Of public spend" },
-                ].map((s) => (
-                  <div key={s.l}>
-                    <div className="font-display text-3xl text-gold">{s.v}</div>
-                    <div className="text-xs uppercase tracking-wider text-white/60">{s.l}</div>
-                  </div>
-                ))}
-              </div>
+          <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight text-foreground text-balance md:text-6xl lg:text-7xl">
+            Nigeria's sub-national data,{" "}
+            <span className="italic text-primary">made simple</span> to govern.
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
+            Ask questions in plain language and get instant charts, foresight and
+            AI-powered analysis across all 36 states — fiscal health, human capital,
+            climate risk, innovation and more.
+          </p>
+
+          <div className="mx-auto mt-10 max-w-2xl">
+            <div className="group flex items-center gap-2 rounded-2xl border bg-background p-2 shadow-elevated focus-within:ring-2 focus-within:ring-primary/30">
+              <Search className="ml-2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Ask a question about Nigeria's states…"
+                className="h-11 border-0 bg-transparent text-base shadow-none focus-visible:ring-0"
+              />
+              <Button asChild size="lg" className="bg-primary">
+                <Link to="/ngf">
+                  Ask Lab AI <ArrowRight className="ml-1.5 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
-
-            {/* Floating preview */}
-            <div className="lg:col-span-5">
-              <div className="relative">
-                <div className="absolute -inset-4 rounded-3xl bg-gold/20 blur-2xl" />
-                <Card className="relative overflow-hidden border-white/10 bg-white/5 backdrop-blur">
-                  <CardContent className="p-5">
-                    <div className="mb-3 flex items-center justify-between text-xs text-white/70">
-                      <span>Sub-National Resilience Index</span>
-                      <span className="rounded-full bg-gold/20 px-2 py-0.5 text-gold">Live</span>
-                    </div>
-                    <div className="font-display text-5xl text-white">64.2</div>
-                    <div className="mt-1 text-xs text-[color:var(--success)]">+2.1 vs Q4 2025</div>
-
-                    <div className="mt-5 space-y-3">
-                      {[
-                        { l: "Fiscal", v: 68, c: "bg-gold" },
-                        { l: "Human Capital", v: 62, c: "bg-[color:var(--info)]" },
-                        { l: "Climate", v: 51, c: "bg-destructive" },
-                        { l: "Innovation", v: 55, c: "bg-emerald-400" },
-                      ].map((r) => (
-                        <div key={r.l}>
-                          <div className="mb-1 flex justify-between text-[11px] text-white/70">
-                            <span>{r.l}</span><span>{r.v}</span>
-                          </div>
-                          <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                            <div className={`h-full rounded-full ${r.c}`} style={{ width: `${r.v}%` }} />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 grid grid-cols-3 gap-2 text-center text-[10px] uppercase tracking-wider text-white/60">
-                      <div className="rounded-md border border-white/10 py-2">36 / 36 states</div>
-                      <div className="rounded-md border border-white/10 py-2">12 indicators</div>
-                      <div className="rounded-md border border-white/10 py-2">Quarterly</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+            <div className="mt-3 text-xs text-muted-foreground">
+              Or{" "}
+              <Link to="/state" className="font-medium text-primary hover:underline">
+                sign in as a State Government →
+              </Link>
             </div>
+          </div>
+
+          <div className="mt-12">
+            <div className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+              Explore by topic
+            </div>
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
+              {[
+                { i: BarChart2, l: "Fiscal" },
+                { i: Users, l: "Human Capital" },
+                { i: HeartPulse, l: "Health" },
+                { i: Leaf, l: "Climate" },
+                { i: GraduationCap, l: "Education" },
+                { i: Wheat, l: "Agriculture" },
+                { i: ShieldCheck, l: "Security" },
+              ].map((t) => (
+                <button
+                  key={t.l}
+                  className="inline-flex items-center gap-1.5 rounded-full border bg-background px-3.5 py-1.5 text-sm text-foreground shadow-soft transition hover:border-primary/40 hover:text-primary"
+                >
+                  <t.i className="h-3.5 w-3.5 text-primary" />
+                  {t.l}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mx-auto mt-14 grid max-w-3xl grid-cols-3 gap-6 border-t pt-8 text-left">
+            {[
+              { v: "36", l: "States covered" },
+              { v: "220M+", l: "Citizens" },
+              { v: "12", l: "Resilience indicators" },
+            ].map((s) => (
+              <div key={s.l}>
+                <div className="font-display text-3xl text-primary">{s.v}</div>
+                <div className="text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* Pillars */}
       <section id="pillars" className="mx-auto max-w-7xl px-4 py-20 md:px-8">
