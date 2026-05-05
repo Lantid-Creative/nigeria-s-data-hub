@@ -12,6 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as NgfRouteImport } from './routes/ngf'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StateIndexRouteImport } from './routes/state.index'
+import { Route as NgfIndexRouteImport } from './routes/ngf.index'
+import { Route as StateSurveysRouteImport } from './routes/state.surveys'
+import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 
 const StateRoute = StateRouteImport.update({
   id: '/state',
@@ -28,35 +32,80 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StateIndexRoute = StateIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StateRoute,
+} as any)
+const NgfIndexRoute = NgfIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NgfRoute,
+} as any)
+const StateSurveysRoute = StateSurveysRouteImport.update({
+  id: '/surveys',
+  path: '/surveys',
+  getParentRoute: () => StateRoute,
+} as any)
+const NgfAnalyticsRoute = NgfAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => NgfRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/ngf': typeof NgfRoute
-  '/state': typeof StateRoute
+  '/ngf': typeof NgfRouteWithChildren
+  '/state': typeof StateRouteWithChildren
+  '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/state/surveys': typeof StateSurveysRoute
+  '/ngf/': typeof NgfIndexRoute
+  '/state/': typeof StateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/ngf': typeof NgfRoute
-  '/state': typeof StateRoute
+  '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/state/surveys': typeof StateSurveysRoute
+  '/ngf': typeof NgfIndexRoute
+  '/state': typeof StateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/ngf': typeof NgfRoute
-  '/state': typeof StateRoute
+  '/ngf': typeof NgfRouteWithChildren
+  '/state': typeof StateRouteWithChildren
+  '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/state/surveys': typeof StateSurveysRoute
+  '/ngf/': typeof NgfIndexRoute
+  '/state/': typeof StateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/ngf' | '/state'
+  fullPaths:
+    | '/'
+    | '/ngf'
+    | '/state'
+    | '/ngf/analytics'
+    | '/state/surveys'
+    | '/ngf/'
+    | '/state/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ngf' | '/state'
-  id: '__root__' | '/' | '/ngf' | '/state'
+  to: '/' | '/ngf/analytics' | '/state/surveys' | '/ngf' | '/state'
+  id:
+    | '__root__'
+    | '/'
+    | '/ngf'
+    | '/state'
+    | '/ngf/analytics'
+    | '/state/surveys'
+    | '/ngf/'
+    | '/state/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  NgfRoute: typeof NgfRoute
-  StateRoute: typeof StateRoute
+  NgfRoute: typeof NgfRouteWithChildren
+  StateRoute: typeof StateRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -82,14 +131,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/state/': {
+      id: '/state/'
+      path: '/'
+      fullPath: '/state/'
+      preLoaderRoute: typeof StateIndexRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/ngf/': {
+      id: '/ngf/'
+      path: '/'
+      fullPath: '/ngf/'
+      preLoaderRoute: typeof NgfIndexRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/state/surveys': {
+      id: '/state/surveys'
+      path: '/surveys'
+      fullPath: '/state/surveys'
+      preLoaderRoute: typeof StateSurveysRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/ngf/analytics': {
+      id: '/ngf/analytics'
+      path: '/analytics'
+      fullPath: '/ngf/analytics'
+      preLoaderRoute: typeof NgfAnalyticsRouteImport
+      parentRoute: typeof NgfRoute
+    }
   }
 }
 
+interface NgfRouteChildren {
+  NgfAnalyticsRoute: typeof NgfAnalyticsRoute
+  NgfIndexRoute: typeof NgfIndexRoute
+}
+
+const NgfRouteChildren: NgfRouteChildren = {
+  NgfAnalyticsRoute: NgfAnalyticsRoute,
+  NgfIndexRoute: NgfIndexRoute,
+}
+
+const NgfRouteWithChildren = NgfRoute._addFileChildren(NgfRouteChildren)
+
+interface StateRouteChildren {
+  StateSurveysRoute: typeof StateSurveysRoute
+  StateIndexRoute: typeof StateIndexRoute
+}
+
+const StateRouteChildren: StateRouteChildren = {
+  StateSurveysRoute: StateSurveysRoute,
+  StateIndexRoute: StateIndexRoute,
+}
+
+const StateRouteWithChildren = StateRoute._addFileChildren(StateRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  NgfRoute: NgfRoute,
-  StateRoute: StateRoute,
+  NgfRoute: NgfRouteWithChildren,
+  StateRoute: StateRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
