@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, Sparkles, ShieldCheck, Lock } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { useAuth } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -17,19 +19,31 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Stubbed role-based redirect. Real auth comes when backend is wired:
-  // server validates credentials, returns role, we route accordingly.
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
+    setError(null);
     setLoading(true);
-    setTimeout(() => {
-      const isNgf = /@ngf\.|@nggovernorsforum/i.test(email);
+    const { error: err } = await signIn(email, password);
+    if (err) {
+      setError(err);
+      setLoading(false);
+      return;
+    }
+    // Resolve role to choose destination
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: roles } = await supabase
+        .from("user_roles").select("role").eq("user_id", user.id);
+      const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
       navigate({ to: isNgf ? "/ngf" : "/state" });
-    }, 600);
+    }
+    setLoading(false);
   }
 
   return (
