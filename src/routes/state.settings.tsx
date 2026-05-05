@@ -1,0 +1,7 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { SectionHeader } from "@/components/platform/widgets";
+import { Card, CardContent } from "@/components/ui/card";
+export const Route = createFileRoute("/state/settings")({ component: () => (
+  <div className="space-y-6"><SectionHeader title="Settings" description="Workspace and account preferences" />
+  <Card className="shadow-soft"><CardContent className="p-8 text-sm text-muted-foreground">Settings configuration coming soon.</CardContent></Card></div>
+)});

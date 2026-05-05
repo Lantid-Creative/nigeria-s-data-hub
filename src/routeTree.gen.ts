@@ -15,6 +15,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
 import { Route as StateSurveysRouteImport } from './routes/state.surveys'
+import { Route as NgfStatesRouteImport } from './routes/ngf.states'
+import { Route as NgfResearchRouteImport } from './routes/ngf.research'
+import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
+import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
+import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 
 const StateRoute = StateRouteImport.update({
@@ -47,6 +52,31 @@ const StateSurveysRoute = StateSurveysRouteImport.update({
   path: '/surveys',
   getParentRoute: () => StateRoute,
 } as any)
+const NgfStatesRoute = NgfStatesRouteImport.update({
+  id: '/states',
+  path: '/states',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfResearchRoute = NgfResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfReportsRoute = NgfReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfInnovationRoute = NgfInnovationRouteImport.update({
+  id: '/innovation',
+  path: '/innovation',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfForesightRoute = NgfForesightRouteImport.update({
+  id: '/foresight',
+  path: '/foresight',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfAnalyticsRoute = NgfAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -58,6 +88,11 @@ export interface FileRoutesByFullPath {
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/research': typeof NgfResearchRoute
+  '/ngf/states': typeof NgfStatesRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
@@ -65,6 +100,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/research': typeof NgfResearchRoute
+  '/ngf/states': typeof NgfStatesRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
@@ -75,6 +115,11 @@ export interface FileRoutesById {
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/research': typeof NgfResearchRoute
+  '/ngf/states': typeof NgfStatesRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
@@ -86,17 +131,37 @@ export interface FileRouteTypes {
     | '/ngf'
     | '/state'
     | '/ngf/analytics'
+    | '/ngf/foresight'
+    | '/ngf/innovation'
+    | '/ngf/reports'
+    | '/ngf/research'
+    | '/ngf/states'
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/ngf/analytics' | '/state/surveys' | '/ngf' | '/state'
+  to:
+    | '/'
+    | '/ngf/analytics'
+    | '/ngf/foresight'
+    | '/ngf/innovation'
+    | '/ngf/reports'
+    | '/ngf/research'
+    | '/ngf/states'
+    | '/state/surveys'
+    | '/ngf'
+    | '/state'
   id:
     | '__root__'
     | '/'
     | '/ngf'
     | '/state'
     | '/ngf/analytics'
+    | '/ngf/foresight'
+    | '/ngf/innovation'
+    | '/ngf/reports'
+    | '/ngf/research'
+    | '/ngf/states'
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
@@ -152,6 +217,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateSurveysRouteImport
       parentRoute: typeof StateRoute
     }
+    '/ngf/states': {
+      id: '/ngf/states'
+      path: '/states'
+      fullPath: '/ngf/states'
+      preLoaderRoute: typeof NgfStatesRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/research': {
+      id: '/ngf/research'
+      path: '/research'
+      fullPath: '/ngf/research'
+      preLoaderRoute: typeof NgfResearchRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/reports': {
+      id: '/ngf/reports'
+      path: '/reports'
+      fullPath: '/ngf/reports'
+      preLoaderRoute: typeof NgfReportsRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/innovation': {
+      id: '/ngf/innovation'
+      path: '/innovation'
+      fullPath: '/ngf/innovation'
+      preLoaderRoute: typeof NgfInnovationRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/foresight': {
+      id: '/ngf/foresight'
+      path: '/foresight'
+      fullPath: '/ngf/foresight'
+      preLoaderRoute: typeof NgfForesightRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/analytics': {
       id: '/ngf/analytics'
       path: '/analytics'
@@ -164,11 +264,21 @@ declare module '@tanstack/react-router' {
 
 interface NgfRouteChildren {
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
+  NgfForesightRoute: typeof NgfForesightRoute
+  NgfInnovationRoute: typeof NgfInnovationRoute
+  NgfReportsRoute: typeof NgfReportsRoute
+  NgfResearchRoute: typeof NgfResearchRoute
+  NgfStatesRoute: typeof NgfStatesRoute
   NgfIndexRoute: typeof NgfIndexRoute
 }
 
 const NgfRouteChildren: NgfRouteChildren = {
   NgfAnalyticsRoute: NgfAnalyticsRoute,
+  NgfForesightRoute: NgfForesightRoute,
+  NgfInnovationRoute: NgfInnovationRoute,
+  NgfReportsRoute: NgfReportsRoute,
+  NgfResearchRoute: NgfResearchRoute,
+  NgfStatesRoute: NgfStatesRoute,
   NgfIndexRoute: NgfIndexRoute,
 }
 
