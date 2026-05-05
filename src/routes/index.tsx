@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
-      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience and shaping the next decade of state governance." },
+      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum, measuring sub-national resilience and shaping the next decade of state governance." },
     ],
   }),
 });
@@ -30,7 +30,7 @@ function Landing() {
       <SnriExplainer />
       <ResearchInnovation />
       <LatestLibrary />
-      <Voices />
+      
       <Newsroom />
       <ForStates />
       <Partners />
@@ -96,7 +96,7 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
             The NGF Futures Lab is where sub-national data, strategic foresight and
-            policy innovation meet — built with state governments, anchored at the
+            policy innovation meet, built with state governments, anchored at the
             NGF Secretariat.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -222,7 +222,7 @@ function WhatIsLab() {
           <p className="mt-6 text-muted-foreground md:text-lg">
             The NGF Futures Lab is the Secretariat's intelligence arm. It brings
             together state-reported data, advanced analytics, scenario modelling
-            and applied research into a single environment — so that governors,
+            and applied research into a single environment, so that governors,
             commissioners and PRS units can move from reacting to events to
             shaping the next decade.
           </p>
@@ -314,7 +314,7 @@ function Pillars() {
             Measure. Analyse. Foresee. Innovate.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            The Lab is structured around four reinforcing pillars — each one
+            The Lab is structured around four reinforcing pillars, each one
             answering a different question states ask about their future.
           </p>
         </div>
@@ -361,7 +361,7 @@ function HowItWorks() {
     },
     {
       n: "02", t: "Lab Analyses",
-      d: "Data flows into the NGF Command Centre. Analysts, models and AI work together — comparing states, scoring resilience, surfacing anomalies.",
+      d: "Data flows into the NGF Command Centre. Analysts, models and AI work together, comparing states, scoring resilience, surfacing anomalies.",
       svg: (
         <svg viewBox="0 0 200 140" className="h-32 w-full">
           <circle cx="100" cy="70" r="50" fill="oklch(0.45 0.13 155 / 0.08)" stroke="oklch(0.45 0.13 155 / 0.3)" strokeDasharray="3 3" />
@@ -378,7 +378,7 @@ function HowItWorks() {
     },
     {
       n: "03", t: "Insights Return",
-      d: "Briefs, dashboards, alerts and policy recommendations flow back to governors and state PRS teams — closing the loop.",
+      d: "Briefs, dashboards, alerts and policy recommendations flow back to governors and state PRS teams, closing the loop.",
       svg: (
         <svg viewBox="0 0 200 140" className="h-32 w-full">
           <rect x="60" y="20" width="120" height="100" rx="8" fill="white" stroke="oklch(0.45 0.13 155 / 0.3)" />
@@ -438,7 +438,7 @@ function ThematicCoverage() {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">Coverage</span>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">Eight themes. One coherent picture.</h2>
           <p className="mt-3 text-muted-foreground">
-            The Lab tracks the full spectrum of sub-national resilience — from
+            The Lab tracks the full spectrum of sub-national resilience, from
             today's fiscal pressures to tomorrow's climate and digital transitions.
           </p>
         </div>
@@ -513,7 +513,7 @@ function SnriExplainer() {
             The Sub-National Resilience Index.
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            The SNRI is the Lab's flagship composite measure — bringing together
+            The SNRI is the Lab's flagship composite measure, bringing together
             fiscal, human, environmental and institutional dimensions into a single
             comparable score for every Nigerian state.
           </p>
@@ -549,7 +549,7 @@ function ResearchInnovation() {
             </h2>
             <p className="mt-3 text-muted-foreground">
               Active research streams and Living Labs translate evidence into
-              experiments — and experiments into scalable policy.
+              experiments, and experiments into scalable policy.
             </p>
           </div>
         </div>
@@ -591,7 +591,7 @@ function ForStates() {
             Your state, in the national picture.
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            A dedicated workspace for your PRS unit — submit reporting cycles, see
+            A dedicated workspace for your PRS unit. Submit reporting cycles, see
             your dashboard, benchmark against peers, and tap into the Lab's
             knowledge base. Your data is yours; aggregated views power the
             national picture.
@@ -711,7 +711,7 @@ function LatestLibrary() {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">From the Library</span>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">Latest research and reports.</h2>
           <p className="mt-3 text-muted-foreground">
-            Working papers, foresight studies and policy briefs — covering all 36 states and the FCT.
+            Working papers, foresight studies and policy briefs, covering all 36 states and the FCT.
           </p>
         </div>
         <Button asChild variant="outline">
@@ -735,42 +735,6 @@ function LatestLibrary() {
             </CardContent>
           </Card>
         ))}
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------------ Voices ------------------------------- */
-function Voices() {
-  const quotes = [
-    { q: "The Lab gives our PRS unit a single source of truth — and a way to learn from our peers without waiting for an annual report.",
-      a: "Commissioner of Planning", r: "South-South State" },
-    { q: "Foresight is no longer a slide in a workshop. It is becoming part of how we plan budgets.",
-      a: "Director-General, EIU", r: "NGF Secretariat" },
-    { q: "Comparable, timely data across the federation is what we have always needed to govern at scale.",
-      a: "Senior Special Adviser", r: "North-West State" },
-  ];
-  return (
-    <section className="bg-secondary/40 py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="max-w-2xl">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">In their own words</span>
-          <h2 className="mt-2 font-display text-3xl md:text-4xl">Built with the people who use it.</h2>
-        </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {quotes.map((q, i) => (
-            <Card key={i} className="shadow-soft">
-              <CardContent className="p-6">
-                <div className="font-display text-3xl leading-none text-gold">"</div>
-                <p className="mt-3 text-sm leading-relaxed text-foreground">{q.q}</p>
-                <div className="mt-5 border-t pt-3">
-                  <div className="text-sm font-semibold">{q.a}</div>
-                  <div className="text-xs text-muted-foreground">{q.r}</div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -820,7 +784,7 @@ function Footer() {
             <div className="font-display">NGF Futures Lab</div>
           </div>
           <p className="mt-3 max-w-sm text-xs text-muted-foreground">
-            The intelligence engine of the Nigeria Governors' Forum — measuring
+            The intelligence engine of the Nigeria Governors' Forum, measuring
             sub-national resilience and shaping the next decade of state governance.
           </p>
         </div>
