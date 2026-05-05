@@ -15,12 +15,24 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
 import { Route as StateSurveysRouteImport } from './routes/state.surveys'
+import { Route as StateSupportRouteImport } from './routes/state.support'
+import { Route as StateSettingsRouteImport } from './routes/state.settings'
+import { Route as StateProfileRouteImport } from './routes/state.profile'
+import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
+import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
+import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
+import { Route as StateAlertsRouteImport } from './routes/state.alerts'
+import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
+import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
+import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
 import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
+import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
+import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
 
 const StateRoute = StateRouteImport.update({
   id: '/state',
@@ -52,9 +64,59 @@ const StateSurveysRoute = StateSurveysRouteImport.update({
   path: '/surveys',
   getParentRoute: () => StateRoute,
 } as any)
+const StateSupportRoute = StateSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateSettingsRoute = StateSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateProfileRoute = StateProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateKnowledgeRoute = StateKnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateIndicatorsRoute = StateIndicatorsRouteImport.update({
+  id: '/indicators',
+  path: '/indicators',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateBenchmarkRoute = StateBenchmarkRouteImport.update({
+  id: '/benchmark',
+  path: '/benchmark',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateAlertsRoute = StateAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => StateRoute,
+} as any)
+const NgfSurveysRoute = NgfSurveysRouteImport.update({
+  id: '/surveys',
+  path: '/surveys',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfStatesRoute = NgfStatesRouteImport.update({
   id: '/states',
   path: '/states',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfSnriRoute = NgfSnriRouteImport.update({
+  id: '/snri',
+  path: '/snri',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfSettingsRoute = NgfSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => NgfRoute,
 } as any)
 const NgfResearchRoute = NgfResearchRouteImport.update({
@@ -77,9 +139,19 @@ const NgfForesightRoute = NgfForesightRouteImport.update({
   path: '/foresight',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfDataRoute = NgfDataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfAnalyticsRoute = NgfAnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfAlertsRoute = NgfAlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
   getParentRoute: () => NgfRoute,
 } as any)
 
@@ -87,24 +159,48 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
+  '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/settings': typeof NgfSettingsRoute
+  '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
+  '/ngf/surveys': typeof NgfSurveysRoute
+  '/state/alerts': typeof StateAlertsRoute
+  '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/indicators': typeof StateIndicatorsRoute
+  '/state/knowledge': typeof StateKnowledgeRoute
+  '/state/profile': typeof StateProfileRoute
+  '/state/settings': typeof StateSettingsRoute
+  '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/settings': typeof NgfSettingsRoute
+  '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
+  '/ngf/surveys': typeof NgfSurveysRoute
+  '/state/alerts': typeof StateAlertsRoute
+  '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/indicators': typeof StateIndicatorsRoute
+  '/state/knowledge': typeof StateKnowledgeRoute
+  '/state/profile': typeof StateProfileRoute
+  '/state/settings': typeof StateSettingsRoute
+  '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
@@ -114,12 +210,24 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
+  '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/settings': typeof NgfSettingsRoute
+  '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
+  '/ngf/surveys': typeof NgfSurveysRoute
+  '/state/alerts': typeof StateAlertsRoute
+  '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/indicators': typeof StateIndicatorsRoute
+  '/state/knowledge': typeof StateKnowledgeRoute
+  '/state/profile': typeof StateProfileRoute
+  '/state/settings': typeof StateSettingsRoute
+  '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
@@ -130,24 +238,48 @@ export interface FileRouteTypes {
     | '/'
     | '/ngf'
     | '/state'
+    | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/settings'
+    | '/ngf/snri'
     | '/ngf/states'
+    | '/ngf/surveys'
+    | '/state/alerts'
+    | '/state/benchmark'
+    | '/state/indicators'
+    | '/state/knowledge'
+    | '/state/profile'
+    | '/state/settings'
+    | '/state/support'
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/settings'
+    | '/ngf/snri'
     | '/ngf/states'
+    | '/ngf/surveys'
+    | '/state/alerts'
+    | '/state/benchmark'
+    | '/state/indicators'
+    | '/state/knowledge'
+    | '/state/profile'
+    | '/state/settings'
+    | '/state/support'
     | '/state/surveys'
     | '/ngf'
     | '/state'
@@ -156,12 +288,24 @@ export interface FileRouteTypes {
     | '/'
     | '/ngf'
     | '/state'
+    | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/settings'
+    | '/ngf/snri'
     | '/ngf/states'
+    | '/ngf/surveys'
+    | '/state/alerts'
+    | '/state/benchmark'
+    | '/state/indicators'
+    | '/state/knowledge'
+    | '/state/profile'
+    | '/state/settings'
+    | '/state/support'
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
@@ -217,11 +361,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateSurveysRouteImport
       parentRoute: typeof StateRoute
     }
+    '/state/support': {
+      id: '/state/support'
+      path: '/support'
+      fullPath: '/state/support'
+      preLoaderRoute: typeof StateSupportRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/settings': {
+      id: '/state/settings'
+      path: '/settings'
+      fullPath: '/state/settings'
+      preLoaderRoute: typeof StateSettingsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/profile': {
+      id: '/state/profile'
+      path: '/profile'
+      fullPath: '/state/profile'
+      preLoaderRoute: typeof StateProfileRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/knowledge': {
+      id: '/state/knowledge'
+      path: '/knowledge'
+      fullPath: '/state/knowledge'
+      preLoaderRoute: typeof StateKnowledgeRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/indicators': {
+      id: '/state/indicators'
+      path: '/indicators'
+      fullPath: '/state/indicators'
+      preLoaderRoute: typeof StateIndicatorsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/benchmark': {
+      id: '/state/benchmark'
+      path: '/benchmark'
+      fullPath: '/state/benchmark'
+      preLoaderRoute: typeof StateBenchmarkRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/alerts': {
+      id: '/state/alerts'
+      path: '/alerts'
+      fullPath: '/state/alerts'
+      preLoaderRoute: typeof StateAlertsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/ngf/surveys': {
+      id: '/ngf/surveys'
+      path: '/surveys'
+      fullPath: '/ngf/surveys'
+      preLoaderRoute: typeof NgfSurveysRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/states': {
       id: '/ngf/states'
       path: '/states'
       fullPath: '/ngf/states'
       preLoaderRoute: typeof NgfStatesRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/snri': {
+      id: '/ngf/snri'
+      path: '/snri'
+      fullPath: '/ngf/snri'
+      preLoaderRoute: typeof NgfSnriRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/settings': {
+      id: '/ngf/settings'
+      path: '/settings'
+      fullPath: '/ngf/settings'
+      preLoaderRoute: typeof NgfSettingsRouteImport
       parentRoute: typeof NgfRoute
     }
     '/ngf/research': {
@@ -252,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfForesightRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/data': {
+      id: '/ngf/data'
+      path: '/data'
+      fullPath: '/ngf/data'
+      preLoaderRoute: typeof NgfDataRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/analytics': {
       id: '/ngf/analytics'
       path: '/analytics'
@@ -259,37 +480,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfAnalyticsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/alerts': {
+      id: '/ngf/alerts'
+      path: '/alerts'
+      fullPath: '/ngf/alerts'
+      preLoaderRoute: typeof NgfAlertsRouteImport
+      parentRoute: typeof NgfRoute
+    }
   }
 }
 
 interface NgfRouteChildren {
+  NgfAlertsRoute: typeof NgfAlertsRoute
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
+  NgfDataRoute: typeof NgfDataRoute
   NgfForesightRoute: typeof NgfForesightRoute
   NgfInnovationRoute: typeof NgfInnovationRoute
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
+  NgfSettingsRoute: typeof NgfSettingsRoute
+  NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
+  NgfSurveysRoute: typeof NgfSurveysRoute
   NgfIndexRoute: typeof NgfIndexRoute
 }
 
 const NgfRouteChildren: NgfRouteChildren = {
+  NgfAlertsRoute: NgfAlertsRoute,
   NgfAnalyticsRoute: NgfAnalyticsRoute,
+  NgfDataRoute: NgfDataRoute,
   NgfForesightRoute: NgfForesightRoute,
   NgfInnovationRoute: NgfInnovationRoute,
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
+  NgfSettingsRoute: NgfSettingsRoute,
+  NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
+  NgfSurveysRoute: NgfSurveysRoute,
   NgfIndexRoute: NgfIndexRoute,
 }
 
 const NgfRouteWithChildren = NgfRoute._addFileChildren(NgfRouteChildren)
 
 interface StateRouteChildren {
+  StateAlertsRoute: typeof StateAlertsRoute
+  StateBenchmarkRoute: typeof StateBenchmarkRoute
+  StateIndicatorsRoute: typeof StateIndicatorsRoute
+  StateKnowledgeRoute: typeof StateKnowledgeRoute
+  StateProfileRoute: typeof StateProfileRoute
+  StateSettingsRoute: typeof StateSettingsRoute
+  StateSupportRoute: typeof StateSupportRoute
   StateSurveysRoute: typeof StateSurveysRoute
   StateIndexRoute: typeof StateIndexRoute
 }
 
 const StateRouteChildren: StateRouteChildren = {
+  StateAlertsRoute: StateAlertsRoute,
+  StateBenchmarkRoute: StateBenchmarkRoute,
+  StateIndicatorsRoute: StateIndicatorsRoute,
+  StateKnowledgeRoute: StateKnowledgeRoute,
+  StateProfileRoute: StateProfileRoute,
+  StateSettingsRoute: StateSettingsRoute,
+  StateSupportRoute: StateSupportRoute,
   StateSurveysRoute: StateSurveysRoute,
   StateIndexRoute: StateIndexRoute,
 }
