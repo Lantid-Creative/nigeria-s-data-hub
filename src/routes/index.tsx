@@ -56,55 +56,23 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <TopNav />
-      <Hero />
-      <PulseStrip />
-      <WhatIsLab />
-      <Pillars />
-      <HowItWorks />
-      <ThematicCoverage />
-      <SnriExplainer />
-      
-      <LatestLibrary />
-      
-      <Newsroom />
-      <ForStates />
-      <Partners />
-      <Footer />
+      <SiteHeader />
+      <main id="main">
+        <Hero />
+        <PulseStrip />
+        <WhatIsLab />
+        <Pillars />
+        <HowItWorks />
+        <ThematicCoverage />
+        <SnriExplainer />
+        <LatestLibrary />
+        <Newsroom />
+        <ForStates />
+        <Partners />
+      </main>
+      <SiteFooter />
       <BackToTop />
     </div>
-  );
-}
-
-/* ------------------------------ Top nav ------------------------------ */
-function TopNav() {
-  return (
-    <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-            <Sparkles className="h-5 w-5 text-gold-foreground" />
-          </div>
-          <div className="leading-tight">
-            <div className="font-display text-base text-foreground">NGF Futures Lab</div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Nigeria Governors' Forum</div>
-          </div>
-        </Link>
-        <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-          <a href="#about" className="hover:text-foreground">About</a>
-          <a href="#pillars" className="hover:text-foreground">Pillars</a>
-          <a href="#how" className="hover:text-foreground">How it works</a>
-          <a href="#themes" className="hover:text-foreground">Coverage</a>
-          <Link to="/research" className="hover:text-foreground">Research</Link>
-          <Link to="/press" className="hover:text-foreground">Press</Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="bg-primary">
-            <Link to="/login">State Login <ArrowRight className="ml-1 h-3.5 w-3.5" /></Link>
-          </Button>
-        </div>
-      </div>
-    </header>
   );
 }
 
