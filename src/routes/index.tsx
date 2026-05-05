@@ -88,10 +88,11 @@ function Hero() {
             <Activity className="h-3.5 w-3.5 text-primary" />
             The intelligence engine of the NGF
           </span>
-          <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl">
+          <h1 className="mt-6 font-display text-[2.5rem] leading-[1.1] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem] xl:text-6xl text-balance">
             From crisis response to{" "}
-            <span className="italic text-primary">anticipatory governance</span>
-            <span className="whitespace-nowrap"> across Nigeria's 36&nbsp;states&nbsp;+&nbsp;FCT.</span>
+            <span className="italic text-primary">anticipatory governance</span>{" "}
+            across Nigeria's{" "}
+            <span className="whitespace-nowrap">36 states + FCT.</span>
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
             The NGF Futures Lab is where sub-national data, strategic foresight and
