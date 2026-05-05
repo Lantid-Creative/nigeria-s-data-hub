@@ -29,6 +29,9 @@ function Landing() {
       <ThematicCoverage />
       <SnriExplainer />
       <ResearchInnovation />
+      <LatestLibrary />
+      <Voices />
+      <Newsroom />
       <ForStates />
       <Partners />
       <Footer />
