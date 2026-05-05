@@ -1,0 +1,57 @@
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { PlatformShell } from "@/components/platform/PlatformShell";
+import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
+import {
+  LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
+  FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch,
+} from "lucide-react";
+
+export const Route = createFileRoute("/ngf")({
+  component: NgfLayout,
+});
+
+function NgfLayout() {
+  return (
+    <PlatformShell
+      contextLabel="NGF Secretariat · Economic Intelligence Unit"
+      user={{ name: "Dr. O. Yinusa", sub: "ED, Policy & Research", initials: "OY" }}
+      sidebar={
+        <PlatformSidebar
+          brand="NGF Command Centre"
+          role="Futures Lab"
+          groups={[
+            {
+              label: "Intelligence",
+              items: [
+                { title: "Overview", url: "/ngf", icon: LayoutDashboard },
+                { title: "Analytics", url: "/ngf/analytics", icon: BarChart3 },
+                { title: "States", url: "/ngf/states", icon: MapPin },
+                { title: "SNRI", url: "/ngf/snri", icon: Shield },
+              ],
+            },
+            {
+              label: "Foresight & Innovation",
+              items: [
+                { title: "Scenario Planning", url: "/ngf/foresight", icon: Telescope },
+                { title: "Research Lab", url: "/ngf/research", icon: FlaskConical },
+                { title: "Innovation Pilots", url: "/ngf/innovation", icon: Lightbulb },
+              ],
+            },
+            {
+              label: "Operations",
+              items: [
+                { title: "Reports", url: "/ngf/reports", icon: FileText },
+                { title: "Data Hub", url: "/ngf/data", icon: Database },
+                { title: "Survey Engine", url: "/ngf/surveys", icon: GitBranch },
+                { title: "Alerts", url: "/ngf/alerts", icon: Bell },
+                { title: "Settings", url: "/ngf/settings", icon: Settings },
+              ],
+            },
+          ]}
+        />
+      }
+    >
+      <Outlet />
+    </PlatformShell>
+  );
+}

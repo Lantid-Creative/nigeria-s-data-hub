@@ -1,0 +1,49 @@
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { PlatformShell } from "@/components/platform/PlatformShell";
+import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
+import {
+  LayoutDashboard, FileSpreadsheet, Database, Users, Bell,
+  Settings, BookOpen, Activity, MessageSquare,
+} from "lucide-react";
+
+export const Route = createFileRoute("/state")({
+  component: StateLayout,
+});
+
+function StateLayout() {
+  return (
+    <PlatformShell
+      contextLabel="Kaduna State · PRS Department"
+      user={{ name: "Aisha Mohammed", sub: "PRS Director, Kaduna", initials: "AM" }}
+      sidebar={
+        <PlatformSidebar
+          brand="State Workspace"
+          role="Kaduna State Government"
+          groups={[
+            {
+              label: "Workspace",
+              items: [
+                { title: "Dashboard", url: "/state", icon: LayoutDashboard },
+                { title: "Surveys", url: "/state/surveys", icon: FileSpreadsheet },
+                { title: "State Profile", url: "/state/profile", icon: Database },
+                { title: "Indicators", url: "/state/indicators", icon: Activity },
+              ],
+            },
+            {
+              label: "Engagement",
+              items: [
+                { title: "Peer Benchmark", url: "/state/benchmark", icon: Users },
+                { title: "Knowledge Hub", url: "/state/knowledge", icon: BookOpen },
+                { title: "Notifications", url: "/state/alerts", icon: Bell },
+                { title: "Support", url: "/state/support", icon: MessageSquare },
+              ],
+            },
+            { label: "Account", items: [{ title: "Settings", url: "/state/settings", icon: Settings }] },
+          ]}
+        />
+      }
+    >
+      <Outlet />
+    </PlatformShell>
+  );
+}
