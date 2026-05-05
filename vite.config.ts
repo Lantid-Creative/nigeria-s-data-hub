@@ -6,4 +6,12 @@
 // You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-export default defineConfig();
+// Deploy target: Vercel.
+// - Disable the Cloudflare plugin (it's build-only in the preset).
+// - Tell @tanstack/react-start to emit Vercel function output.
+export default defineConfig({
+  cloudflare: false,
+  tanstackStart: {
+    target: "vercel",
+  },
+});
