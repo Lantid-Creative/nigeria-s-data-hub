@@ -154,10 +154,22 @@ function LoginPage() {
                 value={password} onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            {error && (
+              <div className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+                {error}
+              </div>
+            )}
             <Button type="submit" className="w-full bg-primary" disabled={loading}>
               {loading ? "Signing in…" : <>Sign in <ArrowRight className="ml-1.5 h-4 w-4" /></>}
             </Button>
           </form>
+
+          <div className="mt-4 rounded-md border border-dashed bg-secondary/40 p-3 text-[11px] text-muted-foreground">
+            <div className="font-semibold text-foreground">Demo credentials</div>
+            <div>State · <code>state@kadunastate.gov.ng</code></div>
+            <div>NGF · <code>ngf@nggovernorsforum.org</code></div>
+            <div>Password · <code>Demo1234!</code></div>
+          </div>
 
           <div className="mt-6 flex items-start gap-2 rounded-md border bg-secondary/30 p-3 text-xs text-muted-foreground">
             <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
