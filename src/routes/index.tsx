@@ -4,8 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles,
   TrendingUp, Users, HeartPulse, Leaf, GraduationCap, Wheat, Banknote,
-  Cpu, Telescope, Lightbulb, FileText, Activity, Building2,
+  Cpu, Telescope, Lightbulb, FileText, Activity, Building2, ArrowUp,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Landing,
