@@ -692,6 +692,119 @@ function Partners() {
   );
 }
 
+/* --------------------- Latest from the library ---------------------- */
+function LatestLibrary() {
+  const items = [
+    { tag: "Flagship Report", date: "Mar 2026", t: "State of Sub-National Resilience 2026",
+      d: "The 2026 SNRI scoring all 36 states + FCT, with new climate and digital readiness metrics." },
+    { tag: "Foresight Study", date: "Jan 2026", t: "Nigeria 2032: Four Scenarios",
+      d: "A decade-out scenario set built with state PRS units and the Lab's foresight panel." },
+    { tag: "Policy Brief", date: "Nov 2025", t: "Human Capital Pressure Points",
+      d: "A 37-state snapshot on labour, learning and demographic risks." },
+  ];
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">From the Library</span>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl">Latest research and reports.</h2>
+          <p className="mt-3 text-muted-foreground">
+            Working papers, foresight studies and policy briefs — covering all 36 states and the FCT.
+          </p>
+        </div>
+        <Button asChild variant="outline">
+          <Link to="/research">Browse the library <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+        </Button>
+      </div>
+      <div className="mt-10 grid gap-5 md:grid-cols-3">
+        {items.map((r) => (
+          <Card key={r.t} className="overflow-hidden shadow-soft transition hover:shadow-elevated">
+            <div className="h-28 bg-gradient-to-br from-primary/15 via-primary/5 to-gold/15" />
+            <CardContent className="p-5">
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary">
+                <FileText className="h-3.5 w-3.5" /> {r.tag}
+                <span className="ml-auto text-muted-foreground">{r.date}</span>
+              </div>
+              <h3 className="mt-3 font-display text-lg leading-snug">{r.t}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{r.d}</p>
+              <Link to="/research" className="mt-3 inline-flex items-center text-xs font-medium text-primary hover:underline">
+                Read more <ArrowRight className="ml-1 h-3 w-3" />
+              </Link>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------ Voices ------------------------------- */
+function Voices() {
+  const quotes = [
+    { q: "The Lab gives our PRS unit a single source of truth — and a way to learn from our peers without waiting for an annual report.",
+      a: "Commissioner of Planning", r: "South-South State" },
+    { q: "Foresight is no longer a slide in a workshop. It is becoming part of how we plan budgets.",
+      a: "Director-General, EIU", r: "NGF Secretariat" },
+    { q: "Comparable, timely data across the federation is what we have always needed to govern at scale.",
+      a: "Senior Special Adviser", r: "North-West State" },
+  ];
+  return (
+    <section className="bg-secondary/40 py-24">
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
+        <div className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">In their own words</span>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl">Built with the people who use it.</h2>
+        </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {quotes.map((q, i) => (
+            <Card key={i} className="shadow-soft">
+              <CardContent className="p-6">
+                <div className="font-display text-3xl leading-none text-gold">"</div>
+                <p className="mt-3 text-sm leading-relaxed text-foreground">{q.q}</p>
+                <div className="mt-5 border-t pt-3">
+                  <div className="text-sm font-semibold">{q.a}</div>
+                  <div className="text-xs text-muted-foreground">{q.r}</div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- Newsroom ------------------------------ */
+function Newsroom() {
+  const items = [
+    { date: "12 Apr 2026", t: "NGF Futures Lab launches the 2026 State of Sub-National Resilience Report" },
+    { date: "28 Mar 2026", t: "Three new states join the Climate-Smart Agriculture Living Lab" },
+    { date: "16 Feb 2026", t: "Q1 2026 reporting cycle now open for all 36 states + FCT" },
+  ];
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-24 md:px-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Newsroom</span>
+          <h2 className="mt-2 font-display text-3xl md:text-4xl">Press releases and announcements.</h2>
+        </div>
+        <Button asChild variant="outline">
+          <Link to="/press">Visit the press room <ArrowRight className="ml-1.5 h-4 w-4" /></Link>
+        </Button>
+      </div>
+      <div className="mt-8 divide-y rounded-xl border bg-background shadow-soft">
+        {items.map((n, i) => (
+          <Link key={i} to="/press" className="flex items-center gap-4 px-5 py-4 transition hover:bg-secondary/40">
+            <span className="w-28 shrink-0 text-xs uppercase tracking-wider text-muted-foreground">{n.date}</span>
+            <span className="flex-1 text-sm font-medium text-foreground">{n.t}</span>
+            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* ------------------------------ Footer ------------------------------- */
 function Footer() {
   return (
