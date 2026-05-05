@@ -87,7 +87,7 @@ function Hero() {
           </span>
           <h1 className="mt-6 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl">
             From crisis response to{" "}
-            <span className="italic text-primary">anticipatory governance</span> across Nigeria's 36 states.
+            <span className="italic text-primary">anticipatory governance</span> across Nigeria's 36 states + FCT.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
             The NGF Futures Lab is where sub-national data, strategic foresight and
