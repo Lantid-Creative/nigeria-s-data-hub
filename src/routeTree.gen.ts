@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StatesRouteImport } from './routes/states'
 import { Route as StateRouteImport } from './routes/state'
+import { Route as SnriRouteImport } from './routes/snri'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as NgfRouteImport } from './routes/ngf'
+import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LegalRouteImport } from './routes/legal'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
@@ -36,10 +42,23 @@ import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
+import { Route as LegalTermsRouteImport } from './routes/legal.terms'
+import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
+import { Route as LegalDataRouteImport } from './routes/legal.data'
 
+const StatesRoute = StatesRouteImport.update({
+  id: '/states',
+  path: '/states',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StateRoute = StateRouteImport.update({
   id: '/state',
   path: '/state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SnriRoute = SnriRouteImport.update({
+  id: '/snri',
+  path: '/snri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResearchRoute = ResearchRouteImport.update({
@@ -57,9 +76,29 @@ const NgfRoute = NgfRouteImport.update({
   path: '/ngf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -172,14 +211,38 @@ const NgfAlertsRoute = NgfAlertsRouteImport.update({
   path: '/alerts',
   getParentRoute: () => NgfRoute,
 } as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => LegalRoute,
+} as any)
+const LegalDataRoute = LegalDataRouteImport.update({
+  id: '/data',
+  path: '/data',
+  getParentRoute: () => LegalRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
+  '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
+  '/states': typeof StatesRoute
+  '/legal/data': typeof LegalDataRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
@@ -204,9 +267,18 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
+  '/methodology': typeof MethodologyRoute
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/snri': typeof SnriRoute
+  '/states': typeof StatesRoute
+  '/legal/data': typeof LegalDataRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
@@ -232,11 +304,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
+  '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
+  '/states': typeof StatesRoute
+  '/legal/data': typeof LegalDataRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
@@ -263,11 +344,20 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
+    | '/legal'
     | '/login'
+    | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/snri'
     | '/state'
+    | '/states'
+    | '/legal/data'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/data'
@@ -292,9 +382,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
+    | '/legal'
     | '/login'
+    | '/methodology'
     | '/press'
     | '/research'
+    | '/snri'
+    | '/states'
+    | '/legal/data'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/data'
@@ -319,11 +418,20 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
+    | '/legal'
     | '/login'
+    | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/snri'
     | '/state'
+    | '/states'
+    | '/legal/data'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/data'
@@ -349,20 +457,40 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  LegalRoute: typeof LegalRouteWithChildren
   LoginRoute: typeof LoginRoute
+  MethodologyRoute: typeof MethodologyRoute
   NgfRoute: typeof NgfRouteWithChildren
   PressRoute: typeof PressRoute
   ResearchRoute: typeof ResearchRoute
+  SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
+  StatesRoute: typeof StatesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/states': {
+      id: '/states'
+      path: '/states'
+      fullPath: '/states'
+      preLoaderRoute: typeof StatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/state': {
       id: '/state'
       path: '/state'
       fullPath: '/state'
       preLoaderRoute: typeof StateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/snri': {
+      id: '/snri'
+      path: '/snri'
+      fullPath: '/snri'
+      preLoaderRoute: typeof SnriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/research': {
@@ -386,11 +514,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -547,8 +703,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfAlertsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
+      parentRoute: typeof LegalRoute
+    }
+    '/legal/data': {
+      id: '/legal/data'
+      path: '/data'
+      fullPath: '/legal/data'
+      preLoaderRoute: typeof LegalDataRouteImport
+      parentRoute: typeof LegalRoute
+    }
   }
 }
+
+interface LegalRouteChildren {
+  LegalDataRoute: typeof LegalDataRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
+}
+
+const LegalRouteChildren: LegalRouteChildren = {
+  LegalDataRoute: LegalDataRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
+}
+
+const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 
 interface NgfRouteChildren {
   NgfAlertsRoute: typeof NgfAlertsRoute
@@ -610,11 +801,17 @@ const StateRouteWithChildren = StateRoute._addFileChildren(StateRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  LegalRoute: LegalRouteWithChildren,
   LoginRoute: LoginRoute,
+  MethodologyRoute: MethodologyRoute,
   NgfRoute: NgfRouteWithChildren,
   PressRoute: PressRoute,
   ResearchRoute: ResearchRoute,
+  SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
+  StatesRoute: StatesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

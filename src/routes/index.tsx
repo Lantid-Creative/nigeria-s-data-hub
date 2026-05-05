@@ -2,18 +2,53 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  ArrowRight, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles,
+  ArrowRight, BarChart3, Brain, Globe2, ShieldCheck,
   TrendingUp, Users, HeartPulse, Leaf, GraduationCap, Wheat, Banknote,
   Cpu, Telescope, Lightbulb, FileText, Activity, Building2, ArrowUp,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { CountUp } from "@/components/site/CountUp";
+import { NigeriaMap } from "@/components/site/NigeriaMap";
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  name: "NGF Futures Lab",
+  alternateName: "Nigeria Governors' Forum Futures Lab",
+  url: "/",
+  logo: "/og-image.jpg",
+  parentOrganization: {
+    "@type": "GovernmentOrganization",
+    name: "Nigeria Governors' Forum Secretariat",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Plot 1009 Bourdillon Drive, Maitama",
+    addressLocality: "Abuja",
+    addressRegion: "FCT",
+    addressCountry: "NG",
+  },
+  email: "lab@nggovernorsforum.org",
+  areaServed: "Nigeria",
+};
 
 export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
       { title: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
-      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum, measuring sub-national resilience and shaping the next decade of state governance." },
+      { name: "description", content: "The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT." },
+      { property: "og:title", content: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { property: "og:description", content: "Data, foresight and innovation across Nigeria's 36 states + FCT, anchored at the NGF Secretariat." },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-image.jpg" },
+    ],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(ORG_JSONLD) },
     ],
   }),
 });
@@ -21,55 +56,23 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <TopNav />
-      <Hero />
-      <PulseStrip />
-      <WhatIsLab />
-      <Pillars />
-      <HowItWorks />
-      <ThematicCoverage />
-      <SnriExplainer />
-      
-      <LatestLibrary />
-      
-      <Newsroom />
-      <ForStates />
-      <Partners />
-      <Footer />
+      <SiteHeader />
+      <main id="main">
+        <Hero />
+        <PulseStrip />
+        <WhatIsLab />
+        <Pillars />
+        <HowItWorks />
+        <ThematicCoverage />
+        <SnriExplainer />
+        <LatestLibrary />
+        <Newsroom />
+        <ForStates />
+        <Partners />
+      </main>
+      <SiteFooter />
       <BackToTop />
     </div>
-  );
-}
-
-/* ------------------------------ Top nav ------------------------------ */
-function TopNav() {
-  return (
-    <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-            <Sparkles className="h-5 w-5 text-gold-foreground" />
-          </div>
-          <div className="leading-tight">
-            <div className="font-display text-base text-foreground">NGF Futures Lab</div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Nigeria Governors' Forum</div>
-          </div>
-        </Link>
-        <nav className="hidden items-center gap-7 text-sm text-muted-foreground md:flex">
-          <a href="#about" className="hover:text-foreground">About</a>
-          <a href="#pillars" className="hover:text-foreground">Pillars</a>
-          <a href="#how" className="hover:text-foreground">How it works</a>
-          <a href="#themes" className="hover:text-foreground">Coverage</a>
-          <Link to="/research" className="hover:text-foreground">Research</Link>
-          <Link to="/press" className="hover:text-foreground">Press</Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          <Button asChild size="sm" className="bg-primary">
-            <Link to="/login">State Login <ArrowRight className="ml-1 h-3.5 w-3.5" /></Link>
-          </Button>
-        </div>
-      </div>
-    </header>
   );
 }
 
@@ -192,17 +195,17 @@ function NigeriaConstellation() {
 /* ----------------------------- Pulse strip --------------------------- */
 function PulseStrip() {
   const items = [
-    { v: "36", l: "States + FCT" },
-    { v: "6", l: "Geo-political zones" },
-    { v: "8", l: "Thematic dimensions" },
-    { v: "4", l: "Lab pillars" },
+    { v: 36, l: "States + FCT" },
+    { v: 6, l: "Geo-political zones" },
+    { v: 8, l: "Thematic dimensions" },
+    { v: 4, l: "Lab pillars" },
   ];
   return (
-    <section className="border-y bg-background py-6">
+    <section className="border-y bg-muted/40 py-8">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 md:grid-cols-4 md:px-8">
         {items.map((s) => (
           <div key={s.l} className="flex items-baseline gap-3">
-            <div className="font-display text-3xl text-primary">{s.v}</div>
+            <CountUp to={s.v} className="font-display text-3xl text-primary tabular-nums" />
             <div className="text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
           </div>
         ))}
@@ -730,48 +733,6 @@ function Newsroom() {
 }
 
 /* ------------------------------ Footer ------------------------------- */
-function Footer() {
-  return (
-    <footer className="border-t bg-background py-10">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 md:grid-cols-4 md:px-8">
-        <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-              <Sparkles className="h-5 w-5 text-gold-foreground" />
-            </div>
-            <div className="font-display">NGF Futures Lab</div>
-          </div>
-          <p className="mt-3 max-w-sm text-xs text-muted-foreground">
-            The intelligence engine of the Nigeria Governors' Forum, measuring
-            sub-national resilience and shaping the next decade of state governance.
-          </p>
-        </div>
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-foreground">Explore</div>
-          <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-            <li><a href="#about" className="hover:text-foreground">About the Lab</a></li>
-            <li><a href="#pillars" className="hover:text-foreground">Pillars</a></li>
-            <li><a href="#how" className="hover:text-foreground">How it works</a></li>
-            <li><Link to="/research" className="hover:text-foreground">Research</Link></li>
-            <li><Link to="/press" className="hover:text-foreground">Press</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-foreground">Access</div>
-          <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-            <li><Link to="/login" className="hover:text-foreground">State Login</Link></li>
-            <li>Credentials issued by NGF Secretariat</li>
-            <li>Contact: lab@nggovernorsforum.org</li>
-          </ul>
-        </div>
-      </div>
-      <div className="mx-auto mt-8 max-w-7xl border-t px-4 pt-6 text-xs text-muted-foreground md:px-8">
-        © 2026 Nigeria Governors' Forum Secretariat · NGF Futures Lab
-      </div>
-    </footer>
-  );
-}
-
 /* ------------------------------ Back to top ------------------------------ */
 function BackToTop() {
   const [show, setShow] = useState(false);
