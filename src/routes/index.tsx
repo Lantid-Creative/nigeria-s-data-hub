@@ -28,7 +28,7 @@ function Landing() {
       <HowItWorks />
       <ThematicCoverage />
       <SnriExplainer />
-      <ResearchInnovation />
+      
       <LatestLibrary />
       
       <Newsroom />
