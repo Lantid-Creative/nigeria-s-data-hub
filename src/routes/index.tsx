@@ -28,7 +28,7 @@ function Landing() {
       <HowItWorks />
       <ThematicCoverage />
       <SnriExplainer />
-      <ResearchInnovation />
+      
       <LatestLibrary />
       
       <Newsroom />
@@ -530,50 +530,6 @@ function SnriExplainer() {
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ------------------------- Research & Innovation --------------------- */
-function ResearchInnovation() {
-  return (
-    <section id="research" className="bg-secondary/40 py-24">
-      <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">Research & Innovation</span>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">
-              A working lab, not a static report.
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Active research streams and Living Labs translate evidence into
-              experiments, and experiments into scalable policy.
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {[
-            { i: FlaskConical, tag: "Research Stream", t: "Sub-national fiscal frontiers",
-              d: "Mapping IGR ceilings and debt sustainability paths across the 36 states." },
-            { i: Lightbulb, tag: "Living Lab", t: "Climate-smart agriculture pilot",
-              d: "Co-designed with three pilot states to test adaptive farming protocols." },
-            { i: Telescope, tag: "Foresight Study", t: "Nigeria 2032 scenarios",
-              d: "Four plausible futures for sub-national governance over the next decade." },
-          ].map((c) => (
-            <Card key={c.t} className="overflow-hidden shadow-soft">
-              <div className="h-32 bg-gradient-to-br from-primary/15 via-primary/5 to-gold/15" />
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary">
-                  <c.i className="h-3.5 w-3.5" /> {c.tag}
-                </div>
-                <h3 className="mt-3 font-display text-lg">{c.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{c.d}</p>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       </div>
     </section>
