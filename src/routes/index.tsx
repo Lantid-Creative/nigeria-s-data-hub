@@ -30,7 +30,7 @@ function Landing() {
       <SnriExplainer />
       <ResearchInnovation />
       <LatestLibrary />
-      <Voices />
+      
       <Newsroom />
       <ForStates />
       <Partners />
