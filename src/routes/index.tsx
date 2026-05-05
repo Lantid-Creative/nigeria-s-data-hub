@@ -828,7 +828,8 @@ function Footer() {
             <li><a href="#about" className="hover:text-foreground">About the Lab</a></li>
             <li><a href="#pillars" className="hover:text-foreground">Pillars</a></li>
             <li><a href="#how" className="hover:text-foreground">How it works</a></li>
-            <li><a href="#research" className="hover:text-foreground">Research</a></li>
+            <li><Link to="/research" className="hover:text-foreground">Research</Link></li>
+            <li><Link to="/press" className="hover:text-foreground">Press</Link></li>
           </ul>
         </div>
         <div>
