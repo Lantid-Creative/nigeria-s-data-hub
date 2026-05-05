@@ -223,7 +223,7 @@ function WhatIsLab() {
           </p>
           <ul className="mt-8 space-y-3 text-sm">
             {[
-              "A shared evidence base across all 36 states",
+              "A shared evidence base across all 36 states + FCT",
               "Foresight tools embedded in budget and planning cycles",
               "Innovation pilots that travel between states",
               "Capacity building for state analytical units",
