@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as NgfRouteImport } from './routes/ngf'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
@@ -42,6 +43,11 @@ const StateRoute = StateRouteImport.update({
 const NgfRoute = NgfRouteImport.update({
   id: '/ngf',
   path: '/ngf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -157,6 +163,7 @@ const NgfAlertsRoute = NgfAlertsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
   '/ngf/alerts': typeof NgfAlertsRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
@@ -208,6 +216,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/ngf': typeof NgfRouteWithChildren
   '/state': typeof StateRouteWithChildren
   '/ngf/alerts': typeof NgfAlertsRoute
@@ -236,6 +245,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
     | '/ngf'
     | '/state'
     | '/ngf/alerts'
@@ -262,6 +272,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/data'
@@ -286,6 +297,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/login'
     | '/ngf'
     | '/state'
     | '/ngf/alerts'
@@ -313,6 +325,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   NgfRoute: typeof NgfRouteWithChildren
   StateRoute: typeof StateRouteWithChildren
 }
@@ -331,6 +344,13 @@ declare module '@tanstack/react-router' {
       path: '/ngf'
       fullPath: '/ngf'
       preLoaderRoute: typeof NgfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -550,6 +570,7 @@ const StateRouteWithChildren = StateRoute._addFileChildren(StateRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   NgfRoute: NgfRouteWithChildren,
   StateRoute: StateRouteWithChildren,
 }
