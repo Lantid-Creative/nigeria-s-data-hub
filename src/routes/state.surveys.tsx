@@ -35,12 +35,13 @@ function Surveys() {
     if (!activeSurvey || !user) return;
     setSaving(true);
     const completion = submit ? 100 : Math.min(95, Object.keys(draft).length * 12);
+    const status: "submitted" | "in_progress" | "not_started" = submit ? "submitted" : completion > 0 ? "in_progress" : "not_started";
     const payload = {
       state_code: code,
       survey_id: activeSurvey.id,
       payload: draft,
       completion_pct: completion,
-      status: submit ? "submitted" : completion > 0 ? "in_progress" : "not_started",
+      status,
       submitted_by: user.id,
       submitted_at: submit ? new Date().toISOString() : null,
     };

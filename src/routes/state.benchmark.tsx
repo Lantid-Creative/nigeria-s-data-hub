@@ -72,11 +72,7 @@ function Benchmark() {
                 <XAxis type="number" domain={[0, 100]} fontSize={11} />
                 <YAxis dataKey="name" type="category" fontSize={10} width={90} />
                 <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
-                <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                  {chartData.map((d, i) => (
-                    <cell key={i} />
-                  ))}
-                </Bar>
+                <Bar dataKey="value" radius={[0, 4, 4, 0]} fill="oklch(0.45 0.13 155)" />
               </BarChart>
             </ResponsiveContainer>
           </div>
