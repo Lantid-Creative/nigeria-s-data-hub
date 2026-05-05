@@ -189,9 +189,9 @@ function NigeriaConstellation() {
 /* ----------------------------- Pulse strip --------------------------- */
 function PulseStrip() {
   const items = [
-    { v: "36+1", l: "States + FCT" },
+    { v: "36", l: "States + FCT" },
     { v: "6", l: "Geo-political zones" },
-    { v: "12", l: "Resilience indicators" },
+    { v: "8", l: "Thematic dimensions" },
     { v: "4", l: "Lab pillars" },
   ];
   return (
