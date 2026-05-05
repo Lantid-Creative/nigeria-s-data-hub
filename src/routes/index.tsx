@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
-      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience and shaping the next decade of state governance." },
+      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum, measuring sub-national resilience and shaping the next decade of state governance." },
     ],
   }),
 });
@@ -96,7 +96,7 @@ function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
             The NGF Futures Lab is where sub-national data, strategic foresight and
-            policy innovation meet — built with state governments, anchored at the
+            policy innovation meet, built with state governments, anchored at the
             NGF Secretariat.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -222,7 +222,7 @@ function WhatIsLab() {
           <p className="mt-6 text-muted-foreground md:text-lg">
             The NGF Futures Lab is the Secretariat's intelligence arm. It brings
             together state-reported data, advanced analytics, scenario modelling
-            and applied research into a single environment — so that governors,
+            and applied research into a single environment, so that governors,
             commissioners and PRS units can move from reacting to events to
             shaping the next decade.
           </p>
@@ -314,7 +314,7 @@ function Pillars() {
             Measure. Analyse. Foresee. Innovate.
           </h2>
           <p className="mt-3 text-muted-foreground">
-            The Lab is structured around four reinforcing pillars — each one
+            The Lab is structured around four reinforcing pillars, each one
             answering a different question states ask about their future.
           </p>
         </div>
@@ -361,7 +361,7 @@ function HowItWorks() {
     },
     {
       n: "02", t: "Lab Analyses",
-      d: "Data flows into the NGF Command Centre. Analysts, models and AI work together — comparing states, scoring resilience, surfacing anomalies.",
+      d: "Data flows into the NGF Command Centre. Analysts, models and AI work together, comparing states, scoring resilience, surfacing anomalies.",
       svg: (
         <svg viewBox="0 0 200 140" className="h-32 w-full">
           <circle cx="100" cy="70" r="50" fill="oklch(0.45 0.13 155 / 0.08)" stroke="oklch(0.45 0.13 155 / 0.3)" strokeDasharray="3 3" />
@@ -378,7 +378,7 @@ function HowItWorks() {
     },
     {
       n: "03", t: "Insights Return",
-      d: "Briefs, dashboards, alerts and policy recommendations flow back to governors and state PRS teams — closing the loop.",
+      d: "Briefs, dashboards, alerts and policy recommendations flow back to governors and state PRS teams, closing the loop.",
       svg: (
         <svg viewBox="0 0 200 140" className="h-32 w-full">
           <rect x="60" y="20" width="120" height="100" rx="8" fill="white" stroke="oklch(0.45 0.13 155 / 0.3)" />
@@ -438,7 +438,7 @@ function ThematicCoverage() {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">Coverage</span>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">Eight themes. One coherent picture.</h2>
           <p className="mt-3 text-muted-foreground">
-            The Lab tracks the full spectrum of sub-national resilience — from
+            The Lab tracks the full spectrum of sub-national resilience, from
             today's fiscal pressures to tomorrow's climate and digital transitions.
           </p>
         </div>
@@ -513,7 +513,7 @@ function SnriExplainer() {
             The Sub-National Resilience Index.
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            The SNRI is the Lab's flagship composite measure — bringing together
+            The SNRI is the Lab's flagship composite measure, bringing together
             fiscal, human, environmental and institutional dimensions into a single
             comparable score for every Nigerian state.
           </p>
@@ -591,7 +591,7 @@ function ForStates() {
             Your state, in the national picture.
           </h2>
           <p className="mt-4 text-muted-foreground md:text-lg">
-            A dedicated workspace for your PRS unit — submit reporting cycles, see
+            A dedicated workspace for your PRS unit. Submit reporting cycles, see
             your dashboard, benchmark against peers, and tap into the Lab's
             knowledge base. Your data is yours; aggregated views power the
             national picture.
@@ -711,7 +711,7 @@ function LatestLibrary() {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">From the Library</span>
           <h2 className="mt-2 font-display text-3xl md:text-4xl">Latest research and reports.</h2>
           <p className="mt-3 text-muted-foreground">
-            Working papers, foresight studies and policy briefs — covering all 36 states and the FCT.
+            Working papers, foresight studies and policy briefs, covering all 36 states and the FCT.
           </p>
         </div>
         <Button asChild variant="outline">
