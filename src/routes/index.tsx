@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Building2, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles, TrendingUp } from "lucide-react";
+import { ArrowRight, Building2, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles, TrendingUp, Search, BarChart2, Users, HeartPulse, Leaf, GraduationCap, Wheat, Activity } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/")({
   component: Landing,
