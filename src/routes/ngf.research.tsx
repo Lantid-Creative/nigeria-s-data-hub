@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { FlaskConical } from "lucide-react";
 import { useResearchProjects } from "@/lib/state-data";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/research")({ component: Research });
 
@@ -12,6 +13,14 @@ function Research() {
   return (
     <div className="space-y-6">
       <SectionHeader title="Research Lab" description="Active research projects and field studies" />
+      <AiInsightCard
+        mode="research"
+        title="Portfolio Synthesis"
+        description="AI assessment of research health, blockers and proposed next field studies."
+        context={{
+          projects: (rows as any[]).map((r) => ({ title: r.title, status: r.status, progress: r.progress, lead: r.lead_name, summary: r.summary })),
+        }}
+      />
       <div className="grid gap-4 md:grid-cols-2">
         {(rows as any[]).map((r) => (
           <Card key={r.id} className="shadow-soft">
