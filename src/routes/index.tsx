@@ -2,18 +2,53 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  ArrowRight, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles,
+  ArrowRight, BarChart3, Brain, Globe2, ShieldCheck,
   TrendingUp, Users, HeartPulse, Leaf, GraduationCap, Wheat, Banknote,
   Cpu, Telescope, Lightbulb, FileText, Activity, Building2, ArrowUp,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { CountUp } from "@/components/site/CountUp";
+import { NigeriaMap } from "@/components/site/NigeriaMap";
+
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  name: "NGF Futures Lab",
+  alternateName: "Nigeria Governors' Forum Futures Lab",
+  url: "/",
+  logo: "/og-image.jpg",
+  parentOrganization: {
+    "@type": "GovernmentOrganization",
+    name: "Nigeria Governors' Forum Secretariat",
+  },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Plot 1009 Bourdillon Drive, Maitama",
+    addressLocality: "Abuja",
+    addressRegion: "FCT",
+    addressCountry: "NG",
+  },
+  email: "lab@nggovernorsforum.org",
+  areaServed: "Nigeria",
+};
 
 export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
       { title: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
-      { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum, measuring sub-national resilience and shaping the next decade of state governance." },
+      { name: "description", content: "The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT." },
+      { property: "og:title", content: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { property: "og:description", content: "Data, foresight and innovation across Nigeria's 36 states + FCT, anchored at the NGF Secretariat." },
+      { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "/og-image.jpg" },
+    ],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(ORG_JSONLD) },
     ],
   }),
 });
