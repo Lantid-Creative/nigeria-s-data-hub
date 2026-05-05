@@ -2,7 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowRight, Sparkles, ShieldCheck, Lock } from "lucide-react";
+import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
+import ngfLogo from "@/assets/ngf-logo.png";
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
@@ -55,12 +56,9 @@ function LoginPage() {
         />
         <div className="relative flex h-full flex-col justify-between p-10">
           <Link to="/" className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-md bg-gold text-gold-foreground">
-              <Sparkles className="h-5 w-5" />
-            </div>
+            <img src={ngfLogo} alt="Nigeria Governors' Forum" className="h-9 w-auto rounded bg-white object-contain p-0.5" />
             <div className="leading-tight">
               <div className="font-display text-base">NGF Futures Lab</div>
-              <div className="text-[10px] uppercase tracking-widest opacity-70">Nigeria Governors' Forum</div>
             </div>
           </Link>
 
@@ -114,9 +112,7 @@ function LoginPage() {
         <div className="w-full max-w-sm">
           <div className="md:hidden mb-8">
             <Link to="/" className="flex items-center gap-2">
-              <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold">
-                <Sparkles className="h-5 w-5 text-gold-foreground" />
-              </div>
+              <img src={ngfLogo} alt="Nigeria Governors' Forum" className="h-9 w-auto object-contain" />
               <div className="font-display">NGF Futures Lab</div>
             </Link>
           </div>

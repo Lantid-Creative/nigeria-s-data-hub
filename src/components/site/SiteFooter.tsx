@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Sparkles, Mail, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import ngfLogo from "@/assets/ngf-logo.png";
 
 export function SiteFooter() {
   return (
@@ -7,9 +8,7 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-12 md:px-8">
         <div className="md:col-span-4">
           <div className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold" aria-hidden="true">
-              <Sparkles className="h-5 w-5 text-gold-foreground" />
-            </div>
+            <img src={ngfLogo} alt="Nigeria Governors' Forum" className="h-9 w-auto object-contain" />
             <div className="font-display text-base">NGF Futures Lab</div>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
