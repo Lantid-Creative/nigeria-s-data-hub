@@ -1,12 +1,20 @@
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { PlatformShell } from "@/components/platform/PlatformShell";
 import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
+import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
   FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch,
 } from "lucide-react";
 
 export const Route = createFileRoute("/ngf")({
+  beforeLoad: async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) throw redirect({ to: "/login" });
+    const { data: roles } = await supabase
+      .from("user_roles").select("role").eq("user_id", session.user.id);
+    if (!(roles ?? []).some((r) => r.role === "ngf_staff")) throw redirect({ to: "/state" });
+  },
   component: NgfLayout,
 });
 
