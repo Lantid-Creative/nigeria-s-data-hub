@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
   Search, FileText, FlaskConical, Telescope,
-  Lightbulb, BookOpen, Download, Calendar,
+  Lightbulb, BookOpen, Download, Calendar, BarChart3,
 } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site/SiteHeader";
