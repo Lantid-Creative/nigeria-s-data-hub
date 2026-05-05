@@ -195,17 +195,17 @@ function NigeriaConstellation() {
 /* ----------------------------- Pulse strip --------------------------- */
 function PulseStrip() {
   const items = [
-    { v: "36", l: "States + FCT" },
-    { v: "6", l: "Geo-political zones" },
-    { v: "8", l: "Thematic dimensions" },
-    { v: "4", l: "Lab pillars" },
+    { v: 36, l: "States + FCT" },
+    { v: 6, l: "Geo-political zones" },
+    { v: 8, l: "Thematic dimensions" },
+    { v: 4, l: "Lab pillars" },
   ];
   return (
-    <section className="border-y bg-background py-6">
+    <section className="border-y bg-muted/40 py-8">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 md:grid-cols-4 md:px-8">
         {items.map((s) => (
           <div key={s.l} className="flex items-baseline gap-3">
-            <div className="font-display text-3xl text-primary">{s.v}</div>
+            <CountUp to={s.v} className="font-display text-3xl text-primary tabular-nums" />
             <div className="text-xs uppercase tracking-wider text-muted-foreground">{s.l}</div>
           </div>
         ))}
