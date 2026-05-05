@@ -776,7 +776,7 @@ function Footer() {
 function BackToTop() {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 500);
+    const onScroll = () => setShow(window.scrollY > 200);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
@@ -786,7 +786,7 @@ function BackToTop() {
       type="button"
       aria-label="Back to top"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className={`fixed bottom-6 right-6 z-40 grid h-11 w-11 place-items-center rounded-full border bg-background/90 text-foreground shadow-lg backdrop-blur transition-all hover:bg-primary hover:text-primary-foreground ${
+      className={`fixed bottom-6 right-6 z-50 grid h-12 w-12 place-items-center rounded-full gradient-gold text-gold-foreground shadow-xl ring-1 ring-black/10 transition-all hover:scale-105 ${
         show ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-2"
       }`}
     >
