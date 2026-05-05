@@ -36,6 +36,7 @@ function Landing() {
       <ForStates />
       <Partners />
       <Footer />
+      <BackToTop />
     </div>
   );
 }
