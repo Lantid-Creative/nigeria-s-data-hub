@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Menu, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useState } from "react";
+import ngfLogo from "@/assets/ngf-logo.png";
 
 const NAV = [
   { to: "/about", label: "About" },
@@ -19,12 +20,9 @@ export function SiteHeader() {
     <header className="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:px-8">
         <Link to="/" className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md">
-          <div className="grid h-9 w-9 place-items-center rounded-md gradient-gold" aria-hidden="true">
-            <Sparkles className="h-5 w-5 text-gold-foreground" />
-          </div>
+          <img src={ngfLogo} alt="Nigeria Governors' Forum" className="h-9 w-auto object-contain" />
           <div className="leading-tight">
             <div className="font-display text-base text-foreground">NGF Futures Lab</div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Nigeria Governors' Forum</div>
           </div>
         </Link>
         <nav aria-label="Primary" className="hidden items-center gap-6 text-sm text-muted-foreground lg:flex">
