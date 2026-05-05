@@ -549,7 +549,7 @@ function ResearchInnovation() {
             </h2>
             <p className="mt-3 text-muted-foreground">
               Active research streams and Living Labs translate evidence into
-              experiments — and experiments into scalable policy.
+              experiments, and experiments into scalable policy.
             </p>
           </div>
         </div>
@@ -784,7 +784,7 @@ function Footer() {
             <div className="font-display">NGF Futures Lab</div>
           </div>
           <p className="mt-3 max-w-sm text-xs text-muted-foreground">
-            The intelligence engine of the Nigeria Governors' Forum — measuring
+            The intelligence engine of the Nigeria Governors' Forum, measuring
             sub-national resilience and shaping the next decade of state governance.
           </p>
         </div>
