@@ -43,6 +43,10 @@ export const Route = createRootRoute({
       { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: "/og-image.jpg" },
+      { property: "og:title", content: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { name: "twitter:title", content: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { property: "og:description", content: "The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT." },
+      { name: "twitter:description", content: "The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
