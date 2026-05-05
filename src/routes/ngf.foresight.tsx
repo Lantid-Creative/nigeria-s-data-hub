@@ -6,6 +6,7 @@ import { Telescope, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 import { useScenarios, useNationalSnriTrend } from "@/lib/state-data";
 import { useState, useMemo } from "react";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/foresight")({ component: Foresight });
 
