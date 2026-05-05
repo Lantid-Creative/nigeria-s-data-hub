@@ -29,21 +29,17 @@ function LoginPage() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-    const { error: err } = await signIn(email, password);
-    if (err) {
-      setError(err);
+    const { error: err, userId } = await signIn(email, password);
+    if (err || !userId) {
+      setError(err ?? "Sign in failed");
       setLoading(false);
       return;
     }
-    // Resolve role to choose destination
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      const { data: roles } = await supabase
-        .from("user_roles").select("role").eq("user_id", user.id);
-      const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
-      navigate({ to: isNgf ? "/ngf" : "/state" });
-    }
-    setLoading(false);
+    // Resolve role with a single query (no extra getUser round-trip)
+    const { data: roles } = await supabase
+      .from("user_roles").select("role").eq("user_id", userId);
+    const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
+    navigate({ to: isNgf ? "/ngf" : "/state" });
   }
 
   return (
