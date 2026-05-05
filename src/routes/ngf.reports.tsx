@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, Download, Eye } from "lucide-react";
 import { useReports } from "@/lib/state-data";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/reports")({ component: Reports });
 
@@ -22,6 +23,15 @@ function Reports() {
         <StatCard label="Public" value={(reports as any[]).filter((r) => r.is_public).length} icon={Eye} accent="info" />
         <StatCard label="Internal" value={(reports as any[]).filter((r) => !r.is_public).length} icon={FileText} />
       </div>
+
+      <AiInsightCard
+        mode="report"
+        title="Editorial Digest"
+        description="AI-curated themes, must-reads and gap analysis across the publication library."
+        context={{
+          reports: (reports as any[]).map((r) => ({ title: r.title, type: r.type, published_on: r.published_on, downloads: r.downloads, summary: r.summary })),
+        }}
+      />
 
       <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">Library</CardTitle></CardHeader>

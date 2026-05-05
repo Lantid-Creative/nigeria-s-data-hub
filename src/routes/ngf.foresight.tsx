@@ -6,6 +6,7 @@ import { Telescope, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, Legend } from "recharts";
 import { useScenarios, useNationalSnriTrend } from "@/lib/state-data";
 import { useState, useMemo } from "react";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/foresight")({ component: Foresight });
 
@@ -105,6 +106,18 @@ function Foresight() {
           <CardContent><p className="text-sm">{sc.summary}</p></CardContent>
         </Card>
       )}
+
+      <AiInsightCard
+        mode="prediction"
+        title="Predictive Briefing"
+        description="AI synthesis of scenarios, base SNRI and projected resilience trajectory."
+        context={{
+          baseSnri: baseIndex,
+          horizonYears: [2025, 2031],
+          scenarios: (scenarios as any[]).map((s) => ({ code: s.code, name: s.name, probability: s.probability, growth: s.growth, poverty: s.poverty, summary: s.summary })),
+          projection: horizon,
+        }}
+      />
     </div>
   );
 }
