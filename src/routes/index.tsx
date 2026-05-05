@@ -4,8 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight, BarChart3, Brain, FlaskConical, Globe2, ShieldCheck, Sparkles,
   TrendingUp, Users, HeartPulse, Leaf, GraduationCap, Wheat, Banknote,
-  Cpu, Telescope, Lightbulb, FileText, Activity, Building2,
+  Cpu, Telescope, Lightbulb, FileText, Activity, Building2, ArrowUp,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Landing,
@@ -35,6 +36,7 @@ function Landing() {
       <ForStates />
       <Partners />
       <Footer />
+      <BackToTop />
     </div>
   );
 }
@@ -767,5 +769,28 @@ function Footer() {
         © 2026 Nigeria Governors' Forum Secretariat · NGF Futures Lab
       </div>
     </footer>
+  );
+}
+
+/* ------------------------------ Back to top ------------------------------ */
+function BackToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 500);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <button
+      type="button"
+      aria-label="Back to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className={`fixed bottom-6 right-6 z-40 grid h-11 w-11 place-items-center rounded-full border bg-background/90 text-foreground shadow-lg backdrop-blur transition-all hover:bg-primary hover:text-primary-foreground ${
+        show ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-2"
+      }`}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
   );
 }
