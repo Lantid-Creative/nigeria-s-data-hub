@@ -55,7 +55,8 @@ function TopNav() {
           <a href="#pillars" className="hover:text-foreground">Pillars</a>
           <a href="#how" className="hover:text-foreground">How it works</a>
           <a href="#themes" className="hover:text-foreground">Coverage</a>
-          <a href="#research" className="hover:text-foreground">Research</a>
+          <Link to="/research" className="hover:text-foreground">Research</Link>
+          <Link to="/press" className="hover:text-foreground">Press</Link>
         </nav>
         <div className="flex items-center gap-2">
           <Button asChild size="sm" className="bg-primary">

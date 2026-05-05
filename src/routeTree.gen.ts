@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StateRouteImport } from './routes/state'
+import { Route as ResearchRouteImport } from './routes/research'
+import { Route as PressRouteImport } from './routes/press'
 import { Route as NgfRouteImport } from './routes/ngf'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
@@ -38,6 +40,16 @@ import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
 const StateRoute = StateRouteImport.update({
   id: '/state',
   path: '/state',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResearchRoute = ResearchRouteImport.update({
+  id: '/research',
+  path: '/research',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PressRoute = PressRouteImport.update({
+  id: '/press',
+  path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NgfRoute = NgfRouteImport.update({
@@ -165,6 +177,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/ngf': typeof NgfRouteWithChildren
+  '/press': typeof PressRoute
+  '/research': typeof ResearchRoute
   '/state': typeof StateRouteWithChildren
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
@@ -191,6 +205,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/press': typeof PressRoute
+  '/research': typeof ResearchRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
@@ -218,6 +234,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/ngf': typeof NgfRouteWithChildren
+  '/press': typeof PressRoute
+  '/research': typeof ResearchRoute
   '/state': typeof StateRouteWithChildren
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
@@ -247,6 +265,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/ngf'
+    | '/press'
+    | '/research'
     | '/state'
     | '/ngf/alerts'
     | '/ngf/analytics'
@@ -273,6 +293,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/press'
+    | '/research'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/data'
@@ -299,6 +321,8 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/ngf'
+    | '/press'
+    | '/research'
     | '/state'
     | '/ngf/alerts'
     | '/ngf/analytics'
@@ -327,6 +351,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   NgfRoute: typeof NgfRouteWithChildren
+  PressRoute: typeof PressRoute
+  ResearchRoute: typeof ResearchRoute
   StateRoute: typeof StateRouteWithChildren
 }
 
@@ -337,6 +363,20 @@ declare module '@tanstack/react-router' {
       path: '/state'
       fullPath: '/state'
       preLoaderRoute: typeof StateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/research': {
+      id: '/research'
+      path: '/research'
+      fullPath: '/research'
+      preLoaderRoute: typeof ResearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/press': {
+      id: '/press'
+      path: '/press'
+      fullPath: '/press'
+      preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ngf': {
@@ -572,6 +612,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   NgfRoute: NgfRouteWithChildren,
+  PressRoute: PressRoute,
+  ResearchRoute: ResearchRoute,
   StateRoute: StateRouteWithChildren,
 }
 export const routeTree = rootRouteImport
