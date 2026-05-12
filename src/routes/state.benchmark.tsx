@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAllStatesLatestScores, useStateCode, useStateRow } from "@/lib/state-data";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/state/benchmark")({ component: Benchmark });
 
