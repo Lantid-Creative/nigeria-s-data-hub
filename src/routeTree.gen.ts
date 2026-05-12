@@ -33,6 +33,7 @@ import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateInnovationRouteImport } from './routes/state.innovation'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
+import { Route as StateEvidenceRouteImport } from './routes/state.evidence'
 import { Route as StateCommitmentsRouteImport } from './routes/state.commitments'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
@@ -174,6 +175,11 @@ const StateIndicatorsRoute = StateIndicatorsRouteImport.update({
   path: '/indicators',
   getParentRoute: () => StateRoute,
 } as any)
+const StateEvidenceRoute = StateEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => StateRoute,
+} as any)
 const StateCommitmentsRoute = StateCommitmentsRouteImport.update({
   id: '/commitments',
   path: '/commitments',
@@ -311,6 +317,7 @@ export interface FileRoutesByFullPath {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -355,6 +362,7 @@ export interface FileRoutesByTo {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -402,6 +410,7 @@ export interface FileRoutesById {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -450,6 +459,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -494,6 +504,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -540,6 +551,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -737,6 +749,13 @@ declare module '@tanstack/react-router' {
       path: '/indicators'
       fullPath: '/state/indicators'
       preLoaderRoute: typeof StateIndicatorsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/evidence': {
+      id: '/state/evidence'
+      path: '/evidence'
+      fullPath: '/state/evidence'
+      preLoaderRoute: typeof StateEvidenceRouteImport
       parentRoute: typeof StateRoute
     }
     '/state/commitments': {
@@ -938,6 +957,7 @@ interface StateRouteChildren {
   StateAlertsRoute: typeof StateAlertsRoute
   StateBenchmarkRoute: typeof StateBenchmarkRoute
   StateCommitmentsRoute: typeof StateCommitmentsRoute
+  StateEvidenceRoute: typeof StateEvidenceRoute
   StateIndicatorsRoute: typeof StateIndicatorsRoute
   StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
@@ -952,6 +972,7 @@ const StateRouteChildren: StateRouteChildren = {
   StateAlertsRoute: StateAlertsRoute,
   StateBenchmarkRoute: StateBenchmarkRoute,
   StateCommitmentsRoute: StateCommitmentsRoute,
+  StateEvidenceRoute: StateEvidenceRoute,
   StateIndicatorsRoute: StateIndicatorsRoute,
   StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
