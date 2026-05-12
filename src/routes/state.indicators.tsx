@@ -54,6 +54,10 @@ function Indicators() {
         {dims.map((d: any) => {
           const dimInds = inds.filter((i: any) => i.dimension_code === d.code);
           const dimScore = latest ? scoreFor(latest, d.code) : null;
+          const dimTrend = (scores as any[]).map((s: any) => ({
+            period: s.reporting_cycles?.label ?? "—",
+            value: scoreFor(s, d.code) ?? 0,
+          }));
           return (
             <TabsContent key={d.code} value={d.code} className="mt-6 space-y-4">
               <Card className="shadow-soft">
