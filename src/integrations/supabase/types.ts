@@ -654,7 +654,13 @@ export type Database = {
     Enums: {
       alert_level: "info" | "medium" | "high"
       app_role: "ngf_staff" | "state_user" | "partner"
-      submission_status: "not_started" | "in_progress" | "submitted" | "overdue"
+      submission_status:
+        | "not_started"
+        | "in_progress"
+        | "submitted"
+        | "overdue"
+        | "approved"
+        | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -784,7 +790,14 @@ export const Constants = {
     Enums: {
       alert_level: ["info", "medium", "high"],
       app_role: ["ngf_staff", "state_user", "partner"],
-      submission_status: ["not_started", "in_progress", "submitted", "overdue"],
+      submission_status: [
+        "not_started",
+        "in_progress",
+        "submitted",
+        "overdue",
+        "approved",
+        "rejected",
+      ],
     },
   },
 } as const
