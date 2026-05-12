@@ -4,7 +4,7 @@ import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, FileSpreadsheet, Database, Users, Bell,
-  Settings, BookOpen, Activity, MessageSquare,
+  Settings, BookOpen, Activity, MessageSquare, Lightbulb,
 } from "lucide-react";
 
 export const Route = createFileRoute("/state")({
