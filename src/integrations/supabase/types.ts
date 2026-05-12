@@ -406,11 +406,102 @@ export type Database = {
           },
         ]
       }
+      survey_questions: {
+        Row: {
+          code: string
+          created_at: string
+          help_text: string | null
+          id: string
+          label: string
+          options: Json | null
+          question_type: string
+          required: boolean
+          section_id: string
+          sort_order: number
+          unit: string | null
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          help_text?: string | null
+          id?: string
+          label: string
+          options?: Json | null
+          question_type?: string
+          required?: boolean
+          section_id: string
+          sort_order?: number
+          unit?: string | null
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          help_text?: string | null
+          id?: string
+          label?: string
+          options?: Json | null
+          question_type?: string
+          required?: boolean
+          section_id?: string
+          sort_order?: number
+          unit?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "survey_questions_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "survey_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      survey_sections: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          sort_order: number
+          survey_id: string
+          title: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          sort_order?: number
+          survey_id: string
+          title: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          sort_order?: number
+          survey_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "survey_sections_survey_id_fkey"
+            columns: ["survey_id"]
+            isOneToOne: false
+            referencedRelation: "surveys"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       survey_submissions: {
         Row: {
           completion_pct: number
           id: string
           payload: Json
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           state_code: string
           status: Database["public"]["Enums"]["submission_status"]
           submitted_at: string | null
@@ -422,6 +513,9 @@ export type Database = {
           completion_pct?: number
           id?: string
           payload?: Json
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           state_code: string
           status?: Database["public"]["Enums"]["submission_status"]
           submitted_at?: string | null
@@ -433,6 +527,9 @@ export type Database = {
           completion_pct?: number
           id?: string
           payload?: Json
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           state_code?: string
           status?: Database["public"]["Enums"]["submission_status"]
           submitted_at?: string | null
