@@ -62,6 +62,7 @@ import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
+import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
 
 const StatesRoute = StatesRouteImport.update({
   id: '/states',
@@ -328,6 +329,12 @@ const LegalDataRoute = LegalDataRouteImport.update({
   path: '/data',
   getParentRoute: () => LegalRoute,
 } as any)
+const ApiPublicHooksDailyBriefingRoute =
+  ApiPublicHooksDailyBriefingRouteImport.update({
+    id: '/api/public/hooks/daily-briefing',
+    path: '/api/public/hooks/daily-briefing',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -383,6 +390,7 @@ export interface FileRoutesByFullPath {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -436,6 +444,7 @@ export interface FileRoutesByTo {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
+  '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -492,6 +501,7 @@ export interface FileRoutesById {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -549,6 +559,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/daily-briefing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -602,6 +613,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf'
     | '/state'
+    | '/api/public/hooks/daily-briefing'
   id:
     | '__root__'
     | '/'
@@ -657,6 +669,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/daily-briefing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -675,6 +688,7 @@ export interface RootRouteChildren {
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
   StatesRoute: typeof StatesRoute
+  ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1050,6 +1064,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalDataRouteImport
       parentRoute: typeof LegalRoute
     }
+    '/api/public/hooks/daily-briefing': {
+      id: '/api/public/hooks/daily-briefing'
+      path: '/api/public/hooks/daily-briefing'
+      fullPath: '/api/public/hooks/daily-briefing'
+      preLoaderRoute: typeof ApiPublicHooksDailyBriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1169,6 +1190,7 @@ const rootRouteChildren: RootRouteChildren = {
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
   StatesRoute: StatesRoute,
+  ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
