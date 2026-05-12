@@ -3,23 +3,43 @@ import { SectionHeader, StatCard } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Brain, LineChart, Sparkles, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BarChart3, Brain, Download, LineChart, Sparkles, TrendingUp } from "lucide-react";
 import {
   ResponsiveContainer, LineChart as RLineChart, Line, XAxis, YAxis, Tooltip,
   CartesianGrid, ScatterChart, Scatter, BarChart, Bar, Legend, PieChart, Pie, Cell,
+  ZAxis,
 } from "recharts";
-import { useAllStatesLatestScores, useZones, useNationalSnriTrend, useIndicators } from "@/lib/state-data";
-import { useMemo } from "react";
+import { useAllStatesLatestScores, useZones, useNationalSnriTrend, useIndicators, useDimensions } from "@/lib/state-data";
+import { useMemo, useState } from "react";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
+import { downloadCsv } from "@/lib/csv";
 
 export const Route = createFileRoute("/ngf/analytics")({ component: Analytics });
 
 const COLORS = ["oklch(0.45 0.13 155)", "oklch(0.78 0.16 80)", "oklch(0.62 0.13 230)", "oklch(0.65 0.18 35)", "oklch(0.55 0.18 305)", "oklch(0.5 0.1 200)"];
+
+const DIM_FIELDS = [
+  { key: "resilience_index", label: "SNRI (composite)" },
+  { key: "economic", label: "Economic" },
+  { key: "fiscal", label: "Fiscal" },
+  { key: "human_capital", label: "Human Capital" },
+  { key: "climate", label: "Climate" },
+  { key: "governance", label: "Governance" },
+  { key: "security", label: "Security" },
+  { key: "social", label: "Social" },
+];
 
 function Analytics() {
   const { data: scores = [] } = useAllStatesLatestScores();
   const { data: zones = [] } = useZones();
   const { data: trend = [] } = useNationalSnriTrend();
   const { data: indicators = [] } = useIndicators();
+  const { data: dims = [] } = useDimensions();
+
+  const [xKey, setXKey] = useState("fiscal");
+  const [yKey, setYKey] = useState("human_capital");
 
   const zoneData = useMemo(() => (zones as any[]).map((z, i) => {
     const zoneStates = (scores as any[]).filter((s) => s.states?.zone_code === z.code);
@@ -34,20 +54,59 @@ function Analytics() {
     };
   }), [zones, scores]);
 
-  const scatter = (scores as any[]).map((s) => ({
-    x: Number(s.fiscal ?? 0),
-    y: Number(s.human_capital ?? 0),
+  const scatter = useMemo(() => (scores as any[]).map((s) => ({
+    x: Number(s[xKey] ?? 0),
+    y: Number(s[yKey] ?? 0),
     name: s.states?.name ?? s.state_code,
-  }));
+  })), [scores, xKey, yKey]);
+
+  // Pearson correlation
+  const correlation = useMemo(() => {
+    const n = scatter.length;
+    if (n < 2) return 0;
+    const mx = scatter.reduce((a, p) => a + p.x, 0) / n;
+    const my = scatter.reduce((a, p) => a + p.y, 0) / n;
+    let num = 0, dx = 0, dy = 0;
+    for (const p of scatter) {
+      num += (p.x - mx) * (p.y - my);
+      dx += (p.x - mx) ** 2;
+      dy += (p.y - my) ** 2;
+    }
+    const d = Math.sqrt(dx * dy);
+    return d ? +(num / d).toFixed(2) : 0;
+  }, [scatter]);
+
+  const xLabel = DIM_FIELDS.find((d) => d.key === xKey)?.label ?? xKey;
+  const yLabel = DIM_FIELDS.find((d) => d.key === yKey)?.label ?? yKey;
 
   const dataPoints = (indicators as any[]).length * 36;
+
+  // CSV exports
+  const exportStates = () =>
+    downloadCsv("state-scores", (scores as any[]).map((s) => ({
+      state_code: s.state_code,
+      state: s.states?.name ?? s.state_code,
+      zone: s.states?.zone_code ?? "",
+      snri: s.resilience_index,
+      economic: s.economic, fiscal: s.fiscal, human_capital: s.human_capital,
+      climate: s.climate, governance: s.governance, security: s.security, social: s.social,
+    })));
+  const exportZones = () => downloadCsv("zone-performance", zoneData);
+  const exportTrend = () => downloadCsv("national-trend", trend as any[]);
 
   return (
     <div className="space-y-6">
       <SectionHeader
         title="Analytics"
         description="Deep multi-dimensional analytics across all states"
-        action={<Badge className="bg-gold text-gold-foreground"><Sparkles className="mr-1 h-3 w-3" />Live data</Badge>}
+        action={
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={exportStates}>
+              <Download className="mr-1 h-3.5 w-3.5" /> States CSV
+            </Button>
+            <Badge className="bg-gold text-gold-foreground"><Sparkles className="mr-1 h-3 w-3" />Live data</Badge>
+          </div>
+        }
       />
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -56,6 +115,18 @@ function Analytics() {
         <StatCard label="Cycles tracked" value={trend.length} icon={TrendingUp} accent="gold" />
         <StatCard label="States scored" value={scores.length} icon={Brain} accent="primary" />
       </div>
+
+      <AiInsightCard
+        mode="snri"
+        title="Analytics Narrative"
+        description="AI commentary on national trends, geo-spatial spread, and correlations."
+        context={{
+          trend,
+          zone_performance: zoneData,
+          correlation: { x: xLabel, y: yLabel, pearson_r: correlation },
+          dimensions: (dims as any[]).map((d) => d.name),
+        }}
+      />
 
       <Tabs defaultValue="trends">
         <TabsList>
@@ -66,7 +137,12 @@ function Analytics() {
 
         <TabsContent value="trends" className="mt-6">
           <Card className="shadow-soft">
-            <CardHeader><CardTitle className="font-display text-lg">National SNRI trend</CardTitle></CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="font-display text-lg">National SNRI trend</CardTitle>
+              <Button variant="ghost" size="sm" onClick={exportTrend}>
+                <Download className="mr-1 h-3.5 w-3.5" /> CSV
+              </Button>
+            </CardHeader>
             <CardContent>
               <div className="h-96">
                 <ResponsiveContainer>
@@ -87,7 +163,12 @@ function Analytics() {
         <TabsContent value="zones" className="mt-6">
           <div className="grid gap-6 lg:grid-cols-2">
             <Card className="shadow-soft">
-              <CardHeader><CardTitle className="font-display text-lg">Performance by zone</CardTitle></CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-display text-lg">Performance by zone</CardTitle>
+                <Button variant="ghost" size="sm" onClick={exportZones}>
+                  <Download className="mr-1 h-3.5 w-3.5" /> CSV
+                </Button>
+              </CardHeader>
               <CardContent>
                 <div className="h-80">
                   <ResponsiveContainer>
@@ -125,17 +206,46 @@ function Analytics() {
 
         <TabsContent value="correlations" className="mt-6">
           <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="font-display text-lg">Fiscal Health vs Human Capital</CardTitle>
+            <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div>
+                <CardTitle className="font-display text-lg">{xLabel} vs {yLabel}</CardTitle>
+                <p className="text-xs text-muted-foreground">
+                  Pearson correlation:&nbsp;
+                  <span className={`font-semibold ${Math.abs(correlation) >= 0.5 ? "text-primary" : "text-muted-foreground"}`}>
+                    r = {correlation}
+                  </span>
+                  {" · "}
+                  {Math.abs(correlation) >= 0.7 ? "strong" : Math.abs(correlation) >= 0.4 ? "moderate" : "weak"} relationship
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Select value={xKey} onValueChange={setXKey}>
+                  <SelectTrigger className="h-8 w-44 text-xs"><SelectValue placeholder="X axis" /></SelectTrigger>
+                  <SelectContent>
+                    {DIM_FIELDS.map((d) => <SelectItem key={d.key} value={d.key}>{d.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <span className="text-xs text-muted-foreground">vs</span>
+                <Select value={yKey} onValueChange={setYKey}>
+                  <SelectTrigger className="h-8 w-44 text-xs"><SelectValue placeholder="Y axis" /></SelectTrigger>
+                  <SelectContent>
+                    {DIM_FIELDS.map((d) => <SelectItem key={d.key} value={d.key}>{d.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Button variant="ghost" size="sm" onClick={() => downloadCsv(`correlation-${xKey}-${yKey}`, scatter)}>
+                  <Download className="mr-1 h-3.5 w-3.5" /> CSV
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="h-96">
                 <ResponsiveContainer>
-                  <ScatterChart>
+                  <ScatterChart margin={{ left: 8, right: 16, top: 8, bottom: 8 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.9 0.01 100)" />
-                    <XAxis type="number" dataKey="x" name="Fiscal" fontSize={11} />
-                    <YAxis type="number" dataKey="y" name="Human Capital" fontSize={11} />
-                    <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
+                    <XAxis type="number" dataKey="x" name={xLabel} fontSize={11} />
+                    <YAxis type="number" dataKey="y" name={yLabel} fontSize={11} />
+                    <ZAxis type="category" dataKey="name" name="State" />
+                    <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ borderRadius: 8, fontSize: 12 }} />
                     <Scatter data={scatter} fill={COLORS[0]} />
                   </ScatterChart>
                 </ResponsiveContainer>

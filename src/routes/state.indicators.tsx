@@ -2,24 +2,44 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeader } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useDimensions, useIndicators, useStateCode, useStateScores, scoreFor } from "@/lib/state-data";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { useDimensions, useIndicators, useStateCode, useStateScores, scoreFor, useStateRow } from "@/lib/state-data";
+import { ArrowDown, ArrowUp, Download } from "lucide-react";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { downloadCsv } from "@/lib/csv";
 
 export const Route = createFileRoute("/state/indicators")({ component: Indicators });
 
 function Indicators() {
   const code = useStateCode();
+  const { data: state } = useStateRow(code);
   const { data: dims = [] } = useDimensions();
   const { data: inds = [] } = useIndicators();
   const { data: scores = [] } = useStateScores(code);
   const latest = scores[scores.length - 1];
+
+  const exportAll = () => downloadCsv(`${code}-indicators`, (inds as any[]).map((i: any) => {
+    const dim = (dims as any[]).find((d) => d.code === i.dimension_code);
+    return {
+      dimension: dim?.name ?? i.dimension_code,
+      indicator: i.name,
+      sub_component: i.sub_component ?? "",
+      source: i.source ?? "",
+      direction: i.direction === "+" ? "Higher better" : "Lower better",
+    };
+  }));
 
   return (
     <div className="space-y-6">
       <SectionHeader
         title="Indicators"
         description="Track all 48 indicators across the 7 SNRi resilience dimensions"
+        action={
+          <Button variant="outline" size="sm" onClick={exportAll}>
+            <Download className="mr-1 h-3.5 w-3.5" /> Export CSV
+          </Button>
+        }
       />
 
       <Tabs defaultValue={dims[0]?.code ?? "ECON"}>
@@ -34,6 +54,10 @@ function Indicators() {
         {dims.map((d: any) => {
           const dimInds = inds.filter((i: any) => i.dimension_code === d.code);
           const dimScore = latest ? scoreFor(latest, d.code) : null;
+          const dimTrend = (scores as any[]).map((s: any) => ({
+            period: s.reporting_cycles?.label ?? "—",
+            value: scoreFor(s, d.code) ?? 0,
+          }));
           return (
             <TabsContent key={d.code} value={d.code} className="mt-6 space-y-4">
               <Card className="shadow-soft">
@@ -64,6 +88,28 @@ function Indicators() {
                   ))}
                 </CardContent>
               </Card>
+
+              {dimTrend.length > 1 && (
+                <Card className="shadow-soft">
+                  <CardHeader>
+                    <CardTitle className="font-display text-base">Dimension trend — {state?.name ?? code}</CardTitle>
+                    <p className="text-xs text-muted-foreground">Reporting cycles to date</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-56">
+                      <ResponsiveContainer>
+                        <LineChart data={dimTrend}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.9 0.01 100)" />
+                          <XAxis dataKey="period" fontSize={11} />
+                          <YAxis fontSize={11} />
+                          <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
+                          <Line type="monotone" dataKey="value" stroke="oklch(0.45 0.13 155)" strokeWidth={2.5} dot />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
           );
         })}
