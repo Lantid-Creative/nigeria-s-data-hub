@@ -14,6 +14,8 @@ export function PlatformShell({
   contextLabel?: string;
   children: React.ReactNode;
 }) {
+  const { pathname } = useLocation();
+  const bellTo = pathname.startsWith("/ngf") ? "/ngf/alerts" : "/state/alerts";
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-muted/40">
