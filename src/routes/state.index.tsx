@@ -18,6 +18,7 @@ import {
   useAllStatesLatestScores, useStateSubmissions, useSurveys, useAlerts,
   useDimensions, scoreFor,
 } from "@/lib/state-data";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 import { useAuth } from "@/lib/auth";
 import { useMemo } from "react";
 
