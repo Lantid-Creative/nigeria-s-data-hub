@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAlerts, useAllSubmissions, useAllStates } from "@/lib/state-data";
 import { AiInsightCard } from "@/components/platform/AiInsightCard";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/audit";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Megaphone, Trash2, Send } from "lucide-react";
@@ -46,6 +47,12 @@ function AlertsPage() {
     setSaving(false);
     if (error) return toast.error(error.message);
     toast.success("Alert published");
+    logEvent("alert.publish", "alerts", null, {
+      title: form.title.trim(),
+      level: form.level,
+      audience: form.audience,
+      state_code: form.audience === "state" ? form.state_code : null,
+    });
     setForm({ title: "", body: "", level: "medium", audience: "all", state_code: "" });
     qc.invalidateQueries({ queryKey: ["alerts"] });
   }
@@ -54,6 +61,7 @@ function AlertsPage() {
     if (!confirm("Delete this alert?")) return;
     const { error } = await supabase.from("alerts").delete().eq("id", id);
     if (error) return toast.error(error.message);
+    logEvent("alert.delete", "alerts", id);
     qc.invalidateQueries({ queryKey: ["alerts"] });
   }
 

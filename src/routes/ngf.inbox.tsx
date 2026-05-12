@@ -7,6 +7,7 @@ import { Mail, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { logEvent } from "@/lib/audit";
 
 export const Route = createFileRoute("/ngf/inbox")({ component: Inbox });
 
@@ -24,6 +25,7 @@ function Inbox() {
   const markHandled = async (id: string, handled: boolean) => {
     const { error } = await supabase.from("contact_messages").update({ handled }).eq("id", id);
     if (error) return toast.error(error.message);
+    logEvent(handled ? "contact.handle" : "contact.reopen", "contact_messages", id);
     qc.invalidateQueries({ queryKey: ["contact_messages"] });
   };
 

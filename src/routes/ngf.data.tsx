@@ -12,6 +12,7 @@ import { Database, Layers, BarChart3, MapPin, Download, Upload, Plus, Trash2, Ch
 import { useIndicators, useDimensions, useAllStates, useAllCycles } from "@/lib/state-data";
 import { downloadCsv, parseCsv } from "@/lib/csv";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/audit";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -251,6 +252,7 @@ function ScoresImportPanel({ cycles, qc }: any) {
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success(`Imported ${payload.length} score rows`);
+    logEvent("scores.import", "state_scores", cycleId, { rows: payload.length });
     setPreview([]); if (fileRef.current) fileRef.current.value = "";
     qc.invalidateQueries({ queryKey: ["all-states-scores"] });
   };

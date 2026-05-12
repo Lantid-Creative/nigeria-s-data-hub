@@ -78,6 +78,39 @@ export type Database = {
           },
         ]
       }
+      audit_logs: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string | null
+          created_at: string
+          entity: string
+          entity_id: string | null
+          id: string
+          metadata: Json | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          entity: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string | null
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -712,6 +745,15 @@ export type Database = {
       increment_report_downloads: {
         Args: { _report_id: string }
         Returns: undefined
+      }
+      log_event: {
+        Args: {
+          _action: string
+          _entity: string
+          _entity_id?: string
+          _metadata?: Json
+        }
+        Returns: string
       }
     }
     Enums: {
