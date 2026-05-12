@@ -7,7 +7,9 @@ import ReactMarkdown from "react-markdown";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-type Mode = "prediction" | "automation" | "report" | "research";
+type Mode =
+  | "prediction" | "automation" | "report" | "research"
+  | "briefing" | "snri" | "state_advisor" | "benchmark" | "survey_helper";
 
 export function AiInsightCard({
   mode,
