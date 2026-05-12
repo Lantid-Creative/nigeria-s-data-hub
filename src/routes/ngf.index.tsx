@@ -16,6 +16,8 @@ import {
   useAllSubmissions, useNationalSnriTrend, useDimensions,
 } from "@/lib/state-data";
 import { AiInsightCard } from "@/components/platform/AiInsightCard";
+import { NigeriaGridMap } from "@/components/platform/NigeriaGridMap";
+import { ScenarioBuilder } from "@/components/platform/ScenarioBuilder";
 
 export const Route = createFileRoute("/ngf/")({ component: NgfOverview });
 
@@ -146,27 +148,9 @@ function NgfOverview() {
             </Button>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-6 gap-1.5 sm:grid-cols-9">
-              {scores.map((s: any) => {
-                const v = Math.round(Number(s.resilience_index ?? 0));
-                const tone =
-                  v >= 75 ? "bg-emerald-500/80 text-white" :
-                  v >= 60 ? "bg-emerald-400/60" :
-                  v >= 50 ? "bg-gold/70" :
-                  v >= 40 ? "bg-orange-400/70" : "bg-destructive/70 text-white";
-                const name = s.states?.name ?? s.state_code;
-                return (
-                  <div key={s.state_code} className={`group relative aspect-square cursor-pointer rounded-md ${tone} p-1.5 text-[10px] font-medium transition hover:scale-110`}>
-                    <div className="truncate">{String(name).slice(0, 3).toUpperCase()}</div>
-                    <div className="text-[9px] opacity-80">{v}</div>
-                    <div className="pointer-events-none absolute -top-12 left-1/2 z-10 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-[10px] text-background group-hover:block">
-                      {name} · SNRI {v}
-                    </div>
-                  </div>
-                );
-              })}
-              {!scores.length && <div className="col-span-full p-6 text-center text-sm text-muted-foreground">No state scores yet.</div>}
-            </div>
+            {scores.length ? <NigeriaGridMap scores={scores} /> : (
+              <div className="p-6 text-center text-sm text-muted-foreground">No state scores yet.</div>
+            )}
           </CardContent>
         </Card>
 
@@ -189,6 +173,8 @@ function NgfOverview() {
           </CardContent>
         </Card>
       </div>
+
+      {scores.length > 0 && <ScenarioBuilder scores={scores} />}
     </div>
   );
 }
