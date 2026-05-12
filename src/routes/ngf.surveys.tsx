@@ -10,7 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { GitBranch, Clock, CheckCircle2, AlertCircle, Plus, Trash2, Edit, Eye } from "lucide-react";
-import { useSurveys, useAllSubmissions, useSurveyStructure } from "@/lib/state-data";
+import { useSurveys, useAllSubmissions, useSurveyStructure, useAllStates } from "@/lib/state-data";
+import { SubmissionHeatmap } from "@/components/platform/SubmissionHeatmap";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/ngf/surveys")({ component: SurveysPage })
 function SurveysPage() {
   const { data: surveys = [] } = useSurveys();
   const { data: subs = [] } = useAllSubmissions();
+  const { data: states = [] } = useAllStates();
   const qc = useQueryClient();
   const [selectedSurvey, setSelectedSurvey] = useState<string | null>(null);
   const [reviewSub, setReviewSub] = useState<any | null>(null);
@@ -76,6 +78,18 @@ function SurveysPage() {
         })}
         {!surveys.length && <Card className="md:col-span-2"><CardContent className="p-8 text-center text-sm text-muted-foreground">No surveys yet. Create one to begin.</CardContent></Card>}
       </div>
+
+      {surveys.length > 0 && states.length > 0 && (
+        <Card className="shadow-soft">
+          <CardHeader>
+            <CardTitle className="font-display text-lg">Submission heatmap</CardTitle>
+            <p className="text-xs text-muted-foreground">Completion across all states × surveys</p>
+          </CardHeader>
+          <CardContent>
+            <SubmissionHeatmap surveys={surveys as any[]} submissions={subs as any[]} states={states as any[]} />
+          </CardContent>
+        </Card>
+      )}
 
       {activeSurvey && <SurveyBuilder survey={activeSurvey} />}
 
