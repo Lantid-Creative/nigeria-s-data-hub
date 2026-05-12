@@ -65,19 +65,35 @@ function ContactPage() {
                 ) : (
                   <form
                     className="grid gap-4"
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                       e.preventDefault();
+                      const fd = new FormData(e.currentTarget as HTMLFormElement);
+                      const parsed = contactSchema.safeParse({
+                        name: fd.get("name"),
+                        organisation: fd.get("org") || undefined,
+                        email: fd.get("email"),
+                        topic: fd.get("topic"),
+                        message: fd.get("msg"),
+                      });
+                      if (!parsed.success) {
+                        toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+                        return;
+                      }
+                      setBusy(true);
+                      const { error } = await supabase.from("contact_messages").insert(parsed.data);
+                      setBusy(false);
+                      if (error) return toast.error(error.message);
                       setSent(true);
                       toast.success("Message sent to the NGF Secretariat.");
                     }}
                   >
                     <div className="grid gap-4 sm:grid-cols-2">
-                      <Field id="name" label="Full name" required><Input id="name" required autoComplete="name" /></Field>
-                      <Field id="org" label="Organisation"><Input id="org" autoComplete="organization" /></Field>
+                      <Field id="name" label="Full name" required><Input id="name" name="name" required autoComplete="name" maxLength={120} /></Field>
+                      <Field id="org" label="Organisation"><Input id="org" name="org" autoComplete="organization" maxLength={160} /></Field>
                     </div>
-                    <Field id="email" label="Email" required><Input id="email" type="email" required autoComplete="email" /></Field>
+                    <Field id="email" label="Email" required><Input id="email" name="email" type="email" required autoComplete="email" maxLength={255} /></Field>
                     <Field id="topic" label="Topic" required>
-                      <select id="topic" required className="h-10 rounded-md border bg-background px-3 text-sm">
+                      <select id="topic" name="topic" required className="h-10 rounded-md border bg-background px-3 text-sm">
                         <option value="">Select…</option>
                         <option>Request a briefing</option>
                         <option>Partnership / collaboration</option>
@@ -86,9 +102,9 @@ function ContactPage() {
                         <option>Other</option>
                       </select>
                     </Field>
-                    <Field id="msg" label="Message" required><Textarea id="msg" required rows={5} /></Field>
-                    <Button type="submit" className="bg-primary justify-self-start">
-                      <Send className="mr-1.5 h-4 w-4" /> Send message
+                    <Field id="msg" label="Message" required><Textarea id="msg" name="msg" required rows={5} maxLength={2000} /></Field>
+                    <Button type="submit" disabled={busy} className="bg-primary justify-self-start">
+                      <Send className="mr-1.5 h-4 w-4" /> {busy ? "Sending…" : "Send message"}
                     </Button>
                   </form>
                 )}
