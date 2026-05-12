@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as SnriRouteImport } from './routes/snri'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as NgfRouteImport } from './routes/ngf'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -61,6 +64,16 @@ const SnriRoute = SnriRouteImport.update({
   path: '/snri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -89,6 +102,11 @@ const LoginRoute = LoginRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -231,12 +249,15 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
   '/states': typeof StatesRoute
@@ -269,11 +290,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/states': typeof StatesRoute
   '/legal/data': typeof LegalDataRoute
@@ -306,12 +330,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
   '/states': typeof StatesRoute
@@ -346,12 +373,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/state'
     | '/states'
@@ -384,11 +414,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/states'
     | '/legal/data'
@@ -420,12 +453,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/state'
     | '/states'
@@ -459,12 +495,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LegalRoute: typeof LegalRouteWithChildren
   LoginRoute: typeof LoginRoute
   MethodologyRoute: typeof MethodologyRoute
   NgfRoute: typeof NgfRouteWithChildren
   PressRoute: typeof PressRoute
   ResearchRoute: typeof ResearchRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SignupRoute: typeof SignupRoute
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
   StatesRoute: typeof StatesRoute
@@ -491,6 +530,20 @@ declare module '@tanstack/react-router' {
       path: '/snri'
       fullPath: '/snri'
       preLoaderRoute: typeof SnriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/research': {
@@ -533,6 +586,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -803,12 +863,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LegalRoute: LegalRouteWithChildren,
   LoginRoute: LoginRoute,
   MethodologyRoute: MethodologyRoute,
   NgfRoute: NgfRouteWithChildren,
   PressRoute: PressRoute,
   ResearchRoute: ResearchRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SignupRoute: SignupRoute,
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
   StatesRoute: StatesRoute,
@@ -816,12 +879,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

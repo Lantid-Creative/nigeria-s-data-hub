@@ -60,11 +60,14 @@ function SignupPage() {
   }
 
   async function googleSignup() {
-    const r = await lovable.auth.signInWithOAuth("google", {
+    const r: any = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
-    if (r.error) setError(typeof r.error === "string" ? r.error : (r.error as Error).message);
-    if (r.redirected) return;
+    if (r?.error) {
+      setError(typeof r.error === "string" ? r.error : (r.error as Error).message);
+      return;
+    }
+    if (r?.redirected) return;
     navigate({ to: "/state" });
   }
 
