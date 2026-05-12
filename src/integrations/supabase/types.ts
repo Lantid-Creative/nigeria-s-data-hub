@@ -78,6 +78,39 @@ export type Database = {
           },
         ]
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          handled: boolean
+          id: string
+          message: string
+          name: string
+          organisation: string | null
+          topic: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          handled?: boolean
+          id?: string
+          message: string
+          name: string
+          organisation?: string | null
+          topic: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          handled?: boolean
+          id?: string
+          message?: string
+          name?: string
+          organisation?: string | null
+          topic?: string
+        }
+        Relationships: []
+      }
       dimensions: {
         Row: {
           code: string
