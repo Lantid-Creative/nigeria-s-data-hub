@@ -26,7 +26,7 @@ function AlertsPage() {
   const [form, setForm] = useState({
     title: "",
     body: "",
-    level: "medium" as "high" | "medium" | "low",
+    level: "medium" as "high" | "medium" | "info",
     audience: "all" as "all" | "state",
     state_code: "",
   });
@@ -84,7 +84,7 @@ function AlertsPage() {
                 <SelectContent>
                   <SelectItem value="high">High</SelectItem>
                   <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="info">Info</SelectItem>
                 </SelectContent>
               </Select>
             </div>
