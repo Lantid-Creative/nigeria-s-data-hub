@@ -39,6 +39,7 @@ function StateLayout() {
               items: [
                 { title: "Peer Benchmark", url: "/state/benchmark", icon: Users },
                 { title: "Knowledge Hub", url: "/state/knowledge", icon: BookOpen },
+                { title: "Innovation", url: "/state/innovation", icon: Lightbulb },
                 { title: "Notifications", url: "/state/alerts", icon: Bell },
                 { title: "Support", url: "/state/support", icon: MessageSquare },
               ],
