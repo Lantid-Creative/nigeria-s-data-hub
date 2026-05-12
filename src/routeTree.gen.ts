@@ -43,6 +43,7 @@ import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
 import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
+import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
@@ -221,6 +222,11 @@ const NgfInnovationRoute = NgfInnovationRouteImport.update({
   path: '/innovation',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfInboxRoute = NgfInboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfForesightRoute = NgfForesightRouteImport.update({
   id: '/foresight',
   path: '/foresight',
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
@@ -321,6 +328,7 @@ export interface FileRoutesByTo {
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
@@ -365,6 +373,7 @@ export interface FileRoutesById {
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
@@ -410,6 +419,7 @@ export interface FileRouteTypes {
     | '/ngf/analytics'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
@@ -451,6 +461,7 @@ export interface FileRouteTypes {
     | '/ngf/analytics'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
@@ -494,6 +505,7 @@ export interface FileRouteTypes {
     | '/ngf/analytics'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
     | '/ngf/research'
@@ -773,6 +785,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfInnovationRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/inbox': {
+      id: '/ngf/inbox'
+      path: '/inbox'
+      fullPath: '/ngf/inbox'
+      preLoaderRoute: typeof NgfInboxRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/foresight': {
       id: '/ngf/foresight'
       path: '/foresight'
@@ -844,6 +863,7 @@ interface NgfRouteChildren {
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
   NgfDataRoute: typeof NgfDataRoute
   NgfForesightRoute: typeof NgfForesightRoute
+  NgfInboxRoute: typeof NgfInboxRoute
   NgfInnovationRoute: typeof NgfInnovationRoute
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
@@ -860,6 +880,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfAnalyticsRoute: NgfAnalyticsRoute,
   NgfDataRoute: NgfDataRoute,
   NgfForesightRoute: NgfForesightRoute,
+  NgfInboxRoute: NgfInboxRoute,
   NgfInnovationRoute: NgfInnovationRoute,
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,

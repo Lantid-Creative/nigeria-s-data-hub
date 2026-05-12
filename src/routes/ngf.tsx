@@ -4,7 +4,7 @@ import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
-  FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users,
+  FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users, Inbox,
 } from "lucide-react";
 
 export const Route = createFileRoute("/ngf")({
