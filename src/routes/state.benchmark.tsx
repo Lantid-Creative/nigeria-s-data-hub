@@ -48,6 +48,21 @@ function Benchmark() {
         }
       />
 
+      <AiInsightCard
+        mode="benchmark"
+        title="Benchmark Insights"
+        description="Where your state leads, lags, and peers to learn from."
+        context={{
+          state: state?.name ?? code,
+          scope,
+          my_rank: myIdx + 1,
+          peers_total: filtered.length,
+          my_index: me ? Number(me.resilience_index) : null,
+          peer_average: +avg.toFixed(1),
+          top_peers: filtered.slice(0, 6).map((p: any) => ({ name: p.states?.name ?? p.state_code, index: Number(p.resilience_index) })),
+        }}
+      />
+
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="shadow-soft"><CardContent className="p-5">
           <div className="text-xs uppercase tracking-wider text-muted-foreground">Your rank</div>
