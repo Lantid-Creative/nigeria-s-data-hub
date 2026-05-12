@@ -50,6 +50,7 @@ import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
 import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
 import { Route as NgfGrantsRouteImport } from './routes/ngf.grants'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
+import { Route as NgfEngagementRouteImport } from './routes/ngf.engagement'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
 import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
@@ -265,6 +266,11 @@ const NgfForesightRoute = NgfForesightRouteImport.update({
   path: '/foresight',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfEngagementRoute = NgfEngagementRouteImport.update({
+  id: '/engagement',
+  path: '/engagement',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfDataRoute = NgfDataRouteImport.update({
   id: '/data',
   path: '/data',
@@ -336,6 +342,7 @@ export interface FileRoutesByFullPath {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
   '/ngf/horizon': typeof NgfHorizonRoute
@@ -386,6 +393,7 @@ export interface FileRoutesByTo {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
   '/ngf/horizon': typeof NgfHorizonRoute
@@ -439,6 +447,7 @@ export interface FileRoutesById {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
   '/ngf/horizon': typeof NgfHorizonRoute
@@ -493,6 +502,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
     | '/ngf/horizon'
@@ -543,6 +553,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
     | '/ngf/horizon'
@@ -595,6 +606,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
     | '/ngf/horizon'
@@ -930,6 +942,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfForesightRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/engagement': {
+      id: '/ngf/engagement'
+      path: '/engagement'
+      fullPath: '/ngf/engagement'
+      preLoaderRoute: typeof NgfEngagementRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/data': {
       id: '/ngf/data'
       path: '/data'
@@ -1017,6 +1036,7 @@ interface NgfRouteChildren {
   NgfAuditRoute: typeof NgfAuditRoute
   NgfBriefingRoute: typeof NgfBriefingRoute
   NgfDataRoute: typeof NgfDataRoute
+  NgfEngagementRoute: typeof NgfEngagementRoute
   NgfForesightRoute: typeof NgfForesightRoute
   NgfGrantsRoute: typeof NgfGrantsRoute
   NgfHorizonRoute: typeof NgfHorizonRoute
@@ -1040,6 +1060,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfAuditRoute: NgfAuditRoute,
   NgfBriefingRoute: NgfBriefingRoute,
   NgfDataRoute: NgfDataRoute,
+  NgfEngagementRoute: NgfEngagementRoute,
   NgfForesightRoute: NgfForesightRoute,
   NgfGrantsRoute: NgfGrantsRoute,
   NgfHorizonRoute: NgfHorizonRoute,
