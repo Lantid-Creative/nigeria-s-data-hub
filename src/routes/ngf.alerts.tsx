@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAlerts, useAllSubmissions, useAllStates } from "@/lib/state-data";
 import { AiInsightCard } from "@/components/platform/AiInsightCard";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/audit";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Megaphone, Trash2, Send } from "lucide-react";
