@@ -1,14 +1,15 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionHeader } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { LogOut } from "lucide-react";
+import { LogOut, Upload } from "lucide-react";
 
 export const Route = createFileRoute("/state/settings")({ component: Settings });
 
@@ -18,6 +19,10 @@ function Settings() {
   const [fullName, setFullName] = useState("");
   const [title, setTitle] = useState("");
   const [saving, setSaving] = useState(false);
+  const [password, setPassword] = useState("");
+  const [pwSaving, setPwSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setFullName(profile?.full_name ?? "");
@@ -34,13 +39,64 @@ function Settings() {
     refresh();
   }
 
+  async function uploadAvatar(file: File) {
+    if (!user) return;
+    if (file.size > 2 * 1024 * 1024) return toast.error("Max 2 MB");
+    setUploading(true);
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `${user.id}/avatar-${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage.from("avatars").upload(path, file, { upsert: true });
+    if (upErr) {
+      setUploading(false);
+      return toast.error(upErr.message);
+    }
+    const { data } = supabase.storage.from("avatars").getPublicUrl(path);
+    const { error } = await supabase.from("profiles").update({ avatar_url: data.publicUrl }).eq("id", user.id);
+    setUploading(false);
+    if (error) return toast.error(error.message);
+    toast.success("Avatar updated");
+    refresh();
+  }
+
+  async function changePassword() {
+    if (password.length < 8) return toast.error("Minimum 8 characters");
+    setPwSaving(true);
+    const { error } = await supabase.auth.updateUser({ password });
+    setPwSaving(false);
+    if (error) return toast.error(error.message);
+    setPassword("");
+    toast.success("Password updated");
+  }
+
+  const initials = (fullName || user?.email || "?").split(" ").map((s) => s[0]).slice(0, 2).join("").toUpperCase();
+
   return (
     <div className="space-y-6">
       <SectionHeader title="Settings" description="Workspace and account preferences" />
 
       <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">Profile</CardTitle></CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5">
+          <div className="flex items-center gap-4">
+            <Avatar className="h-16 w-16">
+              <AvatarImage src={profile?.avatar_url ?? undefined} />
+              <AvatarFallback>{initials}</AvatarFallback>
+            </Avatar>
+            <div>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => e.target.files?.[0] && uploadAvatar(e.target.files[0])}
+              />
+              <Button variant="outline" size="sm" onClick={() => fileRef.current?.click()} disabled={uploading}>
+                <Upload className="mr-2 h-4 w-4" /> {uploading ? "Uploading…" : "Change avatar"}
+              </Button>
+              <div className="mt-1 text-[11px] text-muted-foreground">JPG or PNG, up to 2 MB</div>
+            </div>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2">
             <div>
               <Label>Email</Label>
@@ -64,8 +120,26 @@ function Settings() {
       </Card>
 
       <Card className="shadow-soft">
+        <CardHeader><CardTitle className="font-display text-lg">Password</CardTitle></CardHeader>
+        <CardContent className="space-y-3">
+          <div className="grid gap-3 md:grid-cols-2">
+            <div>
+              <Label htmlFor="newpw">New password</Label>
+              <Input id="newpw" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Min 8 characters" />
+            </div>
+            <div className="flex items-end">
+              <Button onClick={changePassword} disabled={pwSaving || !password}>
+                {pwSaving ? "Updating…" : "Update password"}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">Roles</CardTitle></CardHeader>
         <CardContent className="space-y-1 text-sm">
+          {roles.length === 0 && <div className="text-muted-foreground">No roles assigned. Contact an NGF administrator.</div>}
           {roles.map((r, i) => (
             <div key={i} className="flex justify-between border-b py-1.5 last:border-0">
               <span className="capitalize">{r.role.replace("_", " ")}</span>

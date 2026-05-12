@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as StatesRouteImport } from './routes/states'
 import { Route as StateRouteImport } from './routes/state'
 import { Route as SnriRouteImport } from './routes/snri'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ResearchRouteImport } from './routes/research'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as NgfRouteImport } from './routes/ngf'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,6 +34,7 @@ import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
+import { Route as NgfUsersRouteImport } from './routes/ngf.users'
 import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
 import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
@@ -61,6 +65,16 @@ const SnriRoute = SnriRouteImport.update({
   path: '/snri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResearchRoute = ResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -89,6 +103,11 @@ const LoginRoute = LoginRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -155,6 +174,11 @@ const StateAlertsRoute = StateAlertsRouteImport.update({
   id: '/alerts',
   path: '/alerts',
   getParentRoute: () => StateRoute,
+} as any)
+const NgfUsersRoute = NgfUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => NgfRoute,
 } as any)
 const NgfSurveysRoute = NgfSurveysRouteImport.update({
   id: '/surveys',
@@ -231,12 +255,15 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
   '/states': typeof StatesRoute
@@ -254,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -269,11 +297,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/states': typeof StatesRoute
   '/legal/data': typeof LegalDataRoute
@@ -290,6 +321,7 @@ export interface FileRoutesByTo {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -306,12 +338,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/legal': typeof LegalRouteWithChildren
   '/login': typeof LoginRoute
   '/methodology': typeof MethodologyRoute
   '/ngf': typeof NgfRouteWithChildren
   '/press': typeof PressRoute
   '/research': typeof ResearchRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
   '/states': typeof StatesRoute
@@ -329,6 +364,7 @@ export interface FileRoutesById {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -346,12 +382,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/state'
     | '/states'
@@ -369,6 +408,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -384,11 +424,14 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/states'
     | '/legal/data'
@@ -405,6 +448,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -420,12 +464,15 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/legal'
     | '/login'
     | '/methodology'
     | '/ngf'
     | '/press'
     | '/research'
+    | '/reset-password'
+    | '/signup'
     | '/snri'
     | '/state'
     | '/states'
@@ -443,6 +490,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -459,12 +507,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LegalRoute: typeof LegalRouteWithChildren
   LoginRoute: typeof LoginRoute
   MethodologyRoute: typeof MethodologyRoute
   NgfRoute: typeof NgfRouteWithChildren
   PressRoute: typeof PressRoute
   ResearchRoute: typeof ResearchRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SignupRoute: typeof SignupRoute
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
   StatesRoute: typeof StatesRoute
@@ -491,6 +542,20 @@ declare module '@tanstack/react-router' {
       path: '/snri'
       fullPath: '/snri'
       preLoaderRoute: typeof SnriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/research': {
@@ -533,6 +598,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -625,6 +697,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/state/alerts'
       preLoaderRoute: typeof StateAlertsRouteImport
       parentRoute: typeof StateRoute
+    }
+    '/ngf/users': {
+      id: '/ngf/users'
+      path: '/users'
+      fullPath: '/ngf/users'
+      preLoaderRoute: typeof NgfUsersRouteImport
+      parentRoute: typeof NgfRoute
     }
     '/ngf/surveys': {
       id: '/ngf/surveys'
@@ -753,6 +832,7 @@ interface NgfRouteChildren {
   NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
   NgfSurveysRoute: typeof NgfSurveysRoute
+  NgfUsersRoute: typeof NgfUsersRoute
   NgfIndexRoute: typeof NgfIndexRoute
 }
 
@@ -768,6 +848,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
   NgfSurveysRoute: NgfSurveysRoute,
+  NgfUsersRoute: NgfUsersRoute,
   NgfIndexRoute: NgfIndexRoute,
 }
 
@@ -803,12 +884,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LegalRoute: LegalRouteWithChildren,
   LoginRoute: LoginRoute,
   MethodologyRoute: MethodologyRoute,
   NgfRoute: NgfRouteWithChildren,
   PressRoute: PressRoute,
   ResearchRoute: ResearchRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SignupRoute: SignupRoute,
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
   StatesRoute: StatesRoute,
@@ -816,12 +900,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
