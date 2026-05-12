@@ -252,6 +252,7 @@ function ScoresImportPanel({ cycles, qc }: any) {
     setBusy(false);
     if (error) return toast.error(error.message);
     toast.success(`Imported ${payload.length} score rows`);
+    logEvent("scores.import", "state_scores", cycleId, { rows: payload.length });
     setPreview([]); if (fileRef.current) fileRef.current.value = "";
     qc.invalidateQueries({ queryKey: ["all-states-scores"] });
   };
