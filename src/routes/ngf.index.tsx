@@ -70,6 +70,20 @@ function NgfOverview() {
         <StatCard label="Open Risk Alerts" value={highAlerts} icon={AlertTriangle} accent="destructive" />
       </div>
 
+      <AiInsightCard
+        mode="briefing"
+        title="Executive Briefing"
+        description="90-second AI briefing on the national picture, signals and decisions for this week."
+        context={{
+          national_snri: nationalSnri,
+          states_reporting: reporting,
+          active_pilots: pilots.length,
+          high_alerts: highAlerts,
+          sectors,
+          recent_alerts: alerts.slice(0, 8).map((a: any) => ({ title: a.title, level: a.level, audience: a.audience })),
+        }}
+      />
+
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2 shadow-soft">
           <CardHeader>
