@@ -2,9 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeader } from "@/components/platform/widgets";
 import { AiInsightCard } from "@/components/platform/AiInsightCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useAllStatesLatestScores, useAlerts, useAllSubmissions, useNationalSnriTrend } from "@/lib/state-data";
-import { Brain, RefreshCw } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/ngf/briefing")({ component: Briefing });
 
@@ -23,9 +24,34 @@ function Briefing() {
   const bottom5 = sorted.slice(0, 5).map((s: any) => ({ state: s.states?.name, snri: Number(s.resilience_index) }));
   const top5 = sorted.slice(-5).reverse().map((s: any) => ({ state: s.states?.name, snri: Number(s.resilience_index) }));
 
+  const { data: stored } = useQuery({
+    queryKey: ["latest-briefing"],
+    queryFn: async () => {
+      const { data } = await supabase.from("ai_briefings").select("*").eq("scope", "national").order("briefing_date", { ascending: false }).limit(1).maybeSingle();
+      return data;
+    },
+  });
+
   return (
     <div className="space-y-6">
       <SectionHeader title="Daily Executive Briefing" description="AI-generated overview of the national picture for the Director-General" />
+
+      {stored && (
+        <Card className="shadow-soft border-primary/20 bg-gradient-to-br from-primary/5 to-gold/5">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle className="font-display text-lg">Cron-generated brief · {stored.briefing_date}</CardTitle>
+            <Badge variant="outline">auto · 06:00 UTC</Badge>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {stored.summary && <p className="text-sm">{stored.summary}</p>}
+            {Array.isArray(stored.bullets) && stored.bullets.length > 0 && (
+              <ul className="ml-4 list-disc space-y-1 text-sm text-muted-foreground">
+                {stored.bullets.map((b: string, i: number) => <li key={i}>{b}</li>)}
+              </ul>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <AiInsightCard
         mode="briefing"
