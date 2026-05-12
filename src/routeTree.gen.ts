@@ -47,6 +47,8 @@ import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
 import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
 import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
+import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
+import { Route as NgfGrantsRouteImport } from './routes/ngf.grants'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
@@ -248,6 +250,16 @@ const NgfInboxRoute = NgfInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfHorizonRoute = NgfHorizonRouteImport.update({
+  id: '/horizon',
+  path: '/horizon',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfGrantsRoute = NgfGrantsRouteImport.update({
+  id: '/grants',
+  path: '/grants',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfForesightRoute = NgfForesightRouteImport.update({
   id: '/foresight',
   path: '/foresight',
@@ -325,6 +337,8 @@ export interface FileRoutesByFullPath {
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
@@ -373,6 +387,8 @@ export interface FileRoutesByTo {
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
@@ -424,6 +440,8 @@ export interface FileRoutesById {
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/reports': typeof NgfReportsRoute
@@ -476,6 +494,8 @@ export interface FileRouteTypes {
     | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
@@ -524,6 +544,8 @@ export interface FileRouteTypes {
     | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
@@ -574,6 +596,8 @@ export interface FileRouteTypes {
     | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
     | '/ngf/reports'
@@ -885,6 +909,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfInboxRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/horizon': {
+      id: '/ngf/horizon'
+      path: '/horizon'
+      fullPath: '/ngf/horizon'
+      preLoaderRoute: typeof NgfHorizonRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/grants': {
+      id: '/ngf/grants'
+      path: '/grants'
+      fullPath: '/ngf/grants'
+      preLoaderRoute: typeof NgfGrantsRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/foresight': {
       id: '/ngf/foresight'
       path: '/foresight'
@@ -980,6 +1018,8 @@ interface NgfRouteChildren {
   NgfBriefingRoute: typeof NgfBriefingRoute
   NgfDataRoute: typeof NgfDataRoute
   NgfForesightRoute: typeof NgfForesightRoute
+  NgfGrantsRoute: typeof NgfGrantsRoute
+  NgfHorizonRoute: typeof NgfHorizonRoute
   NgfInboxRoute: typeof NgfInboxRoute
   NgfInnovationRoute: typeof NgfInnovationRoute
   NgfReportsRoute: typeof NgfReportsRoute
@@ -1001,6 +1041,8 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfBriefingRoute: NgfBriefingRoute,
   NgfDataRoute: NgfDataRoute,
   NgfForesightRoute: NgfForesightRoute,
+  NgfGrantsRoute: NgfGrantsRoute,
+  NgfHorizonRoute: NgfHorizonRoute,
   NgfInboxRoute: NgfInboxRoute,
   NgfInnovationRoute: NgfInnovationRoute,
   NgfReportsRoute: NgfReportsRoute,
@@ -1068,3 +1110,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
