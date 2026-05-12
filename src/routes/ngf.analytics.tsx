@@ -99,7 +99,14 @@ function Analytics() {
       <SectionHeader
         title="Analytics"
         description="Deep multi-dimensional analytics across all states"
-        action={<Badge className="bg-gold text-gold-foreground"><Sparkles className="mr-1 h-3 w-3" />Live data</Badge>}
+        action={
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={exportStates}>
+              <Download className="mr-1 h-3.5 w-3.5" /> States CSV
+            </Button>
+            <Badge className="bg-gold text-gold-foreground"><Sparkles className="mr-1 h-3 w-3" />Live data</Badge>
+          </div>
+        }
       />
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -108,6 +115,18 @@ function Analytics() {
         <StatCard label="Cycles tracked" value={trend.length} icon={TrendingUp} accent="gold" />
         <StatCard label="States scored" value={scores.length} icon={Brain} accent="primary" />
       </div>
+
+      <AiInsightCard
+        mode="snri"
+        title="Analytics Narrative"
+        description="AI commentary on national trends, geo-spatial spread, and correlations."
+        context={{
+          trend,
+          zone_performance: zoneData,
+          correlation: { x: xLabel, y: yLabel, pearson_r: correlation },
+          dimensions: (dims as any[]).map((d) => d.name),
+        }}
+      />
 
       <Tabs defaultValue="trends">
         <TabsList>
