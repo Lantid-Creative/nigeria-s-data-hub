@@ -4,7 +4,7 @@ import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, FileSpreadsheet, Database, Users, Bell,
-  Settings, BookOpen, Activity, MessageSquare, Lightbulb,
+  Settings, BookOpen, Activity, MessageSquare, Lightbulb, Target, FolderUp,
 } from "lucide-react";
 
 export const Route = createFileRoute("/state")({
@@ -32,6 +32,8 @@ function StateLayout() {
                 { title: "Surveys", url: "/state/surveys", icon: FileSpreadsheet },
                 { title: "State Profile", url: "/state/profile", icon: Database },
                 { title: "Indicators", url: "/state/indicators", icon: Activity },
+                { title: "Commitments", url: "/state/commitments", icon: Target },
+                { title: "Evidence Vault", url: "/state/evidence", icon: FolderUp },
               ],
             },
             {

@@ -33,6 +33,8 @@ import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateInnovationRouteImport } from './routes/state.innovation'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
+import { Route as StateEvidenceRouteImport } from './routes/state.evidence'
+import { Route as StateCommitmentsRouteImport } from './routes/state.commitments'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
 import { Route as NgfUsersRouteImport } from './routes/ngf.users'
@@ -40,13 +42,21 @@ import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
 import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
 import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
+import { Route as NgfRisksRouteImport } from './routes/ngf.risks'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
+import { Route as NgfPublishRouteImport } from './routes/ngf.publish'
+import { Route as NgfPressRouteImport } from './routes/ngf.press'
 import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
 import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
+import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
+import { Route as NgfGrantsRouteImport } from './routes/ngf.grants'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
+import { Route as NgfEngagementRouteImport } from './routes/ngf.engagement'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
+import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
 import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
+import { Route as NgfAskdataRouteImport } from './routes/ngf.askdata'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
@@ -173,6 +183,16 @@ const StateIndicatorsRoute = StateIndicatorsRouteImport.update({
   path: '/indicators',
   getParentRoute: () => StateRoute,
 } as any)
+const StateEvidenceRoute = StateEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateCommitmentsRoute = StateCommitmentsRouteImport.update({
+  id: '/commitments',
+  path: '/commitments',
+  getParentRoute: () => StateRoute,
+} as any)
 const StateBenchmarkRoute = StateBenchmarkRouteImport.update({
   id: '/benchmark',
   path: '/benchmark',
@@ -208,6 +228,11 @@ const NgfSettingsRoute = NgfSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfRisksRoute = NgfRisksRouteImport.update({
+  id: '/risks',
+  path: '/risks',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfResearchRoute = NgfResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -216,6 +241,16 @@ const NgfResearchRoute = NgfResearchRouteImport.update({
 const NgfReportsRoute = NgfReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfPublishRoute = NgfPublishRouteImport.update({
+  id: '/publish',
+  path: '/publish',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfPressRoute = NgfPressRouteImport.update({
+  id: '/press',
+  path: '/press',
   getParentRoute: () => NgfRoute,
 } as any)
 const NgfInnovationRoute = NgfInnovationRouteImport.update({
@@ -228,9 +263,24 @@ const NgfInboxRoute = NgfInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfHorizonRoute = NgfHorizonRouteImport.update({
+  id: '/horizon',
+  path: '/horizon',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfGrantsRoute = NgfGrantsRouteImport.update({
+  id: '/grants',
+  path: '/grants',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfForesightRoute = NgfForesightRouteImport.update({
   id: '/foresight',
   path: '/foresight',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfEngagementRoute = NgfEngagementRouteImport.update({
+  id: '/engagement',
+  path: '/engagement',
   getParentRoute: () => NgfRoute,
 } as any)
 const NgfDataRoute = NgfDataRouteImport.update({
@@ -238,9 +288,19 @@ const NgfDataRoute = NgfDataRouteImport.update({
   path: '/data',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfBriefingRoute = NgfBriefingRouteImport.update({
+  id: '/briefing',
+  path: '/briefing',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfAuditRoute = NgfAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfAskdataRoute = NgfAskdataRouteImport.update({
+  id: '/askdata',
+  path: '/askdata',
   getParentRoute: () => NgfRoute,
 } as any)
 const NgfAnalyticsRoute = NgfAnalyticsRouteImport.update({
@@ -290,13 +350,21 @@ export interface FileRoutesByFullPath {
   '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
+  '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/risks': typeof NgfRisksRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -304,6 +372,8 @@ export interface FileRoutesByFullPath {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -333,13 +403,21 @@ export interface FileRoutesByTo {
   '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
+  '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/risks': typeof NgfRisksRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -347,6 +425,8 @@ export interface FileRoutesByTo {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -379,13 +459,21 @@ export interface FileRoutesById {
   '/legal/terms': typeof LegalTermsRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
+  '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
+  '/ngf/grants': typeof NgfGrantsRoute
+  '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
+  '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/risks': typeof NgfRisksRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -393,6 +481,8 @@ export interface FileRoutesById {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
+  '/state/evidence': typeof StateEvidenceRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -426,13 +516,21 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/askdata'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
+    | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/risks'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -440,6 +538,8 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -469,13 +569,21 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/askdata'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
+    | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/risks'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -483,6 +591,8 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -514,13 +624,21 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/ngf/alerts'
     | '/ngf/analytics'
+    | '/ngf/askdata'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/engagement'
     | '/ngf/foresight'
+    | '/ngf/grants'
+    | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
+    | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/risks'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -528,6 +646,8 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
+    | '/state/evidence'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -727,6 +847,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateIndicatorsRouteImport
       parentRoute: typeof StateRoute
     }
+    '/state/evidence': {
+      id: '/state/evidence'
+      path: '/evidence'
+      fullPath: '/state/evidence'
+      preLoaderRoute: typeof StateEvidenceRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/commitments': {
+      id: '/state/commitments'
+      path: '/commitments'
+      fullPath: '/state/commitments'
+      preLoaderRoute: typeof StateCommitmentsRouteImport
+      parentRoute: typeof StateRoute
+    }
     '/state/benchmark': {
       id: '/state/benchmark'
       path: '/benchmark'
@@ -776,6 +910,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfSettingsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/risks': {
+      id: '/ngf/risks'
+      path: '/risks'
+      fullPath: '/ngf/risks'
+      preLoaderRoute: typeof NgfRisksRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/research': {
       id: '/ngf/research'
       path: '/research'
@@ -788,6 +929,20 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/ngf/reports'
       preLoaderRoute: typeof NgfReportsRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/publish': {
+      id: '/ngf/publish'
+      path: '/publish'
+      fullPath: '/ngf/publish'
+      preLoaderRoute: typeof NgfPublishRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/press': {
+      id: '/ngf/press'
+      path: '/press'
+      fullPath: '/ngf/press'
+      preLoaderRoute: typeof NgfPressRouteImport
       parentRoute: typeof NgfRoute
     }
     '/ngf/innovation': {
@@ -804,11 +959,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfInboxRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/horizon': {
+      id: '/ngf/horizon'
+      path: '/horizon'
+      fullPath: '/ngf/horizon'
+      preLoaderRoute: typeof NgfHorizonRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/grants': {
+      id: '/ngf/grants'
+      path: '/grants'
+      fullPath: '/ngf/grants'
+      preLoaderRoute: typeof NgfGrantsRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/foresight': {
       id: '/ngf/foresight'
       path: '/foresight'
       fullPath: '/ngf/foresight'
       preLoaderRoute: typeof NgfForesightRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/engagement': {
+      id: '/ngf/engagement'
+      path: '/engagement'
+      fullPath: '/ngf/engagement'
+      preLoaderRoute: typeof NgfEngagementRouteImport
       parentRoute: typeof NgfRoute
     }
     '/ngf/data': {
@@ -818,11 +994,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfDataRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/briefing': {
+      id: '/ngf/briefing'
+      path: '/briefing'
+      fullPath: '/ngf/briefing'
+      preLoaderRoute: typeof NgfBriefingRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/audit': {
       id: '/ngf/audit'
       path: '/audit'
       fullPath: '/ngf/audit'
       preLoaderRoute: typeof NgfAuditRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/askdata': {
+      id: '/ngf/askdata'
+      path: '/askdata'
+      fullPath: '/ngf/askdata'
+      preLoaderRoute: typeof NgfAskdataRouteImport
       parentRoute: typeof NgfRoute
     }
     '/ngf/analytics': {
@@ -880,13 +1070,21 @@ const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 interface NgfRouteChildren {
   NgfAlertsRoute: typeof NgfAlertsRoute
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
+  NgfAskdataRoute: typeof NgfAskdataRoute
   NgfAuditRoute: typeof NgfAuditRoute
+  NgfBriefingRoute: typeof NgfBriefingRoute
   NgfDataRoute: typeof NgfDataRoute
+  NgfEngagementRoute: typeof NgfEngagementRoute
   NgfForesightRoute: typeof NgfForesightRoute
+  NgfGrantsRoute: typeof NgfGrantsRoute
+  NgfHorizonRoute: typeof NgfHorizonRoute
   NgfInboxRoute: typeof NgfInboxRoute
   NgfInnovationRoute: typeof NgfInnovationRoute
+  NgfPressRoute: typeof NgfPressRoute
+  NgfPublishRoute: typeof NgfPublishRoute
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
+  NgfRisksRoute: typeof NgfRisksRoute
   NgfSettingsRoute: typeof NgfSettingsRoute
   NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
@@ -898,13 +1096,21 @@ interface NgfRouteChildren {
 const NgfRouteChildren: NgfRouteChildren = {
   NgfAlertsRoute: NgfAlertsRoute,
   NgfAnalyticsRoute: NgfAnalyticsRoute,
+  NgfAskdataRoute: NgfAskdataRoute,
   NgfAuditRoute: NgfAuditRoute,
+  NgfBriefingRoute: NgfBriefingRoute,
   NgfDataRoute: NgfDataRoute,
+  NgfEngagementRoute: NgfEngagementRoute,
   NgfForesightRoute: NgfForesightRoute,
+  NgfGrantsRoute: NgfGrantsRoute,
+  NgfHorizonRoute: NgfHorizonRoute,
   NgfInboxRoute: NgfInboxRoute,
   NgfInnovationRoute: NgfInnovationRoute,
+  NgfPressRoute: NgfPressRoute,
+  NgfPublishRoute: NgfPublishRoute,
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
+  NgfRisksRoute: NgfRisksRoute,
   NgfSettingsRoute: NgfSettingsRoute,
   NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
@@ -918,6 +1124,8 @@ const NgfRouteWithChildren = NgfRoute._addFileChildren(NgfRouteChildren)
 interface StateRouteChildren {
   StateAlertsRoute: typeof StateAlertsRoute
   StateBenchmarkRoute: typeof StateBenchmarkRoute
+  StateCommitmentsRoute: typeof StateCommitmentsRoute
+  StateEvidenceRoute: typeof StateEvidenceRoute
   StateIndicatorsRoute: typeof StateIndicatorsRoute
   StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
@@ -931,6 +1139,8 @@ interface StateRouteChildren {
 const StateRouteChildren: StateRouteChildren = {
   StateAlertsRoute: StateAlertsRoute,
   StateBenchmarkRoute: StateBenchmarkRoute,
+  StateCommitmentsRoute: StateCommitmentsRoute,
+  StateEvidenceRoute: StateEvidenceRoute,
   StateIndicatorsRoute: StateIndicatorsRoute,
   StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
@@ -963,12 +1173,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
