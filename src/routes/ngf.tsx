@@ -52,6 +52,7 @@ function NgfLayout() {
                 { title: "Data Hub", url: "/ngf/data", icon: Database },
                 { title: "Survey Engine", url: "/ngf/surveys", icon: GitBranch },
                 { title: "Alerts", url: "/ngf/alerts", icon: Bell },
+                { title: "Public Inbox", url: "/ngf/inbox", icon: Inbox },
                 { title: "Users & Roles", url: "/ngf/users", icon: Users },
                 { title: "Settings", url: "/ngf/settings", icon: Settings },
               ],
