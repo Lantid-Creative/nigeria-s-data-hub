@@ -9,7 +9,8 @@ import { toast } from "sonner";
 
 type Mode =
   | "prediction" | "automation" | "report" | "research"
-  | "briefing" | "snri" | "state_advisor" | "benchmark" | "survey_helper";
+  | "briefing" | "snri" | "state_advisor" | "benchmark" | "survey_helper"
+  | "anomaly" | "narrative" | "ask_data" | "hotspot" | "pilot_advisor";
 
 export function AiInsightCard({
   mode,
