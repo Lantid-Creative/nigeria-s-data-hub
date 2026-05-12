@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_briefings: {
+        Row: {
+          briefing_date: string
+          bullets: Json
+          created_at: string
+          id: string
+          scope: string
+          summary: string | null
+        }
+        Insert: {
+          briefing_date?: string
+          bullets?: Json
+          created_at?: string
+          id?: string
+          scope: string
+          summary?: string | null
+        }
+        Update: {
+          briefing_date?: string
+          bullets?: Json
+          created_at?: string
+          id?: string
+          scope?: string
+          summary?: string | null
+        }
+        Relationships: []
+      }
       alert_reads: {
         Row: {
           alert_id: string
@@ -111,6 +138,59 @@ export type Database = {
         }
         Relationships: []
       }
+      commitments: {
+        Row: {
+          created_at: string
+          cycle_id: string | null
+          description: string | null
+          dimension_code: string | null
+          id: string
+          owner: string | null
+          progress: number
+          state_code: string
+          status: string
+          target_date: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cycle_id?: string | null
+          description?: string | null
+          dimension_code?: string | null
+          id?: string
+          owner?: string | null
+          progress?: number
+          state_code: string
+          status?: string
+          target_date?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cycle_id?: string | null
+          description?: string | null
+          dimension_code?: string | null
+          id?: string
+          owner?: string | null
+          progress?: number
+          state_code?: string
+          status?: string
+          target_date?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "commitments_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "reporting_cycles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -162,6 +242,152 @@ export type Database = {
           description?: string | null
           name?: string
           sort_order?: number
+        }
+        Relationships: []
+      }
+      evidence_uploads: {
+        Row: {
+          created_at: string
+          cycle_id: string | null
+          file_name: string
+          file_path: string
+          id: string
+          question_code: string | null
+          size_bytes: number | null
+          state_code: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          cycle_id?: string | null
+          file_name: string
+          file_path: string
+          id?: string
+          question_code?: string | null
+          size_bytes?: number | null
+          state_code: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          cycle_id?: string | null
+          file_name?: string
+          file_path?: string
+          id?: string
+          question_code?: string | null
+          size_bytes?: number | null
+          state_code?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "evidence_uploads_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "reporting_cycles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      governor_engagement: {
+        Row: {
+          created_at: string
+          event_date: string
+          event_type: string
+          id: string
+          responsiveness: number | null
+          state_code: string
+          summary: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_date?: string
+          event_type: string
+          id?: string
+          responsiveness?: number | null
+          state_code: string
+          summary?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_date?: string
+          event_type?: string
+          id?: string
+          responsiveness?: number | null
+          state_code?: string
+          summary?: string | null
+        }
+        Relationships: []
+      }
+      grants_registry: {
+        Row: {
+          amount_usd: number | null
+          created_at: string
+          donor: string
+          end_date: string | null
+          id: string
+          notes: string | null
+          program: string
+          start_date: string | null
+          state_code: string | null
+          status: string
+        }
+        Insert: {
+          amount_usd?: number | null
+          created_at?: string
+          donor: string
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          program: string
+          start_date?: string | null
+          state_code?: string | null
+          status?: string
+        }
+        Update: {
+          amount_usd?: number | null
+          created_at?: string
+          donor?: string
+          end_date?: string | null
+          id?: string
+          notes?: string | null
+          program?: string
+          start_date?: string | null
+          state_code?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      horizon_signals: {
+        Row: {
+          created_at: string
+          dimension_code: string | null
+          id: string
+          signal_type: string | null
+          source_url: string | null
+          summary: string | null
+          tags: string[] | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          dimension_code?: string | null
+          id?: string
+          signal_type?: string | null
+          source_url?: string | null
+          summary?: string | null
+          tags?: string[] | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          dimension_code?: string | null
+          id?: string
+          signal_type?: string | null
+          source_url?: string | null
+          summary?: string | null
+          tags?: string[] | null
+          title?: string
         }
         Relationships: []
       }
@@ -244,6 +470,42 @@ export type Database = {
           },
         ]
       }
+      press_clippings: {
+        Row: {
+          created_at: string
+          headline: string
+          id: string
+          outlet: string | null
+          published_at: string
+          sentiment: string | null
+          state_code: string | null
+          topic: string | null
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          headline: string
+          id?: string
+          outlet?: string | null
+          published_at?: string
+          sentiment?: string | null
+          state_code?: string | null
+          topic?: string | null
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          headline?: string
+          id?: string
+          outlet?: string | null
+          published_at?: string
+          sentiment?: string | null
+          state_code?: string | null
+          topic?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -273,6 +535,77 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      publish_queue: {
+        Row: {
+          approver_id: string | null
+          artifact_id: string | null
+          artifact_type: string
+          created_at: string
+          created_by: string | null
+          id: string
+          notes: string | null
+          scheduled_for: string | null
+          status: string
+          title: string
+        }
+        Insert: {
+          approver_id?: string | null
+          artifact_id?: string | null
+          artifact_type: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_for?: string | null
+          status?: string
+          title: string
+        }
+        Update: {
+          approver_id?: string | null
+          artifact_id?: string | null
+          artifact_type?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notes?: string | null
+          scheduled_for?: string | null
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      report_downloads_log: {
+        Row: {
+          created_at: string
+          id: string
+          report_id: string
+          state_code: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          report_id: string
+          state_code?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          report_id?: string
+          state_code?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_downloads_log_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "reports"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       reporting_cycles: {
         Row: {
@@ -370,6 +703,92 @@ export type Database = {
         }
         Relationships: []
       }
+      reviewer_feedback: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          question_code: string | null
+          resolved: boolean
+          reviewer_id: string | null
+          state_code: string
+          submission_id: string | null
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          question_code?: string | null
+          resolved?: boolean
+          reviewer_id?: string | null
+          state_code: string
+          submission_id?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          question_code?: string | null
+          resolved?: boolean
+          reviewer_id?: string | null
+          state_code?: string
+          submission_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviewer_feedback_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "survey_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      risk_register: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          dimension_code: string | null
+          id: string
+          impact: number
+          mitigation: string | null
+          probability: number
+          state_code: string | null
+          status: string
+          title: string
+          trend: string | null
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          dimension_code?: string | null
+          id?: string
+          impact?: number
+          mitigation?: string | null
+          probability?: number
+          state_code?: string | null
+          status?: string
+          title: string
+          trend?: string | null
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          dimension_code?: string | null
+          id?: string
+          impact?: number
+          mitigation?: string | null
+          probability?: number
+          state_code?: string | null
+          status?: string
+          title?: string
+          trend?: string | null
+        }
+        Relationships: []
+      }
       scenarios: {
         Row: {
           code: string
@@ -402,6 +821,44 @@ export type Database = {
           summary?: string
         }
         Relationships: []
+      }
+      state_nudges: {
+        Row: {
+          channel: string | null
+          cycle_id: string | null
+          id: string
+          message: string
+          sent_at: string
+          sent_by: string | null
+          state_code: string
+        }
+        Insert: {
+          channel?: string | null
+          cycle_id?: string | null
+          id?: string
+          message: string
+          sent_at?: string
+          sent_by?: string | null
+          state_code: string
+        }
+        Update: {
+          channel?: string | null
+          cycle_id?: string | null
+          id?: string
+          message?: string
+          sent_at?: string
+          sent_by?: string | null
+          state_code?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "state_nudges_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "reporting_cycles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       state_scores: {
         Row: {
@@ -497,6 +954,39 @@ export type Database = {
             referencedColumns: ["code"]
           },
         ]
+      }
+      support_tickets: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          priority: string
+          state_code: string
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          priority?: string
+          state_code: string
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          priority?: string
+          state_code?: string
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       survey_questions: {
         Row: {
@@ -686,6 +1176,41 @@ export type Database = {
             columns: ["cycle_id"]
             isOneToOne: false
             referencedRelation: "reporting_cycles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ticket_messages: {
+        Row: {
+          author_id: string | null
+          author_role: string
+          body: string
+          created_at: string
+          id: string
+          ticket_id: string
+        }
+        Insert: {
+          author_id?: string | null
+          author_role: string
+          body: string
+          created_at?: string
+          id?: string
+          ticket_id: string
+        }
+        Update: {
+          author_id?: string | null
+          author_role?: string
+          body?: string
+          created_at?: string
+          id?: string
+          ticket_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ticket_messages_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
             referencedColumns: ["id"]
           },
         ]
