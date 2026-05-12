@@ -59,7 +59,7 @@ function AuditPage() {
       entity_id: r.entity_id ?? "",
       metadata: JSON.stringify(r.metadata ?? {}),
     }));
-    downloadCsv(`audit-log-${new Date().toISOString().slice(0, 10)}.csv`, toCsv(rows));
+    downloadCsv(`audit-log-${new Date().toISOString().slice(0, 10)}.csv`, rows);
   };
 
   return (
