@@ -3,7 +3,8 @@ import { SectionHeader } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield } from "lucide-react";
 import { ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip } from "recharts";
-import { useAllStatesLatestScores, useDimensions } from "@/lib/state-data";
+import { useAllStatesLatestScores, useDimensions, useNationalSnriTrend } from "@/lib/state-data";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/snri")({ component: SNRI });
 
