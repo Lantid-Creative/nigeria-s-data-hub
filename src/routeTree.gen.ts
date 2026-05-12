@@ -34,6 +34,7 @@ import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
+import { Route as NgfUsersRouteImport } from './routes/ngf.users'
 import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
 import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
@@ -174,6 +175,11 @@ const StateAlertsRoute = StateAlertsRouteImport.update({
   path: '/alerts',
   getParentRoute: () => StateRoute,
 } as any)
+const NgfUsersRoute = NgfUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfSurveysRoute = NgfSurveysRouteImport.update({
   id: '/surveys',
   path: '/surveys',
@@ -275,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -314,6 +321,7 @@ export interface FileRoutesByTo {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -356,6 +364,7 @@ export interface FileRoutesById {
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
   '/ngf/surveys': typeof NgfSurveysRoute
+  '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
@@ -399,6 +408,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -438,6 +448,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -479,6 +490,7 @@ export interface FileRouteTypes {
     | '/ngf/snri'
     | '/ngf/states'
     | '/ngf/surveys'
+    | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
@@ -686,6 +698,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateAlertsRouteImport
       parentRoute: typeof StateRoute
     }
+    '/ngf/users': {
+      id: '/ngf/users'
+      path: '/users'
+      fullPath: '/ngf/users'
+      preLoaderRoute: typeof NgfUsersRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/surveys': {
       id: '/ngf/surveys'
       path: '/surveys'
@@ -813,6 +832,7 @@ interface NgfRouteChildren {
   NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
   NgfSurveysRoute: typeof NgfSurveysRoute
+  NgfUsersRoute: typeof NgfUsersRoute
   NgfIndexRoute: typeof NgfIndexRoute
 }
 
@@ -828,6 +848,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
   NgfSurveysRoute: NgfSurveysRoute,
+  NgfUsersRoute: NgfUsersRoute,
   NgfIndexRoute: NgfIndexRoute,
 }
 
