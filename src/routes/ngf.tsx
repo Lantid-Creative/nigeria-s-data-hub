@@ -54,6 +54,7 @@ function NgfLayout() {
                 { title: "Alerts", url: "/ngf/alerts", icon: Bell },
                 { title: "Public Inbox", url: "/ngf/inbox", icon: Inbox },
                 { title: "Users & Roles", url: "/ngf/users", icon: Users },
+                { title: "Audit Log", url: "/ngf/audit", icon: Activity },
                 { title: "Settings", url: "/ngf/settings", icon: Settings },
               ],
             },
