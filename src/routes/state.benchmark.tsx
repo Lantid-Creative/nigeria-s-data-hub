@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAllStatesLatestScores, useStateCode, useStateRow } from "@/lib/state-data";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/state/benchmark")({ component: Benchmark });
 
@@ -45,6 +46,21 @@ function Benchmark() {
             </TabsList>
           </Tabs>
         }
+      />
+
+      <AiInsightCard
+        mode="benchmark"
+        title="Benchmark Insights"
+        description="Where your state leads, lags, and peers to learn from."
+        context={{
+          state: state?.name ?? code,
+          scope,
+          my_rank: myIdx + 1,
+          peers_total: filtered.length,
+          my_index: me ? Number(me.resilience_index) : null,
+          peer_average: +avg.toFixed(1),
+          top_peers: filtered.slice(0, 6).map((p: any) => ({ name: p.states?.name ?? p.state_code, index: Number(p.resilience_index) })),
+        }}
       />
 
       <div className="grid gap-4 md:grid-cols-3">
