@@ -13,16 +13,33 @@ export const Route = createFileRoute("/state/indicators")({ component: Indicator
 
 function Indicators() {
   const code = useStateCode();
+  const { data: state } = useStateRow(code);
   const { data: dims = [] } = useDimensions();
   const { data: inds = [] } = useIndicators();
   const { data: scores = [] } = useStateScores(code);
   const latest = scores[scores.length - 1];
+
+  const exportAll = () => downloadCsv(`${code}-indicators`, (inds as any[]).map((i: any) => {
+    const dim = (dims as any[]).find((d) => d.code === i.dimension_code);
+    return {
+      dimension: dim?.name ?? i.dimension_code,
+      indicator: i.name,
+      sub_component: i.sub_component ?? "",
+      source: i.source ?? "",
+      direction: i.direction === "+" ? "Higher better" : "Lower better",
+    };
+  }));
 
   return (
     <div className="space-y-6">
       <SectionHeader
         title="Indicators"
         description="Track all 48 indicators across the 7 SNRi resilience dimensions"
+        action={
+          <Button variant="outline" size="sm" onClick={exportAll}>
+            <Download className="mr-1 h-3.5 w-3.5" /> Export CSV
+          </Button>
+        }
       />
 
       <Tabs defaultValue={dims[0]?.code ?? "ECON"}>
