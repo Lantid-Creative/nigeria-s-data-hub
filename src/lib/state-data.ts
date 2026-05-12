@@ -104,6 +104,27 @@ export function useSurveys() {
   });
 }
 
+export function useSurveyStructure(surveyId: string | undefined) {
+  return useQuery({
+    queryKey: ["survey-structure", surveyId],
+    enabled: !!surveyId,
+    queryFn: async () => {
+      const { data: sections, error: e1 } = await supabase
+        .from("survey_sections").select("*").eq("survey_id", surveyId!).order("sort_order");
+      if (e1) throw e1;
+      const ids = (sections ?? []).map((s) => s.id);
+      if (!ids.length) return [];
+      const { data: questions, error: e2 } = await supabase
+        .from("survey_questions").select("*").in("section_id", ids).order("sort_order");
+      if (e2) throw e2;
+      return (sections ?? []).map((s) => ({
+        ...s,
+        questions: (questions ?? []).filter((q) => q.section_id === s.id),
+      }));
+    },
+  });
+}
+
 export function useStateSubmissions(code: string) {
   return useQuery({
     queryKey: ["submissions", code],
