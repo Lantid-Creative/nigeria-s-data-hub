@@ -16,6 +16,7 @@ const DIM_KEY: Record<string, string> = {
 function SNRI() {
   const { data: dims = [] } = useDimensions();
   const { data: scores = [] } = useAllStatesLatestScores();
+  const { data: trend = [] } = useNationalSnriTrend();
 
   const radar = (dims as any[]).map((d) => {
     const k = DIM_KEY[d.code];
@@ -27,6 +28,12 @@ function SNRI() {
   return (
     <div className="space-y-6">
       <SectionHeader title="Sub-National Resilience Index" description="Composite measuring 36 states across 7 dimensions" />
+      <AiInsightCard
+        mode="snri"
+        title="SNRI Analysis"
+        description="AI commentary on what's driving the index and where policy should focus."
+        context={{ trend, dimension_avg: radar, states: scores.length }}
+      />
       <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">National composite</CardTitle></CardHeader>
         <CardContent>
