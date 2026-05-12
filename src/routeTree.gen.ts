@@ -45,6 +45,7 @@ import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
 import { Route as NgfRisksRouteImport } from './routes/ngf.risks'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
+import { Route as NgfPressRouteImport } from './routes/ngf.press'
 import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
 import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
 import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
@@ -241,6 +242,11 @@ const NgfReportsRoute = NgfReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfPressRoute = NgfPressRouteImport.update({
+  id: '/press',
+  path: '/press',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfInnovationRoute = NgfInnovationRouteImport.update({
   id: '/innovation',
   path: '/innovation',
@@ -348,6 +354,7 @@ export interface FileRoutesByFullPath {
   '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -399,6 +406,7 @@ export interface FileRoutesByTo {
   '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -453,6 +461,7 @@ export interface FileRoutesById {
   '/ngf/horizon': typeof NgfHorizonRoute
   '/ngf/inbox': typeof NgfInboxRoute
   '/ngf/innovation': typeof NgfInnovationRoute
+  '/ngf/press': typeof NgfPressRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -508,6 +517,7 @@ export interface FileRouteTypes {
     | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
@@ -559,6 +569,7 @@ export interface FileRouteTypes {
     | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
@@ -612,6 +623,7 @@ export interface FileRouteTypes {
     | '/ngf/horizon'
     | '/ngf/inbox'
     | '/ngf/innovation'
+    | '/ngf/press'
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
@@ -907,6 +919,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfReportsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/press': {
+      id: '/ngf/press'
+      path: '/press'
+      fullPath: '/ngf/press'
+      preLoaderRoute: typeof NgfPressRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/innovation': {
       id: '/ngf/innovation'
       path: '/innovation'
@@ -1042,6 +1061,7 @@ interface NgfRouteChildren {
   NgfHorizonRoute: typeof NgfHorizonRoute
   NgfInboxRoute: typeof NgfInboxRoute
   NgfInnovationRoute: typeof NgfInnovationRoute
+  NgfPressRoute: typeof NgfPressRoute
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
   NgfRisksRoute: typeof NgfRisksRoute
@@ -1066,6 +1086,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfHorizonRoute: NgfHorizonRoute,
   NgfInboxRoute: NgfInboxRoute,
   NgfInnovationRoute: NgfInnovationRoute,
+  NgfPressRoute: NgfPressRoute,
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
   NgfRisksRoute: NgfRisksRoute,
