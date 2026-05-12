@@ -1,8 +1,10 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Bell, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { NotificationBell } from "@/components/platform/NotificationBell";
+import { useLocation } from "@tanstack/react-router";
 
 export function PlatformShell({
   sidebar, user, children, contextLabel,
@@ -12,6 +14,8 @@ export function PlatformShell({
   contextLabel?: string;
   children: React.ReactNode;
 }) {
+  const { pathname } = useLocation();
+  const bellTo = pathname.startsWith("/ngf") ? "/ngf/alerts" : "/state/alerts";
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-muted/40">
@@ -29,10 +33,7 @@ export function PlatformShell({
               <Input placeholder="Search states, indicators, reports…" className="h-9 pl-9" />
             </div>
             <div className="ml-auto flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-4 w-4" />
-                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-destructive" />
-              </Button>
+              <NotificationBell to={bellTo} />
               <div className="flex items-center gap-2 rounded-full border bg-card px-2 py-1 pr-3">
                 <Avatar className="h-7 w-7">
                   <AvatarFallback className="bg-primary text-xs text-primary-foreground">

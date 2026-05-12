@@ -150,6 +150,19 @@ export function useAlerts(code: string | null) {
   });
 }
 
+export function useAlertReads() {
+  const { user } = useAuth();
+  return useQuery({
+    queryKey: ["alert-reads", user?.id],
+    enabled: !!user,
+    queryFn: async () => {
+      const { data, error } = await supabase.from("alert_reads").select("alert_id");
+      if (error) throw error;
+      return new Set((data ?? []).map((r) => r.alert_id));
+    },
+  });
+}
+
 export function useReports() {
   return useQuery({
     queryKey: ["reports"],
