@@ -88,6 +88,28 @@ function Indicators() {
                   ))}
                 </CardContent>
               </Card>
+
+              {dimTrend.length > 1 && (
+                <Card className="shadow-soft">
+                  <CardHeader>
+                    <CardTitle className="font-display text-base">Dimension trend — {state?.name ?? code}</CardTitle>
+                    <p className="text-xs text-muted-foreground">Reporting cycles to date</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="h-56">
+                      <ResponsiveContainer>
+                        <LineChart data={dimTrend}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.9 0.01 100)" />
+                          <XAxis dataKey="period" fontSize={11} />
+                          <YAxis fontSize={11} />
+                          <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
+                          <Line type="monotone" dataKey="value" stroke="oklch(0.45 0.13 155)" strokeWidth={2.5} dot />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </TabsContent>
           );
         })}
