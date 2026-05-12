@@ -31,6 +31,7 @@ import { Route as StateSupportRouteImport } from './routes/state.support'
 import { Route as StateSettingsRouteImport } from './routes/state.settings'
 import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
+import { Route as StateInnovationRouteImport } from './routes/state.innovation'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
@@ -160,6 +161,11 @@ const StateKnowledgeRoute = StateKnowledgeRouteImport.update({
   path: '/knowledge',
   getParentRoute: () => StateRoute,
 } as any)
+const StateInnovationRoute = StateInnovationRouteImport.update({
+  id: '/innovation',
+  path: '/innovation',
+  getParentRoute: () => StateRoute,
+} as any)
 const StateIndicatorsRoute = StateIndicatorsRouteImport.update({
   id: '/indicators',
   path: '/indicators',
@@ -285,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
+  '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
   '/state/settings': typeof StateSettingsRoute
@@ -325,6 +332,7 @@ export interface FileRoutesByTo {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
+  '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
   '/state/settings': typeof StateSettingsRoute
@@ -368,6 +376,7 @@ export interface FileRoutesById {
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
   '/state/indicators': typeof StateIndicatorsRoute
+  '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
   '/state/settings': typeof StateSettingsRoute
@@ -412,6 +421,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
+    | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
     | '/state/settings'
@@ -452,6 +462,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
+    | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
     | '/state/settings'
@@ -494,6 +505,7 @@ export interface FileRouteTypes {
     | '/state/alerts'
     | '/state/benchmark'
     | '/state/indicators'
+    | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
     | '/state/settings'
@@ -677,6 +689,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateKnowledgeRouteImport
       parentRoute: typeof StateRoute
     }
+    '/state/innovation': {
+      id: '/state/innovation'
+      path: '/innovation'
+      fullPath: '/state/innovation'
+      preLoaderRoute: typeof StateInnovationRouteImport
+      parentRoute: typeof StateRoute
+    }
     '/state/indicators': {
       id: '/state/indicators'
       path: '/indicators'
@@ -858,6 +877,7 @@ interface StateRouteChildren {
   StateAlertsRoute: typeof StateAlertsRoute
   StateBenchmarkRoute: typeof StateBenchmarkRoute
   StateIndicatorsRoute: typeof StateIndicatorsRoute
+  StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
   StateProfileRoute: typeof StateProfileRoute
   StateSettingsRoute: typeof StateSettingsRoute
@@ -870,6 +890,7 @@ const StateRouteChildren: StateRouteChildren = {
   StateAlertsRoute: StateAlertsRoute,
   StateBenchmarkRoute: StateBenchmarkRoute,
   StateIndicatorsRoute: StateIndicatorsRoute,
+  StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
   StateProfileRoute: StateProfileRoute,
   StateSettingsRoute: StateSettingsRoute,
