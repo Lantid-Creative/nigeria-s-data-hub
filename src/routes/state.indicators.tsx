@@ -2,9 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeader } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useDimensions, useIndicators, useStateCode, useStateScores, scoreFor } from "@/lib/state-data";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { useDimensions, useIndicators, useStateCode, useStateScores, scoreFor, useStateRow } from "@/lib/state-data";
+import { ArrowDown, ArrowUp, Download } from "lucide-react";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { downloadCsv } from "@/lib/csv";
 
 export const Route = createFileRoute("/state/indicators")({ component: Indicators });
 
