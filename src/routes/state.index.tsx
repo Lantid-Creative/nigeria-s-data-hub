@@ -124,6 +124,7 @@ function StateDashboard() {
         }}
       />
 
+      <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2 shadow-soft">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
