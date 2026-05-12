@@ -28,8 +28,17 @@ export const Route = createFileRoute("/contact")({
   }),
 });
 
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name required").max(120),
+  organisation: z.string().trim().max(160).optional(),
+  email: z.string().trim().email("Invalid email").max(255),
+  topic: z.string().trim().min(1, "Select a topic").max(80),
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(2000),
+});
+
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
