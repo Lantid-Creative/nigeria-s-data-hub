@@ -33,6 +33,7 @@ import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateInnovationRouteImport } from './routes/state.innovation'
 import { Route as StateIndicatorsRouteImport } from './routes/state.indicators'
+import { Route as StateCommitmentsRouteImport } from './routes/state.commitments'
 import { Route as StateBenchmarkRouteImport } from './routes/state.benchmark'
 import { Route as StateAlertsRouteImport } from './routes/state.alerts'
 import { Route as NgfUsersRouteImport } from './routes/ngf.users'
@@ -173,6 +174,11 @@ const StateIndicatorsRoute = StateIndicatorsRouteImport.update({
   path: '/indicators',
   getParentRoute: () => StateRoute,
 } as any)
+const StateCommitmentsRoute = StateCommitmentsRouteImport.update({
+  id: '/commitments',
+  path: '/commitments',
+  getParentRoute: () => StateRoute,
+} as any)
 const StateBenchmarkRoute = StateBenchmarkRouteImport.update({
   id: '/benchmark',
   path: '/benchmark',
@@ -304,6 +310,7 @@ export interface FileRoutesByFullPath {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -347,6 +354,7 @@ export interface FileRoutesByTo {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -393,6 +401,7 @@ export interface FileRoutesById {
   '/ngf/users': typeof NgfUsersRoute
   '/state/alerts': typeof StateAlertsRoute
   '/state/benchmark': typeof StateBenchmarkRoute
+  '/state/commitments': typeof StateCommitmentsRoute
   '/state/indicators': typeof StateIndicatorsRoute
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
@@ -440,6 +449,7 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -483,6 +493,7 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -528,6 +539,7 @@ export interface FileRouteTypes {
     | '/ngf/users'
     | '/state/alerts'
     | '/state/benchmark'
+    | '/state/commitments'
     | '/state/indicators'
     | '/state/innovation'
     | '/state/knowledge'
@@ -727,6 +739,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StateIndicatorsRouteImport
       parentRoute: typeof StateRoute
     }
+    '/state/commitments': {
+      id: '/state/commitments'
+      path: '/commitments'
+      fullPath: '/state/commitments'
+      preLoaderRoute: typeof StateCommitmentsRouteImport
+      parentRoute: typeof StateRoute
+    }
     '/state/benchmark': {
       id: '/state/benchmark'
       path: '/benchmark'
@@ -918,6 +937,7 @@ const NgfRouteWithChildren = NgfRoute._addFileChildren(NgfRouteChildren)
 interface StateRouteChildren {
   StateAlertsRoute: typeof StateAlertsRoute
   StateBenchmarkRoute: typeof StateBenchmarkRoute
+  StateCommitmentsRoute: typeof StateCommitmentsRoute
   StateIndicatorsRoute: typeof StateIndicatorsRoute
   StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
@@ -931,6 +951,7 @@ interface StateRouteChildren {
 const StateRouteChildren: StateRouteChildren = {
   StateAlertsRoute: StateAlertsRoute,
   StateBenchmarkRoute: StateBenchmarkRoute,
+  StateCommitmentsRoute: StateCommitmentsRoute,
   StateIndicatorsRoute: StateIndicatorsRoute,
   StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
