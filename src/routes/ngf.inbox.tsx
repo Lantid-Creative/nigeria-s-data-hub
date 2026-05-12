@@ -7,6 +7,7 @@ import { Mail, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { logEvent } from "@/lib/audit";
 
 export const Route = createFileRoute("/ngf/inbox")({ component: Inbox });
 
