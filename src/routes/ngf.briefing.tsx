@@ -46,7 +46,7 @@ function Briefing() {
             {stored.summary && <p className="text-sm">{stored.summary}</p>}
             {Array.isArray(stored.bullets) && stored.bullets.length > 0 && (
               <ul className="ml-4 list-disc space-y-1 text-sm text-muted-foreground">
-                {stored.bullets.map((b: string, i: number) => <li key={i}>{b}</li>)}
+                {(stored.bullets as any[]).map((b: any, i: number) => <li key={i}>{String(b)}</li>)}
               </ul>
             )}
           </CardContent>
