@@ -21,3 +21,32 @@ export function downloadCsv(filename: string, rows: Record<string, any>[], colum
   a.remove();
   URL.revokeObjectURL(url);
 }
+
+// Minimal CSV parser supporting quoted fields and escaped quotes.
+export function parseCsv(text: string): Record<string, string>[] {
+  const rows: string[][] = [];
+  let cur: string[] = [];
+  let field = "";
+  let inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; } else { inQ = false; }
+      } else field += ch;
+    } else {
+      if (ch === '"') inQ = true;
+      else if (ch === ",") { cur.push(field); field = ""; }
+      else if (ch === "\n" || ch === "\r") {
+        if (ch === "\r" && text[i + 1] === "\n") i++;
+        cur.push(field); rows.push(cur); cur = []; field = "";
+      } else field += ch;
+    }
+  }
+  if (field.length || cur.length) { cur.push(field); rows.push(cur); }
+  const cleaned = rows.filter((r) => r.some((c) => c.trim() !== ""));
+  if (!cleaned.length) return [];
+  const headers = cleaned[0].map((h) => h.trim());
+  return cleaned.slice(1).map((r) => Object.fromEntries(headers.map((h, i) => [h, (r[i] ?? "").trim()])));
+}
+
