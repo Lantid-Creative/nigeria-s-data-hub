@@ -3,5 +3,8 @@ Allow: /
 Disallow: /ngf
 Disallow: /state
 Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
 
-Sitemap: /sitemap.xml
+Sitemap: https://futureslab.lovable.app/sitemap.xml

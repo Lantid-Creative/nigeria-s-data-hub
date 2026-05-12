@@ -4,7 +4,7 @@ import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
-  FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users,
+  FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users, Inbox,
 } from "lucide-react";
 
 export const Route = createFileRoute("/ngf")({
@@ -52,6 +52,7 @@ function NgfLayout() {
                 { title: "Data Hub", url: "/ngf/data", icon: Database },
                 { title: "Survey Engine", url: "/ngf/surveys", icon: GitBranch },
                 { title: "Alerts", url: "/ngf/alerts", icon: Bell },
+                { title: "Public Inbox", url: "/ngf/inbox", icon: Inbox },
                 { title: "Users & Roles", url: "/ngf/users", icon: Users },
                 { title: "Settings", url: "/ngf/settings", icon: Settings },
               ],
