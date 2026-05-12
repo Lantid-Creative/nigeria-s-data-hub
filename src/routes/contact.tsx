@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
