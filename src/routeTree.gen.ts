@@ -48,6 +48,7 @@ import { Route as NgfInnovationRouteImport } from './routes/ngf.innovation'
 import { Route as NgfInboxRouteImport } from './routes/ngf.inbox'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
+import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
 import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
@@ -250,6 +251,11 @@ const NgfDataRoute = NgfDataRouteImport.update({
   path: '/data',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfBriefingRoute = NgfBriefingRouteImport.update({
+  id: '/briefing',
+  path: '/briefing',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfAuditRoute = NgfAuditRouteImport.update({
   id: '/audit',
   path: '/audit',
@@ -303,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/inbox': typeof NgfInboxRoute
@@ -348,6 +355,7 @@ export interface FileRoutesByTo {
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/inbox': typeof NgfInboxRoute
@@ -396,6 +404,7 @@ export interface FileRoutesById {
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/audit': typeof NgfAuditRoute
+  '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/inbox': typeof NgfInboxRoute
@@ -445,6 +454,7 @@ export interface FileRouteTypes {
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/inbox'
@@ -490,6 +500,7 @@ export interface FileRouteTypes {
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/inbox'
@@ -537,6 +548,7 @@ export interface FileRouteTypes {
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/audit'
+    | '/ngf/briefing'
     | '/ngf/data'
     | '/ngf/foresight'
     | '/ngf/inbox'
@@ -856,6 +868,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfDataRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/briefing': {
+      id: '/ngf/briefing'
+      path: '/briefing'
+      fullPath: '/ngf/briefing'
+      preLoaderRoute: typeof NgfBriefingRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/audit': {
       id: '/ngf/audit'
       path: '/audit'
@@ -919,6 +938,7 @@ interface NgfRouteChildren {
   NgfAlertsRoute: typeof NgfAlertsRoute
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
   NgfAuditRoute: typeof NgfAuditRoute
+  NgfBriefingRoute: typeof NgfBriefingRoute
   NgfDataRoute: typeof NgfDataRoute
   NgfForesightRoute: typeof NgfForesightRoute
   NgfInboxRoute: typeof NgfInboxRoute
@@ -937,6 +957,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfAlertsRoute: NgfAlertsRoute,
   NgfAnalyticsRoute: NgfAnalyticsRoute,
   NgfAuditRoute: NgfAuditRoute,
+  NgfBriefingRoute: NgfBriefingRoute,
   NgfDataRoute: NgfDataRoute,
   NgfForesightRoute: NgfForesightRoute,
   NgfInboxRoute: NgfInboxRoute,
