@@ -25,6 +25,7 @@ function Inbox() {
   const markHandled = async (id: string, handled: boolean) => {
     const { error } = await supabase.from("contact_messages").update({ handled }).eq("id", id);
     if (error) return toast.error(error.message);
+    logEvent(handled ? "contact.handle" : "contact.reopen", "contact_messages", id);
     qc.invalidateQueries({ queryKey: ["contact_messages"] });
   };
 
