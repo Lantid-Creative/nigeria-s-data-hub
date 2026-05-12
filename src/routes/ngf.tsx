@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
   FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users, Inbox, Activity,
+  Brain, MessageCircle, AlertTriangle, Eye, DollarSign, Handshake, Newspaper, Send,
 } from "lucide-react";
 
 export const Route = createFileRoute("/ngf")({
