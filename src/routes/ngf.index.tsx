@@ -15,6 +15,7 @@ import {
   useAllStatesLatestScores, useAlerts, useInnovationPilots,
   useAllSubmissions, useNationalSnriTrend, useDimensions,
 } from "@/lib/state-data";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
 
 export const Route = createFileRoute("/ngf/")({ component: NgfOverview });
 
