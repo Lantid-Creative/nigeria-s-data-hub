@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { toCsv, downloadCsv } from "@/lib/csv";
+import { downloadCsv } from "@/lib/csv";
 import { formatDistanceToNow } from "date-fns";
 import { Activity, Download, Search } from "lucide-react";
 
