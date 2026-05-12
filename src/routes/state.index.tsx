@@ -108,7 +108,22 @@ function StateDashboard() {
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <AiInsightCard
+        mode="state_advisor"
+        title="Governor's Advisor"
+        description="AI-generated 30-day priorities for your state based on the latest data."
+        context={{
+          state: state?.name ?? code,
+          resilience_index: latest?.resilience_index ?? null,
+          delta_vs_prev: delta,
+          dimensions: radar,
+          peer_rank: peerRanking.rank,
+          peers_total: peerRanking.total,
+          open_alerts: alerts.slice(0, 6).map((a: any) => ({ title: a.title, level: a.level })),
+          submission_completion_avg: completionAvg,
+        }}
+      />
+
         <Card className="lg:col-span-2 shadow-soft">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
