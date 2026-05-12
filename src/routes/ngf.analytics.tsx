@@ -3,17 +3,33 @@ import { SectionHeader, StatCard } from "@/components/platform/widgets";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Brain, LineChart, Sparkles, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { BarChart3, Brain, Download, LineChart, Sparkles, TrendingUp } from "lucide-react";
 import {
   ResponsiveContainer, LineChart as RLineChart, Line, XAxis, YAxis, Tooltip,
   CartesianGrid, ScatterChart, Scatter, BarChart, Bar, Legend, PieChart, Pie, Cell,
+  ZAxis,
 } from "recharts";
-import { useAllStatesLatestScores, useZones, useNationalSnriTrend, useIndicators } from "@/lib/state-data";
-import { useMemo } from "react";
+import { useAllStatesLatestScores, useZones, useNationalSnriTrend, useIndicators, useDimensions } from "@/lib/state-data";
+import { useMemo, useState } from "react";
+import { AiInsightCard } from "@/components/platform/AiInsightCard";
+import { downloadCsv } from "@/lib/csv";
 
 export const Route = createFileRoute("/ngf/analytics")({ component: Analytics });
 
 const COLORS = ["oklch(0.45 0.13 155)", "oklch(0.78 0.16 80)", "oklch(0.62 0.13 230)", "oklch(0.65 0.18 35)", "oklch(0.55 0.18 305)", "oklch(0.5 0.1 200)"];
+
+const DIM_FIELDS = [
+  { key: "resilience_index", label: "SNRI (composite)" },
+  { key: "economic", label: "Economic" },
+  { key: "fiscal", label: "Fiscal" },
+  { key: "human_capital", label: "Human Capital" },
+  { key: "climate", label: "Climate" },
+  { key: "governance", label: "Governance" },
+  { key: "security", label: "Security" },
+  { key: "social", label: "Social" },
+];
 
 function Analytics() {
   const { data: scores = [] } = useAllStatesLatestScores();
