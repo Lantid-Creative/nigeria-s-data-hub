@@ -36,6 +36,10 @@ function Analytics() {
   const { data: zones = [] } = useZones();
   const { data: trend = [] } = useNationalSnriTrend();
   const { data: indicators = [] } = useIndicators();
+  const { data: dims = [] } = useDimensions();
+
+  const [xKey, setXKey] = useState("fiscal");
+  const [yKey, setYKey] = useState("human_capital");
 
   const zoneData = useMemo(() => (zones as any[]).map((z, i) => {
     const zoneStates = (scores as any[]).filter((s) => s.states?.zone_code === z.code);
@@ -50,13 +54,45 @@ function Analytics() {
     };
   }), [zones, scores]);
 
-  const scatter = (scores as any[]).map((s) => ({
-    x: Number(s.fiscal ?? 0),
-    y: Number(s.human_capital ?? 0),
+  const scatter = useMemo(() => (scores as any[]).map((s) => ({
+    x: Number(s[xKey] ?? 0),
+    y: Number(s[yKey] ?? 0),
     name: s.states?.name ?? s.state_code,
-  }));
+  })), [scores, xKey, yKey]);
+
+  // Pearson correlation
+  const correlation = useMemo(() => {
+    const n = scatter.length;
+    if (n < 2) return 0;
+    const mx = scatter.reduce((a, p) => a + p.x, 0) / n;
+    const my = scatter.reduce((a, p) => a + p.y, 0) / n;
+    let num = 0, dx = 0, dy = 0;
+    for (const p of scatter) {
+      num += (p.x - mx) * (p.y - my);
+      dx += (p.x - mx) ** 2;
+      dy += (p.y - my) ** 2;
+    }
+    const d = Math.sqrt(dx * dy);
+    return d ? +(num / d).toFixed(2) : 0;
+  }, [scatter]);
+
+  const xLabel = DIM_FIELDS.find((d) => d.key === xKey)?.label ?? xKey;
+  const yLabel = DIM_FIELDS.find((d) => d.key === yKey)?.label ?? yKey;
 
   const dataPoints = (indicators as any[]).length * 36;
+
+  // CSV exports
+  const exportStates = () =>
+    downloadCsv("state-scores", (scores as any[]).map((s) => ({
+      state_code: s.state_code,
+      state: s.states?.name ?? s.state_code,
+      zone: s.states?.zone_code ?? "",
+      snri: s.resilience_index,
+      economic: s.economic, fiscal: s.fiscal, human_capital: s.human_capital,
+      climate: s.climate, governance: s.governance, security: s.security, social: s.social,
+    })));
+  const exportZones = () => downloadCsv("zone-performance", zoneData);
+  const exportTrend = () => downloadCsv("national-trend", trend as any[]);
 
   return (
     <div className="space-y-6">
