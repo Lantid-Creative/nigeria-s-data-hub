@@ -12,6 +12,7 @@ import { Database, Layers, BarChart3, MapPin, Download, Upload, Plus, Trash2, Ch
 import { useIndicators, useDimensions, useAllStates, useAllCycles } from "@/lib/state-data";
 import { downloadCsv, parseCsv } from "@/lib/csv";
 import { supabase } from "@/integrations/supabase/client";
+import { logEvent } from "@/lib/audit";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
