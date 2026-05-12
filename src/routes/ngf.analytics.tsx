@@ -206,17 +206,46 @@ function Analytics() {
 
         <TabsContent value="correlations" className="mt-6">
           <Card className="shadow-soft">
-            <CardHeader>
-              <CardTitle className="font-display text-lg">Fiscal Health vs Human Capital</CardTitle>
+            <CardHeader className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div>
+                <CardTitle className="font-display text-lg">{xLabel} vs {yLabel}</CardTitle>
+                <p className="text-xs text-muted-foreground">
+                  Pearson correlation:&nbsp;
+                  <span className={`font-semibold ${Math.abs(correlation) >= 0.5 ? "text-primary" : "text-muted-foreground"}`}>
+                    r = {correlation}
+                  </span>
+                  {" · "}
+                  {Math.abs(correlation) >= 0.7 ? "strong" : Math.abs(correlation) >= 0.4 ? "moderate" : "weak"} relationship
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Select value={xKey} onValueChange={setXKey}>
+                  <SelectTrigger className="h-8 w-44 text-xs"><SelectValue placeholder="X axis" /></SelectTrigger>
+                  <SelectContent>
+                    {DIM_FIELDS.map((d) => <SelectItem key={d.key} value={d.key}>{d.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <span className="text-xs text-muted-foreground">vs</span>
+                <Select value={yKey} onValueChange={setYKey}>
+                  <SelectTrigger className="h-8 w-44 text-xs"><SelectValue placeholder="Y axis" /></SelectTrigger>
+                  <SelectContent>
+                    {DIM_FIELDS.map((d) => <SelectItem key={d.key} value={d.key}>{d.label}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+                <Button variant="ghost" size="sm" onClick={() => downloadCsv(`correlation-${xKey}-${yKey}`, scatter)}>
+                  <Download className="mr-1 h-3.5 w-3.5" /> CSV
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="h-96">
                 <ResponsiveContainer>
-                  <ScatterChart>
+                  <ScatterChart margin={{ left: 8, right: 16, top: 8, bottom: 8 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="oklch(0.9 0.01 100)" />
-                    <XAxis type="number" dataKey="x" name="Fiscal" fontSize={11} />
-                    <YAxis type="number" dataKey="y" name="Human Capital" fontSize={11} />
-                    <Tooltip contentStyle={{ borderRadius: 8, fontSize: 12 }} />
+                    <XAxis type="number" dataKey="x" name={xLabel} fontSize={11} />
+                    <YAxis type="number" dataKey="y" name={yLabel} fontSize={11} />
+                    <ZAxis type="category" dataKey="name" name="State" />
+                    <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ borderRadius: 8, fontSize: 12 }} />
                     <Scatter data={scatter} fill={COLORS[0]} />
                   </ScatterChart>
                 </ResponsiveContainer>
