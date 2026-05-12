@@ -137,7 +137,12 @@ function Analytics() {
 
         <TabsContent value="trends" className="mt-6">
           <Card className="shadow-soft">
-            <CardHeader><CardTitle className="font-display text-lg">National SNRI trend</CardTitle></CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="font-display text-lg">National SNRI trend</CardTitle>
+              <Button variant="ghost" size="sm" onClick={exportTrend}>
+                <Download className="mr-1 h-3.5 w-3.5" /> CSV
+              </Button>
+            </CardHeader>
             <CardContent>
               <div className="h-96">
                 <ResponsiveContainer>
@@ -158,7 +163,12 @@ function Analytics() {
         <TabsContent value="zones" className="mt-6">
           <div className="grid gap-6 lg:grid-cols-2">
             <Card className="shadow-soft">
-              <CardHeader><CardTitle className="font-display text-lg">Performance by zone</CardTitle></CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="font-display text-lg">Performance by zone</CardTitle>
+                <Button variant="ghost" size="sm" onClick={exportZones}>
+                  <Download className="mr-1 h-3.5 w-3.5" /> CSV
+                </Button>
+              </CardHeader>
               <CardContent>
                 <div className="h-80">
                   <ResponsiveContainer>
