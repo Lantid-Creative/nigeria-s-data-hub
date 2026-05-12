@@ -10,7 +10,7 @@ export async function logEvent(
     await supabase.rpc("log_event", {
       _action: action,
       _entity: entity,
-      _entity_id: entityId ?? null,
+      _entity_id: entityId ?? undefined,
       _metadata: metadata as never,
     });
   } catch (e) {
