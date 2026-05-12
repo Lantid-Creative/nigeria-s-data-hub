@@ -650,6 +650,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      increment_report_downloads: {
+        Args: { _report_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       alert_level: "info" | "medium" | "high"
