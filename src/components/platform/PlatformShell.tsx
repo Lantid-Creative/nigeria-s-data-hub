@@ -33,10 +33,7 @@ export function PlatformShell({
               <Input placeholder="Search states, indicators, reports…" className="h-9 pl-9" />
             </div>
             <div className="ml-auto flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-4 w-4" />
-                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-destructive" />
-              </Button>
+              <NotificationBell to={bellTo} />
               <div className="flex items-center gap-2 rounded-full border bg-card px-2 py-1 pr-3">
                 <Avatar className="h-7 w-7">
                   <AvatarFallback className="bg-primary text-xs text-primary-foreground">
