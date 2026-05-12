@@ -7,6 +7,7 @@ import ngfLogo from "@/assets/ngf-logo.png";
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -39,6 +40,23 @@ function LoginPage() {
     // Resolve role with a single query (no extra getUser round-trip)
     const { data: roles } = await supabase
       .from("user_roles").select("role").eq("user_id", userId);
+    const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
+    navigate({ to: isNgf ? "/ngf" : "/state" });
+  }
+
+  async function googleSignIn() {
+    setError(null);
+    const r: any = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    if (r?.error) {
+      setError(typeof r.error === "string" ? r.error : (r.error as Error).message);
+      return;
+    }
+    if (r?.redirected) return;
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", user.id);
     const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
     navigate({ to: isNgf ? "/ngf" : "/state" });
   }
@@ -138,7 +156,7 @@ function LoginPage() {
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <a href="#" className="text-xs text-primary hover:underline">Forgot?</a>
+                <Link to="/forgot-password" className="text-xs text-primary hover:underline">Forgot?</Link>
               </div>
               <Input
                 id="password" type="password" required autoComplete="current-password"
