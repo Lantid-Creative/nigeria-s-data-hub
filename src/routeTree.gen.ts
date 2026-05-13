@@ -26,9 +26,11 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
+import { Route as StatesCodeRouteImport } from './routes/states.$code'
 import { Route as StateSurveysRouteImport } from './routes/state.surveys'
 import { Route as StateSupportRouteImport } from './routes/state.support'
 import { Route as StateSettingsRouteImport } from './routes/state.settings'
+import { Route as StateReportRouteImport } from './routes/state.report'
 import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateInnovationRouteImport } from './routes/state.innovation'
@@ -42,6 +44,7 @@ import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
 import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
 import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
+import { Route as NgfScenariosRouteImport } from './routes/ngf.scenarios'
 import { Route as NgfRisksRouteImport } from './routes/ngf.risks'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
@@ -59,10 +62,14 @@ import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
 import { Route as NgfAskdataRouteImport } from './routes/ngf.askdata'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
+import { Route as NgfAccessRouteImport } from './routes/ngf.access'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
+import { Route as ApiPublicHooksWeeklyDigestRouteImport } from './routes/api/public/hooks/weekly-digest'
+import { Route as ApiPublicHooksSubmissionNudgesRouteImport } from './routes/api/public/hooks/submission-nudges'
 import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
+import { Route as ApiPublicHooksAnomalySweepRouteImport } from './routes/api/public/hooks/anomaly-sweep'
 
 const StatesRoute = StatesRouteImport.update({
   id: '/states',
@@ -149,6 +156,11 @@ const NgfIndexRoute = NgfIndexRouteImport.update({
   path: '/',
   getParentRoute: () => NgfRoute,
 } as any)
+const StatesCodeRoute = StatesCodeRouteImport.update({
+  id: '/$code',
+  path: '/$code',
+  getParentRoute: () => StatesRoute,
+} as any)
 const StateSurveysRoute = StateSurveysRouteImport.update({
   id: '/surveys',
   path: '/surveys',
@@ -162,6 +174,11 @@ const StateSupportRoute = StateSupportRouteImport.update({
 const StateSettingsRoute = StateSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateReportRoute = StateReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => StateRoute,
 } as any)
 const StateProfileRoute = StateProfileRouteImport.update({
@@ -227,6 +244,11 @@ const NgfSnriRoute = NgfSnriRouteImport.update({
 const NgfSettingsRoute = NgfSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => NgfRoute,
+} as any)
+const NgfScenariosRoute = NgfScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
   getParentRoute: () => NgfRoute,
 } as any)
 const NgfRisksRoute = NgfRisksRouteImport.update({
@@ -314,6 +336,11 @@ const NgfAlertsRoute = NgfAlertsRouteImport.update({
   path: '/alerts',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfAccessRoute = NgfAccessRouteImport.update({
+  id: '/access',
+  path: '/access',
+  getParentRoute: () => NgfRoute,
+} as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -329,10 +356,28 @@ const LegalDataRoute = LegalDataRouteImport.update({
   path: '/data',
   getParentRoute: () => LegalRoute,
 } as any)
+const ApiPublicHooksWeeklyDigestRoute =
+  ApiPublicHooksWeeklyDigestRouteImport.update({
+    id: '/api/public/hooks/weekly-digest',
+    path: '/api/public/hooks/weekly-digest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSubmissionNudgesRoute =
+  ApiPublicHooksSubmissionNudgesRouteImport.update({
+    id: '/api/public/hooks/submission-nudges',
+    path: '/api/public/hooks/submission-nudges',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksDailyBriefingRoute =
   ApiPublicHooksDailyBriefingRouteImport.update({
     id: '/api/public/hooks/daily-briefing',
     path: '/api/public/hooks/daily-briefing',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksAnomalySweepRoute =
+  ApiPublicHooksAnomalySweepRouteImport.update({
+    id: '/api/public/hooks/anomaly-sweep',
+    path: '/api/public/hooks/anomaly-sweep',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -351,10 +396,11 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -372,6 +418,7 @@ export interface FileRoutesByFullPath {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -385,12 +432,17 @@ export interface FileRoutesByFullPath {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -405,10 +457,11 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -426,6 +479,7 @@ export interface FileRoutesByTo {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -439,12 +493,17 @@ export interface FileRoutesByTo {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -462,10 +521,11 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -483,6 +543,7 @@ export interface FileRoutesById {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -496,12 +557,17 @@ export interface FileRoutesById {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -524,6 +590,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -541,6 +608,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -554,12 +622,17 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
+    | '/api/public/hooks/weekly-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -578,6 +651,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -595,6 +669,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -608,12 +683,17 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf'
     | '/state'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
+    | '/api/public/hooks/weekly-digest'
   id:
     | '__root__'
     | '/'
@@ -634,6 +714,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -651,6 +732,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -664,12 +746,17 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
+    | '/api/public/hooks/weekly-digest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -687,8 +774,11 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
-  StatesRoute: typeof StatesRoute
+  StatesRoute: typeof StatesRouteWithChildren
+  ApiPublicHooksAnomalySweepRoute: typeof ApiPublicHooksAnomalySweepRoute
   ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
+  ApiPublicHooksSubmissionNudgesRoute: typeof ApiPublicHooksSubmissionNudgesRoute
+  ApiPublicHooksWeeklyDigestRoute: typeof ApiPublicHooksWeeklyDigestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -812,6 +902,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfIndexRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/states/$code': {
+      id: '/states/$code'
+      path: '/$code'
+      fullPath: '/states/$code'
+      preLoaderRoute: typeof StatesCodeRouteImport
+      parentRoute: typeof StatesRoute
+    }
     '/state/surveys': {
       id: '/state/surveys'
       path: '/surveys'
@@ -831,6 +928,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/state/settings'
       preLoaderRoute: typeof StateSettingsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/report': {
+      id: '/state/report'
+      path: '/report'
+      fullPath: '/state/report'
+      preLoaderRoute: typeof StateReportRouteImport
       parentRoute: typeof StateRoute
     }
     '/state/profile': {
@@ -922,6 +1026,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/ngf/settings'
       preLoaderRoute: typeof NgfSettingsRouteImport
+      parentRoute: typeof NgfRoute
+    }
+    '/ngf/scenarios': {
+      id: '/ngf/scenarios'
+      path: '/scenarios'
+      fullPath: '/ngf/scenarios'
+      preLoaderRoute: typeof NgfScenariosRouteImport
       parentRoute: typeof NgfRoute
     }
     '/ngf/risks': {
@@ -1043,6 +1154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfAlertsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/access': {
+      id: '/ngf/access'
+      path: '/access'
+      fullPath: '/ngf/access'
+      preLoaderRoute: typeof NgfAccessRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/legal/terms': {
       id: '/legal/terms'
       path: '/terms'
@@ -1064,11 +1182,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalDataRouteImport
       parentRoute: typeof LegalRoute
     }
+    '/api/public/hooks/weekly-digest': {
+      id: '/api/public/hooks/weekly-digest'
+      path: '/api/public/hooks/weekly-digest'
+      fullPath: '/api/public/hooks/weekly-digest'
+      preLoaderRoute: typeof ApiPublicHooksWeeklyDigestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/submission-nudges': {
+      id: '/api/public/hooks/submission-nudges'
+      path: '/api/public/hooks/submission-nudges'
+      fullPath: '/api/public/hooks/submission-nudges'
+      preLoaderRoute: typeof ApiPublicHooksSubmissionNudgesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/daily-briefing': {
       id: '/api/public/hooks/daily-briefing'
       path: '/api/public/hooks/daily-briefing'
       fullPath: '/api/public/hooks/daily-briefing'
       preLoaderRoute: typeof ApiPublicHooksDailyBriefingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/anomaly-sweep': {
+      id: '/api/public/hooks/anomaly-sweep'
+      path: '/api/public/hooks/anomaly-sweep'
+      fullPath: '/api/public/hooks/anomaly-sweep'
+      preLoaderRoute: typeof ApiPublicHooksAnomalySweepRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -1089,6 +1228,7 @@ const LegalRouteChildren: LegalRouteChildren = {
 const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 
 interface NgfRouteChildren {
+  NgfAccessRoute: typeof NgfAccessRoute
   NgfAlertsRoute: typeof NgfAlertsRoute
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
   NgfAskdataRoute: typeof NgfAskdataRoute
@@ -1106,6 +1246,7 @@ interface NgfRouteChildren {
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
   NgfRisksRoute: typeof NgfRisksRoute
+  NgfScenariosRoute: typeof NgfScenariosRoute
   NgfSettingsRoute: typeof NgfSettingsRoute
   NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
@@ -1115,6 +1256,7 @@ interface NgfRouteChildren {
 }
 
 const NgfRouteChildren: NgfRouteChildren = {
+  NgfAccessRoute: NgfAccessRoute,
   NgfAlertsRoute: NgfAlertsRoute,
   NgfAnalyticsRoute: NgfAnalyticsRoute,
   NgfAskdataRoute: NgfAskdataRoute,
@@ -1132,6 +1274,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
   NgfRisksRoute: NgfRisksRoute,
+  NgfScenariosRoute: NgfScenariosRoute,
   NgfSettingsRoute: NgfSettingsRoute,
   NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
@@ -1151,6 +1294,7 @@ interface StateRouteChildren {
   StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
   StateProfileRoute: typeof StateProfileRoute
+  StateReportRoute: typeof StateReportRoute
   StateSettingsRoute: typeof StateSettingsRoute
   StateSupportRoute: typeof StateSupportRoute
   StateSurveysRoute: typeof StateSurveysRoute
@@ -1166,6 +1310,7 @@ const StateRouteChildren: StateRouteChildren = {
   StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
   StateProfileRoute: StateProfileRoute,
+  StateReportRoute: StateReportRoute,
   StateSettingsRoute: StateSettingsRoute,
   StateSupportRoute: StateSupportRoute,
   StateSurveysRoute: StateSurveysRoute,
@@ -1173,6 +1318,17 @@ const StateRouteChildren: StateRouteChildren = {
 }
 
 const StateRouteWithChildren = StateRoute._addFileChildren(StateRouteChildren)
+
+interface StatesRouteChildren {
+  StatesCodeRoute: typeof StatesCodeRoute
+}
+
+const StatesRouteChildren: StatesRouteChildren = {
+  StatesCodeRoute: StatesCodeRoute,
+}
+
+const StatesRouteWithChildren =
+  StatesRoute._addFileChildren(StatesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -1189,18 +1345,12 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
-  StatesRoute: StatesRoute,
+  StatesRoute: StatesRouteWithChildren,
+  ApiPublicHooksAnomalySweepRoute: ApiPublicHooksAnomalySweepRoute,
   ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
+  ApiPublicHooksSubmissionNudgesRoute: ApiPublicHooksSubmissionNudgesRoute,
+  ApiPublicHooksWeeklyDigestRoute: ApiPublicHooksWeeklyDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

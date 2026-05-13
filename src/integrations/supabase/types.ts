@@ -224,6 +224,36 @@ export type Database = {
         }
         Relationships: []
       }
+      digest_log: {
+        Row: {
+          created_at: string
+          digest_type: string
+          id: string
+          payload: Json
+          period_label: string
+          recipients_count: number
+          summary: string | null
+        }
+        Insert: {
+          created_at?: string
+          digest_type: string
+          id?: string
+          payload?: Json
+          period_label: string
+          recipients_count?: number
+          summary?: string | null
+        }
+        Update: {
+          created_at?: string
+          digest_type?: string
+          id?: string
+          payload?: Json
+          period_label?: string
+          recipients_count?: number
+          summary?: string | null
+        }
+        Relationships: []
+      }
       dimensions: {
         Row: {
           code: string
@@ -575,6 +605,30 @@ export type Database = {
         }
         Relationships: []
       }
+      rate_limits: {
+        Row: {
+          bucket: string
+          count: number
+          id: string
+          key: string
+          window_start: string
+        }
+        Insert: {
+          bucket: string
+          count?: number
+          id?: string
+          key: string
+          window_start?: string
+        }
+        Update: {
+          bucket?: string
+          count?: number
+          id?: string
+          key?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
       report_downloads_log: {
         Row: {
           created_at: string
@@ -786,6 +840,39 @@ export type Database = {
           status?: string
           title?: string
           trend?: string | null
+        }
+        Relationships: []
+      }
+      saved_scenarios: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_shared: boolean
+          name: string
+          shocks: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_shared?: boolean
+          name: string
+          shocks?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_shared?: boolean
+          name?: string
+          shocks?: Json
+          updated_at?: string
         }
         Relationships: []
       }

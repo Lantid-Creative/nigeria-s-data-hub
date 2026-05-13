@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "dl service insert" ON public.digest_log;

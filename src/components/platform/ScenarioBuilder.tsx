@@ -3,8 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ReferenceLine } from "recharts";
-import { RotateCcw, Sparkles } from "lucide-react";
+import { RotateCcw, Sparkles, Save } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { logEvent } from "@/lib/audit";
 
 const DIM_KEYS = [
   { key: "economic", label: "Economic" },
@@ -52,9 +59,12 @@ export function ScenarioBuilder({ scores }: { scores: any[] }) {
           </CardTitle>
           <p className="text-xs text-muted-foreground">Apply a shock (±) to each dimension and watch SNRI move across the federation.</p>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => setShocks(Object.fromEntries(DIM_KEYS.map((d) => [d.key, 0])))}>
-          <RotateCcw className="mr-1 h-3 w-3" /> Reset
-        </Button>
+        <div className="flex items-center gap-2">
+          <SaveScenarioDialog shocks={shocks} />
+          <Button variant="ghost" size="sm" onClick={() => setShocks(Object.fromEntries(DIM_KEYS.map((d) => [d.key, 0])))}>
+            <RotateCcw className="mr-1 h-3 w-3" /> Reset
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-6 lg:grid-cols-5">
         <div className="space-y-3 lg:col-span-2">
@@ -98,5 +108,44 @@ export function ScenarioBuilder({ scores }: { scores: any[] }) {
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function SaveScenarioDialog({ shocks }: { shocks: Record<string, number> }) {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [shared, setShared] = useState(false);
+  const save = async () => {
+    if (!name.trim()) return toast.error("Name required");
+    const { error } = await supabase.from("saved_scenarios").insert({
+      name, description: desc || null, shocks, is_shared: shared,
+    });
+    if (error) return toast.error(error.message);
+    toast.success("Scenario saved");
+    logEvent("scenario.save", "scenario", null, { name, shared });
+    setOpen(false); setName(""); setDesc(""); setShared(false);
+  };
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline"><Save className="mr-1 h-3 w-3" /> Save</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader><DialogTitle>Save scenario</DialogTitle></DialogHeader>
+        <div className="space-y-3">
+          <div><Label>Name</Label><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Climate stress 2027" /></div>
+          <div><Label>Description</Label><Textarea rows={2} value={desc} onChange={(e) => setDesc(e.target.value)} /></div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={shared} onChange={(e) => setShared(e.target.checked)} />
+            Share with all signed-in users
+          </label>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={save} className="bg-primary">Save</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
