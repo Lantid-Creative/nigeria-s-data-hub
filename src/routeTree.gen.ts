@@ -30,6 +30,7 @@ import { Route as StatesCodeRouteImport } from './routes/states.$code'
 import { Route as StateSurveysRouteImport } from './routes/state.surveys'
 import { Route as StateSupportRouteImport } from './routes/state.support'
 import { Route as StateSettingsRouteImport } from './routes/state.settings'
+import { Route as StateReportRouteImport } from './routes/state.report'
 import { Route as StateProfileRouteImport } from './routes/state.profile'
 import { Route as StateKnowledgeRouteImport } from './routes/state.knowledge'
 import { Route as StateInnovationRouteImport } from './routes/state.innovation'
@@ -173,6 +174,11 @@ const StateSupportRoute = StateSupportRouteImport.update({
 const StateSettingsRoute = StateSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => StateRoute,
+} as any)
+const StateReportRoute = StateReportRouteImport.update({
+  id: '/report',
+  path: '/report',
   getParentRoute: () => StateRoute,
 } as any)
 const StateProfileRoute = StateProfileRouteImport.update({
@@ -426,6 +432,7 @@ export interface FileRoutesByFullPath {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
@@ -486,6 +493,7 @@ export interface FileRoutesByTo {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
@@ -549,6 +557,7 @@ export interface FileRoutesById {
   '/state/innovation': typeof StateInnovationRoute
   '/state/knowledge': typeof StateKnowledgeRoute
   '/state/profile': typeof StateProfileRoute
+  '/state/report': typeof StateReportRoute
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
@@ -613,6 +622,7 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
@@ -673,6 +683,7 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
@@ -735,6 +746,7 @@ export interface FileRouteTypes {
     | '/state/innovation'
     | '/state/knowledge'
     | '/state/profile'
+    | '/state/report'
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
@@ -916,6 +928,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/state/settings'
       preLoaderRoute: typeof StateSettingsRouteImport
+      parentRoute: typeof StateRoute
+    }
+    '/state/report': {
+      id: '/state/report'
+      path: '/report'
+      fullPath: '/state/report'
+      preLoaderRoute: typeof StateReportRouteImport
       parentRoute: typeof StateRoute
     }
     '/state/profile': {
@@ -1275,6 +1294,7 @@ interface StateRouteChildren {
   StateInnovationRoute: typeof StateInnovationRoute
   StateKnowledgeRoute: typeof StateKnowledgeRoute
   StateProfileRoute: typeof StateProfileRoute
+  StateReportRoute: typeof StateReportRoute
   StateSettingsRoute: typeof StateSettingsRoute
   StateSupportRoute: typeof StateSupportRoute
   StateSurveysRoute: typeof StateSurveysRoute
@@ -1290,6 +1310,7 @@ const StateRouteChildren: StateRouteChildren = {
   StateInnovationRoute: StateInnovationRoute,
   StateKnowledgeRoute: StateKnowledgeRoute,
   StateProfileRoute: StateProfileRoute,
+  StateReportRoute: StateReportRoute,
   StateSettingsRoute: StateSettingsRoute,
   StateSupportRoute: StateSupportRoute,
   StateSurveysRoute: StateSurveysRoute,
@@ -1333,3 +1354,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
