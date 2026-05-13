@@ -34,6 +34,7 @@ function StateLayout() {
                 { title: "Indicators", url: "/state/indicators", icon: Activity },
                 { title: "Commitments", url: "/state/commitments", icon: Target },
                 { title: "Evidence Vault", url: "/state/evidence", icon: FolderUp },
+                { title: "Governor Report", url: "/state/report", icon: FileSpreadsheet },
               ],
             },
             {
