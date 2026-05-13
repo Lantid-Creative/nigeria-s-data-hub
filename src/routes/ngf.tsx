@@ -69,6 +69,7 @@ function NgfLayout() {
                 { title: "Alerts", url: "/ngf/alerts", icon: Bell },
                 { title: "Publish Queue", url: "/ngf/publish", icon: Send },
                 { title: "Users & Roles", url: "/ngf/users", icon: Users },
+                { title: "Access Matrix", url: "/ngf/access", icon: Lock },
                 { title: "Audit Log", url: "/ngf/audit", icon: Activity },
                 { title: "Settings", url: "/ngf/settings", icon: Settings },
               ],
