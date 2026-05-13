@@ -110,3 +110,42 @@ export function ScenarioBuilder({ scores }: { scores: any[] }) {
     </Card>
   );
 }
+
+function SaveScenarioDialog({ shocks }: { shocks: Record<string, number> }) {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [desc, setDesc] = useState("");
+  const [shared, setShared] = useState(false);
+  const save = async () => {
+    if (!name.trim()) return toast.error("Name required");
+    const { error } = await supabase.from("saved_scenarios").insert({
+      name, description: desc || null, shocks, is_shared: shared,
+    });
+    if (error) return toast.error(error.message);
+    toast.success("Scenario saved");
+    logEvent("scenario.save", "scenario", null, { name, shared });
+    setOpen(false); setName(""); setDesc(""); setShared(false);
+  };
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button size="sm" variant="outline"><Save className="mr-1 h-3 w-3" /> Save</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader><DialogTitle>Save scenario</DialogTitle></DialogHeader>
+        <div className="space-y-3">
+          <div><Label>Name</Label><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Climate stress 2027" /></div>
+          <div><Label>Description</Label><Textarea rows={2} value={desc} onChange={(e) => setDesc(e.target.value)} /></div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={shared} onChange={(e) => setShared(e.target.checked)} />
+            Share with all signed-in users
+          </label>
+        </div>
+        <DialogFooter>
+          <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={save} className="bg-primary">Save</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
