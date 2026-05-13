@@ -64,6 +64,7 @@ import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
 import { Route as ApiPublicHooksWeeklyDigestRouteImport } from './routes/api/public/hooks/weekly-digest'
 import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
+import { Route as ApiPublicHooksAnomalySweepRouteImport } from './routes/api/public/hooks/anomaly-sweep'
 
 const StatesRoute = StatesRouteImport.update({
   id: '/states',
@@ -342,6 +343,12 @@ const ApiPublicHooksDailyBriefingRoute =
     path: '/api/public/hooks/daily-briefing',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksAnomalySweepRoute =
+  ApiPublicHooksAnomalySweepRouteImport.update({
+    id: '/api/public/hooks/anomaly-sweep',
+    path: '/api/public/hooks/anomaly-sweep',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -397,6 +404,7 @@ export interface FileRoutesByFullPath {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
@@ -452,6 +460,7 @@ export interface FileRoutesByTo {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
@@ -510,6 +519,7 @@ export interface FileRoutesById {
   '/state/surveys': typeof StateSurveysRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
@@ -569,6 +579,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/weekly-digest'
   fileRoutesByTo: FileRoutesByTo
@@ -624,6 +635,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf'
     | '/state'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/weekly-digest'
   id:
@@ -681,6 +693,7 @@ export interface FileRouteTypes {
     | '/state/surveys'
     | '/ngf/'
     | '/state/'
+    | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/weekly-digest'
   fileRoutesById: FileRoutesById
@@ -701,6 +714,7 @@ export interface RootRouteChildren {
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
   StatesRoute: typeof StatesRoute
+  ApiPublicHooksAnomalySweepRoute: typeof ApiPublicHooksAnomalySweepRoute
   ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
   ApiPublicHooksWeeklyDigestRoute: typeof ApiPublicHooksWeeklyDigestRoute
 }
@@ -1092,6 +1106,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksDailyBriefingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/anomaly-sweep': {
+      id: '/api/public/hooks/anomaly-sweep'
+      path: '/api/public/hooks/anomaly-sweep'
+      fullPath: '/api/public/hooks/anomaly-sweep'
+      preLoaderRoute: typeof ApiPublicHooksAnomalySweepRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1211,6 +1232,7 @@ const rootRouteChildren: RootRouteChildren = {
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
   StatesRoute: StatesRoute,
+  ApiPublicHooksAnomalySweepRoute: ApiPublicHooksAnomalySweepRoute,
   ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
   ApiPublicHooksWeeklyDigestRoute: ApiPublicHooksWeeklyDigestRoute,
 }
