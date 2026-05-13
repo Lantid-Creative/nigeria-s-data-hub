@@ -43,6 +43,7 @@ import { Route as NgfSurveysRouteImport } from './routes/ngf.surveys'
 import { Route as NgfStatesRouteImport } from './routes/ngf.states'
 import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
 import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
+import { Route as NgfScenariosRouteImport } from './routes/ngf.scenarios'
 import { Route as NgfRisksRouteImport } from './routes/ngf.risks'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
@@ -239,6 +240,11 @@ const NgfSettingsRoute = NgfSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfScenariosRoute = NgfScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfRisksRoute = NgfRisksRouteImport.update({
   id: '/risks',
   path: '/risks',
@@ -406,6 +412,7 @@ export interface FileRoutesByFullPath {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -465,6 +472,7 @@ export interface FileRoutesByTo {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -527,6 +535,7 @@ export interface FileRoutesById {
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/risks': typeof NgfRisksRoute
+  '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
   '/ngf/snri': typeof NgfSnriRoute
   '/ngf/states': typeof NgfStatesRoute
@@ -590,6 +599,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -649,6 +659,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -710,6 +721,7 @@ export interface FileRouteTypes {
     | '/ngf/reports'
     | '/ngf/research'
     | '/ngf/risks'
+    | '/ngf/scenarios'
     | '/ngf/settings'
     | '/ngf/snri'
     | '/ngf/states'
@@ -997,6 +1009,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfSettingsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/scenarios': {
+      id: '/ngf/scenarios'
+      path: '/scenarios'
+      fullPath: '/ngf/scenarios'
+      preLoaderRoute: typeof NgfScenariosRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/risks': {
       id: '/ngf/risks'
       path: '/risks'
@@ -1208,6 +1227,7 @@ interface NgfRouteChildren {
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
   NgfRisksRoute: typeof NgfRisksRoute
+  NgfScenariosRoute: typeof NgfScenariosRoute
   NgfSettingsRoute: typeof NgfSettingsRoute
   NgfSnriRoute: typeof NgfSnriRoute
   NgfStatesRoute: typeof NgfStatesRoute
@@ -1235,6 +1255,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
   NgfRisksRoute: NgfRisksRoute,
+  NgfScenariosRoute: NgfScenariosRoute,
   NgfSettingsRoute: NgfSettingsRoute,
   NgfSnriRoute: NgfSnriRoute,
   NgfStatesRoute: NgfStatesRoute,
@@ -1312,3 +1333,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
