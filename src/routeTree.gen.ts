@@ -26,6 +26,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StateIndexRouteImport } from './routes/state.index'
 import { Route as NgfIndexRouteImport } from './routes/ngf.index'
+import { Route as StatesCodeRouteImport } from './routes/states.$code'
 import { Route as StateSurveysRouteImport } from './routes/state.surveys'
 import { Route as StateSupportRouteImport } from './routes/state.support'
 import { Route as StateSettingsRouteImport } from './routes/state.settings'
@@ -151,6 +152,11 @@ const NgfIndexRoute = NgfIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => NgfRoute,
+} as any)
+const StatesCodeRoute = StatesCodeRouteImport.update({
+  id: '/$code',
+  path: '/$code',
+  getParentRoute: () => StatesRoute,
 } as any)
 const StateSurveysRoute = StateSurveysRouteImport.update({
   id: '/surveys',
@@ -372,7 +378,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
@@ -409,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
@@ -429,7 +436,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
@@ -466,6 +473,7 @@ export interface FileRoutesByTo {
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
@@ -489,7 +497,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/snri': typeof SnriRoute
   '/state': typeof StateRouteWithChildren
-  '/states': typeof StatesRoute
+  '/states': typeof StatesRouteWithChildren
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
@@ -526,6 +534,7 @@ export interface FileRoutesById {
   '/state/settings': typeof StateSettingsRoute
   '/state/support': typeof StateSupportRoute
   '/state/surveys': typeof StateSurveysRoute
+  '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
@@ -587,6 +596,7 @@ export interface FileRouteTypes {
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf/'
     | '/state/'
     | '/api/public/hooks/anomaly-sweep'
@@ -644,6 +654,7 @@ export interface FileRouteTypes {
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf'
     | '/state'
     | '/api/public/hooks/anomaly-sweep'
@@ -703,6 +714,7 @@ export interface FileRouteTypes {
     | '/state/settings'
     | '/state/support'
     | '/state/surveys'
+    | '/states/$code'
     | '/ngf/'
     | '/state/'
     | '/api/public/hooks/anomaly-sweep'
@@ -726,7 +738,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   SnriRoute: typeof SnriRoute
   StateRoute: typeof StateRouteWithChildren
-  StatesRoute: typeof StatesRoute
+  StatesRoute: typeof StatesRouteWithChildren
   ApiPublicHooksAnomalySweepRoute: typeof ApiPublicHooksAnomalySweepRoute
   ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
   ApiPublicHooksSubmissionNudgesRoute: typeof ApiPublicHooksSubmissionNudgesRoute
@@ -853,6 +865,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/ngf/'
       preLoaderRoute: typeof NgfIndexRouteImport
       parentRoute: typeof NgfRoute
+    }
+    '/states/$code': {
+      id: '/states/$code'
+      path: '/$code'
+      fullPath: '/states/$code'
+      preLoaderRoute: typeof StatesCodeRouteImport
+      parentRoute: typeof StatesRoute
     }
     '/state/surveys': {
       id: '/state/surveys'
@@ -1237,6 +1256,17 @@ const StateRouteChildren: StateRouteChildren = {
 
 const StateRouteWithChildren = StateRoute._addFileChildren(StateRouteChildren)
 
+interface StatesRouteChildren {
+  StatesCodeRoute: typeof StatesCodeRoute
+}
+
+const StatesRouteChildren: StatesRouteChildren = {
+  StatesCodeRoute: StatesCodeRoute,
+}
+
+const StatesRouteWithChildren =
+  StatesRoute._addFileChildren(StatesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -1252,7 +1282,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   SnriRoute: SnriRoute,
   StateRoute: StateRouteWithChildren,
-  StatesRoute: StatesRoute,
+  StatesRoute: StatesRouteWithChildren,
   ApiPublicHooksAnomalySweepRoute: ApiPublicHooksAnomalySweepRoute,
   ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
   ApiPublicHooksSubmissionNudgesRoute: ApiPublicHooksSubmissionNudgesRoute,
@@ -1261,3 +1291,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
