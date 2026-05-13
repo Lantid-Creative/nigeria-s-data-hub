@@ -63,6 +63,7 @@ import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
 import { Route as ApiPublicHooksWeeklyDigestRouteImport } from './routes/api/public/hooks/weekly-digest'
+import { Route as ApiPublicHooksSubmissionNudgesRouteImport } from './routes/api/public/hooks/submission-nudges'
 import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
 import { Route as ApiPublicHooksAnomalySweepRouteImport } from './routes/api/public/hooks/anomaly-sweep'
 
@@ -337,6 +338,12 @@ const ApiPublicHooksWeeklyDigestRoute =
     path: '/api/public/hooks/weekly-digest',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksSubmissionNudgesRoute =
+  ApiPublicHooksSubmissionNudgesRouteImport.update({
+    id: '/api/public/hooks/submission-nudges',
+    path: '/api/public/hooks/submission-nudges',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksDailyBriefingRoute =
   ApiPublicHooksDailyBriefingRouteImport.update({
     id: '/api/public/hooks/daily-briefing',
@@ -406,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesByTo {
@@ -462,6 +470,7 @@ export interface FileRoutesByTo {
   '/state': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesById {
@@ -521,6 +530,7 @@ export interface FileRoutesById {
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
   '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRouteTypes {
@@ -581,6 +591,7 @@ export interface FileRouteTypes {
     | '/state/'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
     | '/api/public/hooks/weekly-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -637,6 +648,7 @@ export interface FileRouteTypes {
     | '/state'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
     | '/api/public/hooks/weekly-digest'
   id:
     | '__root__'
@@ -695,6 +707,7 @@ export interface FileRouteTypes {
     | '/state/'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/submission-nudges'
     | '/api/public/hooks/weekly-digest'
   fileRoutesById: FileRoutesById
 }
@@ -716,6 +729,7 @@ export interface RootRouteChildren {
   StatesRoute: typeof StatesRoute
   ApiPublicHooksAnomalySweepRoute: typeof ApiPublicHooksAnomalySweepRoute
   ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
+  ApiPublicHooksSubmissionNudgesRoute: typeof ApiPublicHooksSubmissionNudgesRoute
   ApiPublicHooksWeeklyDigestRoute: typeof ApiPublicHooksWeeklyDigestRoute
 }
 
@@ -1099,6 +1113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksWeeklyDigestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/submission-nudges': {
+      id: '/api/public/hooks/submission-nudges'
+      path: '/api/public/hooks/submission-nudges'
+      fullPath: '/api/public/hooks/submission-nudges'
+      preLoaderRoute: typeof ApiPublicHooksSubmissionNudgesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/daily-briefing': {
       id: '/api/public/hooks/daily-briefing'
       path: '/api/public/hooks/daily-briefing'
@@ -1234,6 +1255,7 @@ const rootRouteChildren: RootRouteChildren = {
   StatesRoute: StatesRoute,
   ApiPublicHooksAnomalySweepRoute: ApiPublicHooksAnomalySweepRoute,
   ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
+  ApiPublicHooksSubmissionNudgesRoute: ApiPublicHooksSubmissionNudgesRoute,
   ApiPublicHooksWeeklyDigestRoute: ApiPublicHooksWeeklyDigestRoute,
 }
 export const routeTree = rootRouteImport
