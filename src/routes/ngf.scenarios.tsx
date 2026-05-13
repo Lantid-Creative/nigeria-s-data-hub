@@ -68,7 +68,7 @@ function ScenariosList() {
                   <div className="mt-2 flex flex-wrap gap-1">
                     {top.map(([k, v]) => (
                       <Badge key={k} variant="outline" className="text-[10px] tabular-nums">
-                        {k}: {Number(v) > 0 ? "+" : ""}{v}
+                        {k}: {Number(v) > 0 ? "+" : ""}{Number(v)}
                       </Badge>
                     ))}
                     {!top.length && <span className="text-xs text-muted-foreground">no shocks applied</span>}
