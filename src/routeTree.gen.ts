@@ -62,6 +62,7 @@ import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
+import { Route as ApiPublicHooksWeeklyDigestRouteImport } from './routes/api/public/hooks/weekly-digest'
 import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
 
 const StatesRoute = StatesRouteImport.update({
@@ -329,6 +330,12 @@ const LegalDataRoute = LegalDataRouteImport.update({
   path: '/data',
   getParentRoute: () => LegalRoute,
 } as any)
+const ApiPublicHooksWeeklyDigestRoute =
+  ApiPublicHooksWeeklyDigestRouteImport.update({
+    id: '/api/public/hooks/weekly-digest',
+    path: '/api/public/hooks/weekly-digest',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksDailyBriefingRoute =
   ApiPublicHooksDailyBriefingRouteImport.update({
     id: '/api/public/hooks/daily-briefing',
@@ -391,6 +398,7 @@ export interface FileRoutesByFullPath {
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -445,6 +453,7 @@ export interface FileRoutesByTo {
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -502,6 +511,7 @@ export interface FileRoutesById {
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
+  '/api/public/hooks/weekly-digest': typeof ApiPublicHooksWeeklyDigestRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -560,6 +570,7 @@ export interface FileRouteTypes {
     | '/ngf/'
     | '/state/'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/weekly-digest'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -614,6 +625,7 @@ export interface FileRouteTypes {
     | '/ngf'
     | '/state'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/weekly-digest'
   id:
     | '__root__'
     | '/'
@@ -670,6 +682,7 @@ export interface FileRouteTypes {
     | '/ngf/'
     | '/state/'
     | '/api/public/hooks/daily-briefing'
+    | '/api/public/hooks/weekly-digest'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -689,6 +702,7 @@ export interface RootRouteChildren {
   StateRoute: typeof StateRouteWithChildren
   StatesRoute: typeof StatesRoute
   ApiPublicHooksDailyBriefingRoute: typeof ApiPublicHooksDailyBriefingRoute
+  ApiPublicHooksWeeklyDigestRoute: typeof ApiPublicHooksWeeklyDigestRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1064,6 +1078,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalDataRouteImport
       parentRoute: typeof LegalRoute
     }
+    '/api/public/hooks/weekly-digest': {
+      id: '/api/public/hooks/weekly-digest'
+      path: '/api/public/hooks/weekly-digest'
+      fullPath: '/api/public/hooks/weekly-digest'
+      preLoaderRoute: typeof ApiPublicHooksWeeklyDigestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/daily-briefing': {
       id: '/api/public/hooks/daily-briefing'
       path: '/api/public/hooks/daily-briefing'
@@ -1191,7 +1212,17 @@ const rootRouteChildren: RootRouteChildren = {
   StateRoute: StateRouteWithChildren,
   StatesRoute: StatesRoute,
   ApiPublicHooksDailyBriefingRoute: ApiPublicHooksDailyBriefingRoute,
+  ApiPublicHooksWeeklyDigestRoute: ApiPublicHooksWeeklyDigestRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
