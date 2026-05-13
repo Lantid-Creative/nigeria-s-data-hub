@@ -59,9 +59,12 @@ export function ScenarioBuilder({ scores }: { scores: any[] }) {
           </CardTitle>
           <p className="text-xs text-muted-foreground">Apply a shock (±) to each dimension and watch SNRI move across the federation.</p>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => setShocks(Object.fromEntries(DIM_KEYS.map((d) => [d.key, 0])))}>
-          <RotateCcw className="mr-1 h-3 w-3" /> Reset
-        </Button>
+        <div className="flex items-center gap-2">
+          <SaveScenarioDialog shocks={shocks} />
+          <Button variant="ghost" size="sm" onClick={() => setShocks(Object.fromEntries(DIM_KEYS.map((d) => [d.key, 0])))}>
+            <RotateCcw className="mr-1 h-3 w-3" /> Reset
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="grid gap-6 lg:grid-cols-5">
         <div className="space-y-3 lg:col-span-2">
