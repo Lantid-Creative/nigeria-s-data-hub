@@ -44,6 +44,7 @@ function NgfLayout() {
               label: "Foresight & Innovation",
               items: [
                 { title: "Scenario Planning", url: "/ngf/foresight", icon: Telescope },
+                { title: "Saved Scenarios", url: "/ngf/scenarios", icon: Sparkles },
                 { title: "Horizon Scan", url: "/ngf/horizon", icon: Eye },
                 { title: "Risk Register", url: "/ngf/risks", icon: AlertTriangle },
                 { title: "Research Lab", url: "/ngf/research", icon: FlaskConical },
