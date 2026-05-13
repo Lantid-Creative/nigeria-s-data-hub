@@ -60,6 +60,7 @@ import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
 import { Route as NgfAskdataRouteImport } from './routes/ngf.askdata'
 import { Route as NgfAnalyticsRouteImport } from './routes/ngf.analytics'
 import { Route as NgfAlertsRouteImport } from './routes/ngf.alerts'
+import { Route as NgfAccessRouteImport } from './routes/ngf.access'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
@@ -323,6 +324,11 @@ const NgfAlertsRoute = NgfAlertsRouteImport.update({
   path: '/alerts',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfAccessRoute = NgfAccessRouteImport.update({
+  id: '/access',
+  path: '/access',
+  getParentRoute: () => NgfRoute,
+} as any)
 const LegalTermsRoute = LegalTermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -382,6 +388,7 @@ export interface FileRoutesByFullPath {
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -440,6 +447,7 @@ export interface FileRoutesByTo {
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -501,6 +509,7 @@ export interface FileRoutesById {
   '/legal/data': typeof LegalDataRoute
   '/legal/privacy': typeof LegalPrivacyRoute
   '/legal/terms': typeof LegalTermsRoute
+  '/ngf/access': typeof NgfAccessRoute
   '/ngf/alerts': typeof NgfAlertsRoute
   '/ngf/analytics': typeof NgfAnalyticsRoute
   '/ngf/askdata': typeof NgfAskdataRoute
@@ -563,6 +572,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -621,6 +631,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -681,6 +692,7 @@ export interface FileRouteTypes {
     | '/legal/data'
     | '/legal/privacy'
     | '/legal/terms'
+    | '/ngf/access'
     | '/ngf/alerts'
     | '/ngf/analytics'
     | '/ngf/askdata'
@@ -1104,6 +1116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfAlertsRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/access': {
+      id: '/ngf/access'
+      path: '/access'
+      fullPath: '/ngf/access'
+      preLoaderRoute: typeof NgfAccessRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/legal/terms': {
       id: '/legal/terms'
       path: '/terms'
@@ -1171,6 +1190,7 @@ const LegalRouteChildren: LegalRouteChildren = {
 const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 
 interface NgfRouteChildren {
+  NgfAccessRoute: typeof NgfAccessRoute
   NgfAlertsRoute: typeof NgfAlertsRoute
   NgfAnalyticsRoute: typeof NgfAnalyticsRoute
   NgfAskdataRoute: typeof NgfAskdataRoute
@@ -1197,6 +1217,7 @@ interface NgfRouteChildren {
 }
 
 const NgfRouteChildren: NgfRouteChildren = {
+  NgfAccessRoute: NgfAccessRoute,
   NgfAlertsRoute: NgfAlertsRoute,
   NgfAnalyticsRoute: NgfAnalyticsRoute,
   NgfAskdataRoute: NgfAskdataRoute,
