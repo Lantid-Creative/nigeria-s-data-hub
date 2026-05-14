@@ -16,7 +16,7 @@ import {
   useAllSubmissions, useNationalSnriTrend, useDimensions,
 } from "@/lib/state-data";
 import { AiInsightCard } from "@/components/platform/AiInsightCard";
-import { NigeriaGridMap } from "@/components/platform/NigeriaGridMap";
+import { NigeriaChoropleth } from "@/components/platform/NigeriaChoropleth";
 import { ScenarioBuilder } from "@/components/platform/ScenarioBuilder";
 
 export const Route = createFileRoute("/ngf/")({ component: NgfOverview });
@@ -148,7 +148,7 @@ function NgfOverview() {
             </Button>
           </CardHeader>
           <CardContent>
-            {scores.length ? <NigeriaGridMap scores={scores} /> : (
+            {scores.length ? <NigeriaChoropleth scores={scores} /> : (
               <div className="p-6 text-center text-sm text-muted-foreground">No state scores yet.</div>
             )}
           </CardContent>

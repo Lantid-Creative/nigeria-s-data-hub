@@ -69,7 +69,15 @@ function Press() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Press monitor" description="Media coverage tagged by state and topic" />
+      <SectionHeader
+        title="Press monitor"
+        description="Media coverage tagged by state and topic"
+        action={
+          <Button onClick={runAi} disabled={scoring} variant="outline">
+            <Sparkles className="mr-2 h-4 w-4" />{scoring ? "Scoring…" : "AI sentiment scan"}
+          </Button>
+        }
+      />
 
       <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">Add clipping</CardTitle></CardHeader>
