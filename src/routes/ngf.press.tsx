@@ -10,11 +10,28 @@ import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/lib/audit";
 import { toast } from "sonner";
 import { useState } from "react";
-import { ExternalLink, Trash2 } from "lucide-react";
+import { ExternalLink, Sparkles, Trash2 } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { scorePressSentiment } from "@/lib/press.functions";
 
 export const Route = createFileRoute("/ngf/press")({ component: Press });
 
 function Press() {
+  const score = useServerFn(scorePressSentiment);
+  const [scoring, setScoring] = useState(false);
+  const runAi = async () => {
+    setScoring(true);
+    try {
+      const r: any = await score();
+      toast.success(`AI scored ${r.updated}/${r.processed} clippings`);
+      logEvent("press.ai_score", "press", null, r);
+      qc.invalidateQueries({ queryKey: ["press"] });
+    } catch (e: any) {
+      toast.error(e?.message ?? "AI scoring failed");
+    } finally {
+      setScoring(false);
+    }
+  };
   const qc = useQueryClient();
   const [form, setForm] = useState({ headline: "", outlet: "", url: "", state_code: "", topic: "", sentiment: "neutral", published_at: "" });
   const [filter, setFilter] = useState("");

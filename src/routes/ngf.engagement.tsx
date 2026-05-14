@@ -81,21 +81,47 @@ function Engagement() {
         </CardContent>
       </Card>
 
-      <Card className="shadow-soft">
-        <CardHeader><CardTitle className="font-display text-lg">Engagement scorecard</CardTitle></CardHeader>
-        <CardContent className="divide-y p-0">
-          {scoreboard.map((s) => (
-            <div key={s.code} className="flex items-center justify-between p-4">
-              <div className="font-medium">{s.name}</div>
-              <div className="flex items-center gap-6 text-sm">
-                <span><span className="text-muted-foreground">Events</span> <span className="ml-1 font-display text-base">{s.events}</span></span>
-                <span><span className="text-muted-foreground">Avg responsiveness</span> <span className="ml-1 font-display text-base">{s.avg_resp}</span></span>
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card className="shadow-soft">
+          <CardHeader><CardTitle className="font-display text-lg">Engagement scorecard</CardTitle></CardHeader>
+          <CardContent className="divide-y p-0">
+            {scoreboard.map((s) => (
+              <div key={s.code} className="flex items-center justify-between p-4">
+                <div className="font-medium">{s.name}</div>
+                <div className="flex items-center gap-6 text-sm">
+                  <span><span className="text-muted-foreground">Events</span> <span className="ml-1 font-display text-base">{s.events}</span></span>
+                  <span><span className="text-muted-foreground">Avg resp</span> <span className="ml-1 font-display text-base">{s.avg_resp}</span></span>
+                </div>
               </div>
+            ))}
+            {!scoreboard.length && <div className="p-6 text-center text-sm text-muted-foreground">Nothing logged yet.</div>}
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-soft">
+          <CardHeader><CardTitle className="font-display text-lg">Timeline</CardTitle></CardHeader>
+          <CardContent className="p-0">
+            <div className="relative max-h-[420px] overflow-y-auto pl-6 pr-4 py-4">
+              <div className="absolute bottom-4 left-3 top-4 w-px bg-border" />
+              {(rows as any[]).slice(0, 80).map((r) => {
+                const tone = r.responsiveness >= 4 ? "bg-emerald-500" : r.responsiveness <= 2 ? "bg-destructive" : "bg-gold";
+                return (
+                  <div key={r.id} className="relative mb-4 last:mb-0">
+                    <span className={`absolute -left-[14px] top-1.5 h-2.5 w-2.5 rounded-full ${tone} ring-2 ring-background`} />
+                    <div className="flex flex-wrap items-baseline gap-2">
+                      <span className="font-display text-sm">{(states as any[]).find((x: any) => x.code === r.state_code)?.name ?? r.state_code}</span>
+                      <span className="text-[11px] uppercase tracking-wider text-muted-foreground">{r.event_type}</span>
+                      <span className="ml-auto text-xs text-muted-foreground">{r.event_date}</span>
+                    </div>
+                    {r.summary && <div className="mt-1 text-xs text-muted-foreground line-clamp-2">{r.summary}</div>}
+                  </div>
+                );
+              })}
+              {!rows.length && <div className="p-6 text-center text-sm text-muted-foreground">No events yet.</div>}
             </div>
-          ))}
-          {!scoreboard.length && <div className="p-6 text-center text-sm text-muted-foreground">Nothing logged yet.</div>}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
