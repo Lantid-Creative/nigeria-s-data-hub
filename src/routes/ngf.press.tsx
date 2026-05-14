@@ -17,8 +17,12 @@ import { scorePressSentiment } from "@/lib/press.functions";
 export const Route = createFileRoute("/ngf/press")({ component: Press });
 
 function Press() {
+  const qc = useQueryClient();
   const score = useServerFn(scorePressSentiment);
   const [scoring, setScoring] = useState(false);
+  const [form, setForm] = useState({ headline: "", outlet: "", url: "", state_code: "", topic: "", sentiment: "neutral", published_at: "" });
+  const [filter, setFilter] = useState("");
+
   const runAi = async () => {
     setScoring(true);
     try {
@@ -32,9 +36,6 @@ function Press() {
       setScoring(false);
     }
   };
-  const qc = useQueryClient();
-  const [form, setForm] = useState({ headline: "", outlet: "", url: "", state_code: "", topic: "", sentiment: "neutral", published_at: "" });
-  const [filter, setFilter] = useState("");
 
   const { data: rows = [] } = useQuery({
     queryKey: ["press"],
