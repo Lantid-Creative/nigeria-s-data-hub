@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { CountUp } from "@/components/site/CountUp";
 import { NigeriaMap } from "@/components/site/NigeriaMap";
+import { SnriTicker } from "@/components/site/SnriTicker";
 
 const ORG_JSONLD = {
   "@context": "https://schema.org",
@@ -57,6 +58,7 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <SnriTicker />
       <main id="main">
         <Hero />
         <PulseStrip />

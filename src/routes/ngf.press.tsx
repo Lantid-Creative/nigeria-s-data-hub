@@ -10,14 +10,32 @@ import { supabase } from "@/integrations/supabase/client";
 import { logEvent } from "@/lib/audit";
 import { toast } from "sonner";
 import { useState } from "react";
-import { ExternalLink, Trash2 } from "lucide-react";
+import { ExternalLink, Sparkles, Trash2 } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { scorePressSentiment } from "@/lib/press.functions";
 
 export const Route = createFileRoute("/ngf/press")({ component: Press });
 
 function Press() {
   const qc = useQueryClient();
+  const score = useServerFn(scorePressSentiment);
+  const [scoring, setScoring] = useState(false);
   const [form, setForm] = useState({ headline: "", outlet: "", url: "", state_code: "", topic: "", sentiment: "neutral", published_at: "" });
   const [filter, setFilter] = useState("");
+
+  const runAi = async () => {
+    setScoring(true);
+    try {
+      const r: any = await score();
+      toast.success(`AI scored ${r.updated}/${r.processed} clippings`);
+      logEvent("press.ai_score", "press", null, r);
+      qc.invalidateQueries({ queryKey: ["press"] });
+    } catch (e: any) {
+      toast.error(e?.message ?? "AI scoring failed");
+    } finally {
+      setScoring(false);
+    }
+  };
 
   const { data: rows = [] } = useQuery({
     queryKey: ["press"],
@@ -51,7 +69,15 @@ function Press() {
 
   return (
     <div className="space-y-6">
-      <SectionHeader title="Press monitor" description="Media coverage tagged by state and topic" />
+      <SectionHeader
+        title="Press monitor"
+        description="Media coverage tagged by state and topic"
+        action={
+          <Button onClick={runAi} disabled={scoring} variant="outline">
+            <Sparkles className="mr-2 h-4 w-4" />{scoring ? "Scoring…" : "AI sentiment scan"}
+          </Button>
+        }
+      />
 
       <Card className="shadow-soft">
         <CardHeader><CardTitle className="font-display text-lg">Add clipping</CardTitle></CardHeader>

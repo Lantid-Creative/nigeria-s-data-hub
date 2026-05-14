@@ -56,6 +56,7 @@ import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
 import { Route as NgfGrantsRouteImport } from './routes/ngf.grants'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfEngagementRouteImport } from './routes/ngf.engagement'
+import { Route as NgfDiffRouteImport } from './routes/ngf.diff'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
 import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
 import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
@@ -306,6 +307,11 @@ const NgfEngagementRoute = NgfEngagementRouteImport.update({
   path: '/engagement',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfDiffRoute = NgfDiffRouteImport.update({
+  id: '/diff',
+  path: '/diff',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfDataRoute = NgfDataRouteImport.update({
   id: '/data',
   path: '/data',
@@ -407,6 +413,7 @@ export interface FileRoutesByFullPath {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -468,6 +475,7 @@ export interface FileRoutesByTo {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -532,6 +540,7 @@ export interface FileRoutesById {
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
   '/ngf/data': typeof NgfDataRoute
+  '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -597,6 +606,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/diff'
     | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -658,6 +668,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/diff'
     | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -721,6 +732,7 @@ export interface FileRouteTypes {
     | '/ngf/audit'
     | '/ngf/briefing'
     | '/ngf/data'
+    | '/ngf/diff'
     | '/ngf/engagement'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -1112,6 +1124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfEngagementRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/diff': {
+      id: '/ngf/diff'
+      path: '/diff'
+      fullPath: '/ngf/diff'
+      preLoaderRoute: typeof NgfDiffRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/data': {
       id: '/ngf/data'
       path: '/data'
@@ -1235,6 +1254,7 @@ interface NgfRouteChildren {
   NgfAuditRoute: typeof NgfAuditRoute
   NgfBriefingRoute: typeof NgfBriefingRoute
   NgfDataRoute: typeof NgfDataRoute
+  NgfDiffRoute: typeof NgfDiffRoute
   NgfEngagementRoute: typeof NgfEngagementRoute
   NgfForesightRoute: typeof NgfForesightRoute
   NgfGrantsRoute: typeof NgfGrantsRoute
@@ -1263,6 +1283,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfAuditRoute: NgfAuditRoute,
   NgfBriefingRoute: NgfBriefingRoute,
   NgfDataRoute: NgfDataRoute,
+  NgfDiffRoute: NgfDiffRoute,
   NgfEngagementRoute: NgfEngagementRoute,
   NgfForesightRoute: NgfForesightRoute,
   NgfGrantsRoute: NgfGrantsRoute,
@@ -1354,12 +1375,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
