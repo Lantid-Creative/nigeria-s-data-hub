@@ -128,7 +128,7 @@ export function NigeriaChoropleth({ scores }: { scores: any[] }) {
     <div className="space-y-2">
       <div className="relative w-full overflow-hidden rounded-md border bg-[oklch(0.98_0.01_155)]">
         <svg viewBox={`0 0 ${projected.W} ${projected.H}`} className="h-auto w-full">
-          {projected.features.map((f) => {
+          {projected.features.map((f: any) => {
             const s: any = f.code ? byCode.get(f.code) : null;
             const v = s ? Math.round(Number(s.resilience_index ?? 0)) : 0;
             const fill = s ? tone(v) : "oklch(0.92 0.01 155 / 0.7)";
@@ -150,7 +150,7 @@ export function NigeriaChoropleth({ scores }: { scores: any[] }) {
               </g>
             );
           })}
-          {projected.features.map((f) => f.code && (
+          {projected.features.map((f: any) => f.code && (
             <text
               key={`l-${f.id}`}
               x={f.cx} y={f.cy}
@@ -162,7 +162,7 @@ export function NigeriaChoropleth({ scores }: { scores: any[] }) {
           ))}
         </svg>
         {hover && (() => {
-          const f = projected.features.find((x) => x.id === hover);
+          const f = projected.features.find((x: any) => x.id === hover);
           if (!f) return null;
           const s: any = f.code ? byCode.get(f.code) : null;
           const v = s ? Math.round(Number(s.resilience_index ?? 0)) : null;
