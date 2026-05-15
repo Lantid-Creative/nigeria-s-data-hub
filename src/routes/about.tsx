@@ -13,11 +13,13 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "The NGF Futures Lab is the data, foresight and innovation engine of the Nigeria Governors' Forum, anchored at the Economic Intelligence Unit." },
       { property: "og:title", content: "About the NGF Futures Lab" },
       { property: "og:description", content: "Anticipatory governance for Nigeria's 36 states + FCT — data, foresight and innovation, anchored at the NGF Secretariat." },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/about" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/about" }],
   }),
 });
 

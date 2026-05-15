@@ -11,10 +11,12 @@ export const Route = createFileRoute("/methodology")({
       { name: "description", content: "How the NGF Futures Lab collects, validates and analyses sub-national data: indicator framework, weighting, peer review and reporting cycles." },
       { property: "og:title", content: "Methodology — NGF Futures Lab" },
       { property: "og:description", content: "Indicator framework, weighting, peer review and reporting cycles behind the SNRI and Lab outputs." },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/methodology" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/methodology" }],
   }),
 });
 

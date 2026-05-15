@@ -12,10 +12,12 @@ export const Route = createFileRoute("/states")({
       { name: "description", content: "All 36 Nigerian states and the Federal Capital Territory, organised by geo-political zone, reporting through the NGF Futures Lab." },
       { property: "og:title", content: "States Coverage — NGF Futures Lab" },
       { property: "og:description", content: "36 states + FCT across six geo-political zones, reporting through the NGF Futures Lab." },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/states" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/states" }],
   }),
 });
 

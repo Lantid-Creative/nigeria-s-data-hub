@@ -19,7 +19,12 @@ export const Route = createFileRoute("/research")({
       { name: "description", content: "Working papers, foresight studies, policy briefs and Living Lab pilots from the NGF Futures Lab." },
       { property: "og:title", content: "Research & Reports — NGF Futures Lab" },
       { property: "og:description", content: "Browse the full catalogue of NGF Futures Lab research, reports and policy briefs." },
+      { property: "og:url", content: "https://myadam.online/research" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/research" }],
   }),
 });
 

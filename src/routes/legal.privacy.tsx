@@ -9,7 +9,13 @@ export const Route = createFileRoute("/legal/privacy")({
     meta: [
       { title: "Privacy Policy — NGF Futures Lab" },
       { name: "description", content: "How the NGF Futures Lab collects, uses and protects personal data." },
+      { property: "og:title", content: "Privacy Policy — NGF Futures Lab" },
+      { property: "og:description", content: "How the NGF Futures Lab collects, uses and protects personal data." },
+      { property: "og:url", content: "https://myadam.online/legal/privacy" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/legal/privacy" }],
   }),
 });
 

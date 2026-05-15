@@ -21,10 +21,12 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Get in touch with the NGF Futures Lab for partnerships, media enquiries or to request a briefing for your state." },
       { property: "og:title", content: "Contact the NGF Futures Lab" },
       { property: "og:description", content: "Partnerships, media enquiries, or request a briefing for your state." },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/contact" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/contact" }],
   }),
 });
 

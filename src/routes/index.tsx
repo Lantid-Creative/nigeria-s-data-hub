@@ -39,14 +39,18 @@ export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { title: "NGF Futures Lab — Sub-National Resilience for Nigeria" },
       { name: "description", content: "The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT." },
-      { property: "og:title", content: "NGF Futures Lab — Anticipatory Governance for Nigeria's States" },
+      { property: "og:title", content: "NGF Futures Lab — Sub-National Resilience for Nigeria" },
       { property: "og:description", content: "Data, foresight and innovation across Nigeria's 36 states + FCT, anchored at the NGF Secretariat." },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://myadam.online/" },
     ],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(ORG_JSONLD) },
