@@ -38,10 +38,12 @@ export const Route = createFileRoute("/snri")({
         content:
           "Seven dimensions. Forty-eight indicators. A diagnostic, prognostic and prescriptive measure of state resilience across Nigeria.",
       },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: "https://myadam.online/snri" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/snri" }],
   }),
 });
 
