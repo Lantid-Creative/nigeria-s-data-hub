@@ -7,4 +7,4 @@ Disallow: /signup
 Disallow: /forgot-password
 Disallow: /reset-password
 
-Sitemap: https://futureslab.lovable.app/sitemap.xml
+Sitemap: https://myadam.online/sitemap.xml

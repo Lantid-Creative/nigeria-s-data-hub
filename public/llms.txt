@@ -1,0 +1,21 @@
+# NGF Futures Lab
+
+> The data, foresight and innovation engine of the Nigeria Governors' Forum — measuring sub-national resilience across all 36 states and the FCT.
+
+The NGF Futures Lab is anchored at the Economic Intelligence Unit of the Nigeria Governors' Forum Secretariat. It publishes the Sub-National Resilience Index (SNRi) — a 7-dimension, 48-indicator composite measuring the resilience of Nigerian states — alongside research, foresight studies, and policy briefs that support state governments in anticipatory governance.
+
+## Pages
+
+- [About](/about): Mandate, leadership and how the Lab works.
+- [Methodology](/methodology): Indicator framework, weighting, peer review and reporting cycles.
+- [Sub-National Resilience Index (SNRi)](/snri): The composite index across 7 dimensions and 48 indicators for 36 states + FCT.
+- [States Coverage](/states): All 36 states + FCT, organised by geo-political zone.
+- [Research & Reports](/research): Working papers, policy briefs, foresight studies and Living Lab pilots.
+- [Press & Announcements](/press): Press releases and media coverage.
+- [Contact](/contact): Partnerships, media enquiries and briefing requests.
+
+## Optional
+
+- [Privacy Policy](/legal/privacy): How personal data is handled.
+- [Terms of Use](/legal/terms): Terms governing platform use.
+- [Data Policy](/legal/data): Ownership, access and publication of state-reported data.

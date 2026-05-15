@@ -16,8 +16,12 @@ export const Route = createFileRoute("/states/$code")({
       { name: "description", content: `Public resilience profile, SNRI score and dimensions for ${params.code} state.` },
       { property: "og:title", content: `${params.code} — State Resilience Profile` },
       { property: "og:description", content: `Sub-National Resilience Index and dimension scores for ${params.code}.` },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:url", content: `https://myadam.online/states/${params.code}` },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: `https://myadam.online/states/${params.code}` }],
   }),
 });
 

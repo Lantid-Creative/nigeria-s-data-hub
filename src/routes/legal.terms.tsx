@@ -9,7 +9,13 @@ export const Route = createFileRoute("/legal/terms")({
     meta: [
       { title: "Terms of Use — NGF Futures Lab" },
       { name: "description", content: "Terms governing use of the NGF Futures Lab platform and publications." },
+      { property: "og:title", content: "Terms of Use — NGF Futures Lab" },
+      { property: "og:description", content: "Terms governing use of the NGF Futures Lab platform and publications." },
+      { property: "og:url", content: "https://myadam.online/legal/terms" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/legal/terms" }],
   }),
 });
 

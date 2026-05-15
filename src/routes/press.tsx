@@ -14,7 +14,12 @@ export const Route = createFileRoute("/press")({
       { name: "description", content: "Press releases, official announcements and media coverage from the NGF Futures Lab." },
       { property: "og:title", content: "Press & Announcements — NGF Futures Lab" },
       { property: "og:description", content: "Latest press releases and media from the Nigeria Governors' Forum Futures Lab." },
+      { property: "og:url", content: "https://myadam.online/press" },
+      { property: "og:image", content: "https://myadam.online/og-image.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://myadam.online/og-image.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://myadam.online/press" }],
   }),
 });
 
