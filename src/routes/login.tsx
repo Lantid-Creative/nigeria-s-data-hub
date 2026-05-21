@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
 import ngfLogo from "@/assets/ngf-logo.png";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
 import { getPostLoginPath, redirectAuthenticatedUser } from "@/lib/auth-guards";
 
@@ -21,11 +21,16 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { signIn, user, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (authLoading || !user) return;
+    void getPostLoginPath(user.id).then((to) => navigate({ to, replace: true }));
+  }, [authLoading, navigate, user]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
