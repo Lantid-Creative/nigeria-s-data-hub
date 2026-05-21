@@ -40,7 +40,7 @@ function Explorer() {
     for (const r of rows as any[]) {
       const c = r.reporting_cycles; if (!c) continue;
       const v = Number(r[dim] ?? NaN); if (Number.isNaN(v)) continue;
-      const entry = map.get(r.state_code) ?? { code: r.state_code, name: r.states?.name ?? r.state_code, zone: r.states?.zone_code ?? "—", series: [] };
+      const entry: Entry = map.get(r.state_code) ?? { code: r.state_code, name: r.states?.name ?? r.state_code, zone: r.states?.zone_code ?? "—", series: [] };
       entry.series.push({ period: c.label, value: v, sort: c.starts_on });
       map.set(r.state_code, entry);
     }
