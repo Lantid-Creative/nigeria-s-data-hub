@@ -57,6 +57,7 @@ import { Route as NgfHorizonRouteImport } from './routes/ngf.horizon'
 import { Route as NgfGrantsRouteImport } from './routes/ngf.grants'
 import { Route as NgfForesightRouteImport } from './routes/ngf.foresight'
 import { Route as NgfExplorerRouteImport } from './routes/ngf.explorer'
+import { Route as NgfEvidenceRouteImport } from './routes/ngf.evidence'
 import { Route as NgfEngagementRouteImport } from './routes/ngf.engagement'
 import { Route as NgfDiffRouteImport } from './routes/ngf.diff'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
@@ -70,6 +71,7 @@ import { Route as NgfAccessRouteImport } from './routes/ngf.access'
 import { Route as LegalTermsRouteImport } from './routes/legal.terms'
 import { Route as LegalPrivacyRouteImport } from './routes/legal.privacy'
 import { Route as LegalDataRouteImport } from './routes/legal.data'
+import { Route as NgfReportsNewRouteImport } from './routes/ngf.reports.new'
 import { Route as ApiPublicHooksWeeklyDigestRouteImport } from './routes/api/public/hooks/weekly-digest'
 import { Route as ApiPublicHooksSubmissionNudgesRouteImport } from './routes/api/public/hooks/submission-nudges'
 import { Route as ApiPublicHooksDailyBriefingRouteImport } from './routes/api/public/hooks/daily-briefing'
@@ -315,6 +317,11 @@ const NgfExplorerRoute = NgfExplorerRouteImport.update({
   path: '/explorer',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfEvidenceRoute = NgfEvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfEngagementRoute = NgfEngagementRouteImport.update({
   id: '/engagement',
   path: '/engagement',
@@ -380,6 +387,11 @@ const LegalDataRoute = LegalDataRouteImport.update({
   path: '/data',
   getParentRoute: () => LegalRoute,
 } as any)
+const NgfReportsNewRoute = NgfReportsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => NgfReportsRoute,
+} as any)
 const ApiPublicHooksWeeklyDigestRoute =
   ApiPublicHooksWeeklyDigestRouteImport.update({
     id: '/api/public/hooks/weekly-digest',
@@ -434,6 +446,7 @@ export interface FileRoutesByFullPath {
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
+  '/ngf/evidence': typeof NgfEvidenceRoute
   '/ngf/explorer': typeof NgfExplorerRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -442,7 +455,7 @@ export interface FileRoutesByFullPath {
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/press': typeof NgfPressRoute
   '/ngf/publish': typeof NgfPublishRoute
-  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/reports': typeof NgfReportsRouteWithChildren
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -467,6 +480,7 @@ export interface FileRoutesByFullPath {
   '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/ngf/reports/new': typeof NgfReportsNewRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
@@ -499,6 +513,7 @@ export interface FileRoutesByTo {
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
+  '/ngf/evidence': typeof NgfEvidenceRoute
   '/ngf/explorer': typeof NgfExplorerRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -507,7 +522,7 @@ export interface FileRoutesByTo {
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/press': typeof NgfPressRoute
   '/ngf/publish': typeof NgfPublishRoute
-  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/reports': typeof NgfReportsRouteWithChildren
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -532,6 +547,7 @@ export interface FileRoutesByTo {
   '/states/$code': typeof StatesCodeRoute
   '/ngf': typeof NgfIndexRoute
   '/state': typeof StateIndexRoute
+  '/ngf/reports/new': typeof NgfReportsNewRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
@@ -567,6 +583,7 @@ export interface FileRoutesById {
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
+  '/ngf/evidence': typeof NgfEvidenceRoute
   '/ngf/explorer': typeof NgfExplorerRoute
   '/ngf/foresight': typeof NgfForesightRoute
   '/ngf/grants': typeof NgfGrantsRoute
@@ -575,7 +592,7 @@ export interface FileRoutesById {
   '/ngf/innovation': typeof NgfInnovationRoute
   '/ngf/press': typeof NgfPressRoute
   '/ngf/publish': typeof NgfPublishRoute
-  '/ngf/reports': typeof NgfReportsRoute
+  '/ngf/reports': typeof NgfReportsRouteWithChildren
   '/ngf/research': typeof NgfResearchRoute
   '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
@@ -600,6 +617,7 @@ export interface FileRoutesById {
   '/states/$code': typeof StatesCodeRoute
   '/ngf/': typeof NgfIndexRoute
   '/state/': typeof StateIndexRoute
+  '/ngf/reports/new': typeof NgfReportsNewRoute
   '/api/public/hooks/anomaly-sweep': typeof ApiPublicHooksAnomalySweepRoute
   '/api/public/hooks/daily-briefing': typeof ApiPublicHooksDailyBriefingRoute
   '/api/public/hooks/submission-nudges': typeof ApiPublicHooksSubmissionNudgesRoute
@@ -636,6 +654,7 @@ export interface FileRouteTypes {
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
+    | '/ngf/evidence'
     | '/ngf/explorer'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -669,6 +688,7 @@ export interface FileRouteTypes {
     | '/states/$code'
     | '/ngf/'
     | '/state/'
+    | '/ngf/reports/new'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/submission-nudges'
@@ -701,6 +721,7 @@ export interface FileRouteTypes {
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
+    | '/ngf/evidence'
     | '/ngf/explorer'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -734,6 +755,7 @@ export interface FileRouteTypes {
     | '/states/$code'
     | '/ngf'
     | '/state'
+    | '/ngf/reports/new'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/submission-nudges'
@@ -768,6 +790,7 @@ export interface FileRouteTypes {
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
+    | '/ngf/evidence'
     | '/ngf/explorer'
     | '/ngf/foresight'
     | '/ngf/grants'
@@ -801,6 +824,7 @@ export interface FileRouteTypes {
     | '/states/$code'
     | '/ngf/'
     | '/state/'
+    | '/ngf/reports/new'
     | '/api/public/hooks/anomaly-sweep'
     | '/api/public/hooks/daily-briefing'
     | '/api/public/hooks/submission-nudges'
@@ -1167,6 +1191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfExplorerRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/evidence': {
+      id: '/ngf/evidence'
+      path: '/evidence'
+      fullPath: '/ngf/evidence'
+      preLoaderRoute: typeof NgfEvidenceRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/engagement': {
       id: '/ngf/engagement'
       path: '/engagement'
@@ -1258,6 +1289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalDataRouteImport
       parentRoute: typeof LegalRoute
     }
+    '/ngf/reports/new': {
+      id: '/ngf/reports/new'
+      path: '/new'
+      fullPath: '/ngf/reports/new'
+      preLoaderRoute: typeof NgfReportsNewRouteImport
+      parentRoute: typeof NgfReportsRoute
+    }
     '/api/public/hooks/weekly-digest': {
       id: '/api/public/hooks/weekly-digest'
       path: '/api/public/hooks/weekly-digest'
@@ -1303,6 +1341,18 @@ const LegalRouteChildren: LegalRouteChildren = {
 
 const LegalRouteWithChildren = LegalRoute._addFileChildren(LegalRouteChildren)
 
+interface NgfReportsRouteChildren {
+  NgfReportsNewRoute: typeof NgfReportsNewRoute
+}
+
+const NgfReportsRouteChildren: NgfReportsRouteChildren = {
+  NgfReportsNewRoute: NgfReportsNewRoute,
+}
+
+const NgfReportsRouteWithChildren = NgfReportsRoute._addFileChildren(
+  NgfReportsRouteChildren,
+)
+
 interface NgfRouteChildren {
   NgfAccessRoute: typeof NgfAccessRoute
   NgfAlertsRoute: typeof NgfAlertsRoute
@@ -1314,6 +1364,7 @@ interface NgfRouteChildren {
   NgfDataRoute: typeof NgfDataRoute
   NgfDiffRoute: typeof NgfDiffRoute
   NgfEngagementRoute: typeof NgfEngagementRoute
+  NgfEvidenceRoute: typeof NgfEvidenceRoute
   NgfExplorerRoute: typeof NgfExplorerRoute
   NgfForesightRoute: typeof NgfForesightRoute
   NgfGrantsRoute: typeof NgfGrantsRoute
@@ -1322,7 +1373,7 @@ interface NgfRouteChildren {
   NgfInnovationRoute: typeof NgfInnovationRoute
   NgfPressRoute: typeof NgfPressRoute
   NgfPublishRoute: typeof NgfPublishRoute
-  NgfReportsRoute: typeof NgfReportsRoute
+  NgfReportsRoute: typeof NgfReportsRouteWithChildren
   NgfResearchRoute: typeof NgfResearchRoute
   NgfReviewRoute: typeof NgfReviewRoute
   NgfRisksRoute: typeof NgfRisksRoute
@@ -1346,6 +1397,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfDataRoute: NgfDataRoute,
   NgfDiffRoute: NgfDiffRoute,
   NgfEngagementRoute: NgfEngagementRoute,
+  NgfEvidenceRoute: NgfEvidenceRoute,
   NgfExplorerRoute: NgfExplorerRoute,
   NgfForesightRoute: NgfForesightRoute,
   NgfGrantsRoute: NgfGrantsRoute,
@@ -1354,7 +1406,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfInnovationRoute: NgfInnovationRoute,
   NgfPressRoute: NgfPressRoute,
   NgfPublishRoute: NgfPublishRoute,
-  NgfReportsRoute: NgfReportsRoute,
+  NgfReportsRoute: NgfReportsRouteWithChildren,
   NgfResearchRoute: NgfResearchRoute,
   NgfReviewRoute: NgfReviewRoute,
   NgfRisksRoute: NgfRisksRoute,
