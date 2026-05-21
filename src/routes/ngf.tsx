@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   LayoutDashboard, BarChart3, MapPin, Telescope, FlaskConical,
   FileText, Lightbulb, Bell, Shield, Settings, Database, GitBranch, Users, Inbox, Activity,
-  Brain, MessageCircle, AlertTriangle, Eye, DollarSign, Handshake, Newspaper, Send, Sparkles, Lock, GitCompare, ClipboardCheck,
+  Brain, MessageCircle, AlertTriangle, Eye, DollarSign, Handshake, Newspaper, Send, Sparkles, Lock, GitCompare, ClipboardCheck, LineChart, Layers,
 } from "lucide-react";
 
 export const Route = createFileRoute("/ngf")({
@@ -36,6 +36,8 @@ function NgfLayout() {
                 { title: "Daily Briefing", url: "/ngf/briefing", icon: Brain },
                 { title: "Ask the Data", url: "/ngf/askdata", icon: MessageCircle },
                 { title: "Analytics", url: "/ngf/analytics", icon: BarChart3 },
+                { title: "Indicator Explorer", url: "/ngf/explorer", icon: LineChart },
+                { title: "Cohort Analysis", url: "/ngf/cohorts", icon: Layers },
                 { title: "States", url: "/ngf/states", icon: MapPin },
                 { title: "SNRI", url: "/ngf/snri", icon: Shield },
                 { title: "Cycle Diff", url: "/ngf/diff", icon: GitCompare },
