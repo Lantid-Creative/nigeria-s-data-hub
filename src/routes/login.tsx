@@ -43,22 +43,6 @@ function LoginPage() {
     navigate({ to: isNgf ? "/ngf" : "/state" });
   }
 
-  async function googleSignIn() {
-    setError(null);
-    const r: any = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (r?.error) {
-      setError(typeof r.error === "string" ? r.error : (r.error as Error).message);
-      return;
-    }
-    if (r?.redirected) return;
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-    const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", user.id);
-    const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
-    navigate({ to: isNgf ? "/ngf" : "/state" });
-  }
 
   return (
     <div className="grid min-h-screen md:grid-cols-2">
