@@ -21,16 +21,20 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
-  const { signIn, user, loading: authLoading } = useAuth();
+  const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (authLoading || !user) return;
-    void getPostLoginPath(user.id).then((to) => navigate({ to, replace: true }));
-  }, [authLoading, navigate, user]);
+    let active = true;
+    void redirectAuthenticatedUser().catch((redirect) => {
+      const to = redirect?.options?.to;
+      if (active && (to === "/ngf" || to === "/state")) navigate({ to, replace: true });
+    });
+    return () => { active = false; };
+  }, [navigate]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
