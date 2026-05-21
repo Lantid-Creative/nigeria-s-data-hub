@@ -180,7 +180,7 @@ function EvidenceSearch() {
                     </p>
                   </div>
                   <div className="flex items-center gap-1 shrink-0">
-                    <Button size="sm" variant="ghost" onClick={() => setPreviewPath(r.file_path)}>
+                    <Button size="sm" variant="ghost" onClick={() => setPreview({ path: r.file_path, name: r.file_name })}>
                       <Eye className="h-4 w-4" />
                     </Button>
                     <Button size="sm" variant="ghost" onClick={() => runOcr(r)} disabled={ocrId === r.id}>
@@ -194,7 +194,12 @@ function EvidenceSearch() {
         </CardContent>
       </Card>
 
-      <EvidencePreview path={previewPath} onClose={() => setPreviewPath(null)} />
+      <EvidencePreview
+        open={!!preview}
+        onOpenChange={(v) => !v && setPreview(null)}
+        path={preview?.path ?? ""}
+        name={preview?.name ?? ""}
+      />
     </div>
   );
 }
