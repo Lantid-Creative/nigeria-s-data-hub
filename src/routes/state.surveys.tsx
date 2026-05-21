@@ -71,6 +71,37 @@ function Surveys() {
       : completion > 0
       ? "in_progress"
       : "not_started";
+
+    // Compute validation flags (YoY > 30% on numeric fields vs prior submission)
+    let flags: Array<{ label: string; severity: string; message: string }> = [];
+    let aiRisk = 0;
+    if (submit) {
+      const { data: prior } = await supabase
+        .from("survey_submissions")
+        .select("payload")
+        .eq("state_code", code)
+        .eq("survey_id", activeSurvey.id)
+        .in("status", ["approved", "submitted", "rejected"])
+        .order("submitted_at", { ascending: false })
+        .limit(1);
+      const priorPayload = (prior?.[0]?.payload ?? {}) as Record<string, unknown>;
+      for (const q of allQuestions) {
+        if (q.question_type !== "number") continue;
+        const cur = Number(draft[q.code]);
+        const prv = Number(priorPayload[q.code]);
+        if (!Number.isFinite(cur) || !Number.isFinite(prv) || prv === 0) continue;
+        const deltaPct = Math.abs(((cur - prv) / prv) * 100);
+        if (deltaPct > 30) {
+          flags.push({
+            label: q.label,
+            severity: deltaPct > 75 ? "error" : "warn",
+            message: `Year-on-year change of ${deltaPct.toFixed(0)}% (was ${prv}, now ${cur}).`,
+          });
+        }
+      }
+      aiRisk = Math.min(100, flags.reduce((s, f) => s + (f.severity === "error" ? 25 : 10), 0));
+    }
+
     const payload = {
       state_code: code,
       survey_id: activeSurvey.id,
@@ -79,13 +110,19 @@ function Surveys() {
       status,
       submitted_by: user.id,
       submitted_at: submit ? new Date().toISOString() : null,
+      flags,
+      ai_risk_score: aiRisk,
     };
     const { error } = activeSub
       ? await supabase.from("survey_submissions").update(payload).eq("id", activeSub.id)
       : await supabase.from("survey_submissions").insert(payload);
     setSaving(false);
     if (error) return toast.error(error.message);
-    toast.success(submit ? "Submitted for validation" : "Draft saved");
+    if (submit && flags.length) {
+      toast.warning(`Submitted with ${flags.length} validation flag${flags.length > 1 ? "s" : ""} — NGF will review.`);
+    } else {
+      toast.success(submit ? "Submitted for validation" : "Draft saved");
+    }
     qc.invalidateQueries({ queryKey: ["submissions", code] });
   }
 
