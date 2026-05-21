@@ -10,7 +10,8 @@ import { useStateCode } from "@/lib/state-data";
 import { logEvent } from "@/lib/audit";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
-import { FileText, Trash2, Upload } from "lucide-react";
+import { FileText, Trash2, Upload, Eye } from "lucide-react";
+import { EvidencePreview } from "@/components/platform/EvidencePreview";
 
 export const Route = createFileRoute("/state/evidence")({ component: Evidence });
 
@@ -20,6 +21,7 @@ function Evidence() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [questionCode, setQuestionCode] = useState("");
   const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState<{ path: string; name: string } | null>(null);
 
   const { data: rows = [] } = useQuery({
     queryKey: ["evidence", code],
@@ -94,6 +96,9 @@ function Evidence() {
                 </div>
               </div>
               <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => setPreview({ path: r.file_path, name: r.file_name })}>
+                  <Eye className="mr-1 h-3.5 w-3.5" />Preview
+                </Button>
                 <Button size="sm" variant="outline" onClick={() => download(r.file_path, r.file_name)}>Download</Button>
                 <Button size="sm" variant="ghost" onClick={() => remove(r.id, r.file_path)}><Trash2 className="h-4 w-4" /></Button>
               </div>
@@ -102,6 +107,15 @@ function Evidence() {
           {!rows.length && <div className="p-6 text-center text-sm text-muted-foreground">No files yet.</div>}
         </CardContent>
       </Card>
+
+      {preview && (
+        <EvidencePreview
+          open={!!preview}
+          onOpenChange={(v) => !v && setPreview(null)}
+          path={preview.path}
+          name={preview.name}
+        />
+      )}
     </div>
   );
 }

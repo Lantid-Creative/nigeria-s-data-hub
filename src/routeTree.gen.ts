@@ -46,6 +46,7 @@ import { Route as NgfSnriRouteImport } from './routes/ngf.snri'
 import { Route as NgfSettingsRouteImport } from './routes/ngf.settings'
 import { Route as NgfScenariosRouteImport } from './routes/ngf.scenarios'
 import { Route as NgfRisksRouteImport } from './routes/ngf.risks'
+import { Route as NgfReviewRouteImport } from './routes/ngf.review'
 import { Route as NgfResearchRouteImport } from './routes/ngf.research'
 import { Route as NgfReportsRouteImport } from './routes/ngf.reports'
 import { Route as NgfPublishRouteImport } from './routes/ngf.publish'
@@ -257,6 +258,11 @@ const NgfRisksRoute = NgfRisksRouteImport.update({
   path: '/risks',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfReviewRoute = NgfReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfResearchRoute = NgfResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -424,6 +430,7 @@ export interface FileRoutesByFullPath {
   '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
   '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
@@ -486,6 +493,7 @@ export interface FileRoutesByTo {
   '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
   '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
@@ -551,6 +559,7 @@ export interface FileRoutesById {
   '/ngf/publish': typeof NgfPublishRoute
   '/ngf/reports': typeof NgfReportsRoute
   '/ngf/research': typeof NgfResearchRoute
+  '/ngf/review': typeof NgfReviewRoute
   '/ngf/risks': typeof NgfRisksRoute
   '/ngf/scenarios': typeof NgfScenariosRoute
   '/ngf/settings': typeof NgfSettingsRoute
@@ -617,6 +626,7 @@ export interface FileRouteTypes {
     | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/review'
     | '/ngf/risks'
     | '/ngf/scenarios'
     | '/ngf/settings'
@@ -679,6 +689,7 @@ export interface FileRouteTypes {
     | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/review'
     | '/ngf/risks'
     | '/ngf/scenarios'
     | '/ngf/settings'
@@ -743,6 +754,7 @@ export interface FileRouteTypes {
     | '/ngf/publish'
     | '/ngf/reports'
     | '/ngf/research'
+    | '/ngf/review'
     | '/ngf/risks'
     | '/ngf/scenarios'
     | '/ngf/settings'
@@ -1054,6 +1066,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfRisksRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/review': {
+      id: '/ngf/review'
+      path: '/review'
+      fullPath: '/ngf/review'
+      preLoaderRoute: typeof NgfReviewRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/research': {
       id: '/ngf/research'
       path: '/research'
@@ -1265,6 +1284,7 @@ interface NgfRouteChildren {
   NgfPublishRoute: typeof NgfPublishRoute
   NgfReportsRoute: typeof NgfReportsRoute
   NgfResearchRoute: typeof NgfResearchRoute
+  NgfReviewRoute: typeof NgfReviewRoute
   NgfRisksRoute: typeof NgfRisksRoute
   NgfScenariosRoute: typeof NgfScenariosRoute
   NgfSettingsRoute: typeof NgfSettingsRoute
@@ -1294,6 +1314,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfPublishRoute: NgfPublishRoute,
   NgfReportsRoute: NgfReportsRoute,
   NgfResearchRoute: NgfResearchRoute,
+  NgfReviewRoute: NgfReviewRoute,
   NgfRisksRoute: NgfRisksRoute,
   NgfScenariosRoute: NgfScenariosRoute,
   NgfSettingsRoute: NgfSettingsRoute,
