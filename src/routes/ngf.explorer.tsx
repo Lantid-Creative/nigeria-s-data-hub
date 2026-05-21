@@ -35,7 +35,8 @@ function Explorer() {
   const [dim, setDim] = useState<DimKey>("economic");
 
   const byState = useMemo(() => {
-    const map = new Map<string, { code: string; name: string; zone: string; series: { period: string; value: number; sort: string }[] }>();
+    type Entry = { code: string; name: string; zone: string; series: { period: string; value: number; sort: string }[] };
+    const map = new Map<string, Entry>();
     for (const r of rows as any[]) {
       const c = r.reporting_cycles; if (!c) continue;
       const v = Number(r[dim] ?? NaN); if (Number.isNaN(v)) continue;
