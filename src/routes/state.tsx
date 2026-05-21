@@ -1,17 +1,14 @@
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { PlatformShell } from "@/components/platform/PlatformShell";
 import { PlatformSidebar } from "@/components/platform/PlatformSidebar";
-import { supabase } from "@/integrations/supabase/client";
+import { requireAuthenticatedUser } from "@/lib/auth-guards";
 import {
   LayoutDashboard, FileSpreadsheet, Database, Users, Bell,
   Settings, BookOpen, Activity, MessageSquare, Lightbulb, Target, FolderUp,
 } from "lucide-react";
 
 export const Route = createFileRoute("/state")({
-  beforeLoad: async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) throw redirect({ to: "/login" });
-  },
+  beforeLoad: () => requireAuthenticatedUser(),
   component: StateLayout,
 });
 

@@ -4,11 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
 import ngfLogo from "@/assets/ngf-logo.png";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
-import { supabase } from "@/integrations/supabase/client";
+import { getCurrentBrowserUser, getPostLoginPath, redirectAuthenticatedUser } from "@/lib/auth-guards";
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: () => redirectAuthenticatedUser(),
   component: LoginPage,
   head: () => ({
     meta: [
@@ -26,6 +27,15 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    let active = true;
+    void getCurrentBrowserUser(1).then(async (currentUser) => {
+      if (!active || !currentUser) return;
+      navigate({ to: await getPostLoginPath(currentUser.id), replace: true });
+    });
+    return () => { active = false; };
+  }, [navigate]);
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
@@ -36,11 +46,7 @@ function LoginPage() {
       setLoading(false);
       return;
     }
-    // Resolve role with a single query (no extra getUser round-trip)
-    const { data: roles } = await supabase
-      .from("user_roles").select("role").eq("user_id", userId);
-    const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
-    navigate({ to: isNgf ? "/ngf" : "/state" });
+    navigate({ to: await getPostLoginPath(userId) });
   }
 
 
