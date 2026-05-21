@@ -6,7 +6,7 @@ import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
 import ngfLogo from "@/assets/ngf-logo.png";
 import { useEffect, useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
-import { getPostLoginPath, redirectAuthenticatedUser } from "@/lib/auth-guards";
+import { getCurrentBrowserUser, getPostLoginPath, redirectAuthenticatedUser } from "@/lib/auth-guards";
 
 export const Route = createFileRoute("/login")({
   beforeLoad: () => redirectAuthenticatedUser(),
@@ -29,9 +29,9 @@ function LoginPage() {
 
   useEffect(() => {
     let active = true;
-    void redirectAuthenticatedUser().catch((redirect) => {
-      const to = redirect?.options?.to;
-      if (active && (to === "/ngf" || to === "/state")) navigate({ to, replace: true });
+    void getCurrentBrowserUser(1).then(async (currentUser) => {
+      if (!active || !currentUser) return;
+      navigate({ to: await getPostLoginPath(currentUser.id), replace: true });
     });
     return () => { active = false; };
   }, [navigate]);
