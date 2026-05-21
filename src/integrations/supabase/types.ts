@@ -421,6 +421,47 @@ export type Database = {
         }
         Relationships: []
       }
+      indicator_rules: {
+        Row: {
+          created_at: string
+          id: string
+          indicator_id: string
+          max_value: number | null
+          max_yoy_delta_pct: number | null
+          min_value: number | null
+          notes: string | null
+          requires_evidence: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          indicator_id: string
+          max_value?: number | null
+          max_yoy_delta_pct?: number | null
+          min_value?: number | null
+          notes?: string | null
+          requires_evidence?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          indicator_id?: string
+          max_value?: number | null
+          max_yoy_delta_pct?: number | null
+          min_value?: number | null
+          notes?: string | null
+          requires_evidence?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "indicator_rules_indicator_id_fkey"
+            columns: ["indicator_id"]
+            isOneToOne: true
+            referencedRelation: "indicators"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       indicators: {
         Row: {
           created_at: string
@@ -1165,7 +1206,9 @@ export type Database = {
       }
       survey_submissions: {
         Row: {
+          ai_risk_score: number
           completion_pct: number
+          flags: Json
           id: string
           payload: Json
           review_notes: string | null
@@ -1179,7 +1222,9 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_risk_score?: number
           completion_pct?: number
+          flags?: Json
           id?: string
           payload?: Json
           review_notes?: string | null
@@ -1193,7 +1238,9 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_risk_score?: number
           completion_pct?: number
+          flags?: Json
           id?: string
           payload?: Json
           review_notes?: string | null
