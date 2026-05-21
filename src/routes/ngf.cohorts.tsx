@@ -27,12 +27,13 @@ function Cohorts() {
   const [mode, setMode] = useState<Mode>("zone");
 
   const cohorts = useMemo(() => {
-    const groups = new Map<string, { key: string; states: any[]; avg: Record<string, number>; n: number }>();
+    type Cohort = { key: string; states: any[]; avg: Record<string, number>; n: number };
+    const groups = new Map<string, Cohort>();
     for (const s of scores as any[]) {
       const key = mode === "zone"
         ? (zones.find((z:any) => z.code === s.states?.zone_code)?.name ?? s.states?.zone_code ?? "—")
         : tierFor(s.states?.population_millions);
-      const g = groups.get(key) ?? { key, states: [], avg: {} as any, n: 0 };
+      const g: Cohort = groups.get(key) ?? { key, states: [], avg: {}, n: 0 };
       g.states.push(s); g.n += 1;
       groups.set(key, g);
     }

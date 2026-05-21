@@ -60,6 +60,7 @@ import { Route as NgfExplorerRouteImport } from './routes/ngf.explorer'
 import { Route as NgfEngagementRouteImport } from './routes/ngf.engagement'
 import { Route as NgfDiffRouteImport } from './routes/ngf.diff'
 import { Route as NgfDataRouteImport } from './routes/ngf.data'
+import { Route as NgfCohortsRouteImport } from './routes/ngf.cohorts'
 import { Route as NgfBriefingRouteImport } from './routes/ngf.briefing'
 import { Route as NgfAuditRouteImport } from './routes/ngf.audit'
 import { Route as NgfAskdataRouteImport } from './routes/ngf.askdata'
@@ -329,6 +330,11 @@ const NgfDataRoute = NgfDataRouteImport.update({
   path: '/data',
   getParentRoute: () => NgfRoute,
 } as any)
+const NgfCohortsRoute = NgfCohortsRouteImport.update({
+  id: '/cohorts',
+  path: '/cohorts',
+  getParentRoute: () => NgfRoute,
+} as any)
 const NgfBriefingRoute = NgfBriefingRouteImport.update({
   id: '/briefing',
   path: '/briefing',
@@ -424,6 +430,7 @@ export interface FileRoutesByFullPath {
   '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
+  '/ngf/cohorts': typeof NgfCohortsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
@@ -488,6 +495,7 @@ export interface FileRoutesByTo {
   '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
+  '/ngf/cohorts': typeof NgfCohortsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
@@ -555,6 +563,7 @@ export interface FileRoutesById {
   '/ngf/askdata': typeof NgfAskdataRoute
   '/ngf/audit': typeof NgfAuditRoute
   '/ngf/briefing': typeof NgfBriefingRoute
+  '/ngf/cohorts': typeof NgfCohortsRoute
   '/ngf/data': typeof NgfDataRoute
   '/ngf/diff': typeof NgfDiffRoute
   '/ngf/engagement': typeof NgfEngagementRoute
@@ -623,6 +632,7 @@ export interface FileRouteTypes {
     | '/ngf/askdata'
     | '/ngf/audit'
     | '/ngf/briefing'
+    | '/ngf/cohorts'
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
@@ -687,6 +697,7 @@ export interface FileRouteTypes {
     | '/ngf/askdata'
     | '/ngf/audit'
     | '/ngf/briefing'
+    | '/ngf/cohorts'
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
@@ -753,6 +764,7 @@ export interface FileRouteTypes {
     | '/ngf/askdata'
     | '/ngf/audit'
     | '/ngf/briefing'
+    | '/ngf/cohorts'
     | '/ngf/data'
     | '/ngf/diff'
     | '/ngf/engagement'
@@ -1176,6 +1188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NgfDataRouteImport
       parentRoute: typeof NgfRoute
     }
+    '/ngf/cohorts': {
+      id: '/ngf/cohorts'
+      path: '/cohorts'
+      fullPath: '/ngf/cohorts'
+      preLoaderRoute: typeof NgfCohortsRouteImport
+      parentRoute: typeof NgfRoute
+    }
     '/ngf/briefing': {
       id: '/ngf/briefing'
       path: '/briefing'
@@ -1291,6 +1310,7 @@ interface NgfRouteChildren {
   NgfAskdataRoute: typeof NgfAskdataRoute
   NgfAuditRoute: typeof NgfAuditRoute
   NgfBriefingRoute: typeof NgfBriefingRoute
+  NgfCohortsRoute: typeof NgfCohortsRoute
   NgfDataRoute: typeof NgfDataRoute
   NgfDiffRoute: typeof NgfDiffRoute
   NgfEngagementRoute: typeof NgfEngagementRoute
@@ -1322,6 +1342,7 @@ const NgfRouteChildren: NgfRouteChildren = {
   NgfAskdataRoute: NgfAskdataRoute,
   NgfAuditRoute: NgfAuditRoute,
   NgfBriefingRoute: NgfBriefingRoute,
+  NgfCohortsRoute: NgfCohortsRoute,
   NgfDataRoute: NgfDataRoute,
   NgfDiffRoute: NgfDiffRoute,
   NgfEngagementRoute: NgfEngagementRoute,
