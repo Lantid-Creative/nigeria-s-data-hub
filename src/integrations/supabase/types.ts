@@ -279,9 +279,11 @@ export type Database = {
         Row: {
           created_at: string
           cycle_id: string | null
+          extracted_text: string | null
           file_name: string
           file_path: string
           id: string
+          ocr_status: string
           question_code: string | null
           size_bytes: number | null
           state_code: string
@@ -290,9 +292,11 @@ export type Database = {
         Insert: {
           created_at?: string
           cycle_id?: string | null
+          extracted_text?: string | null
           file_name: string
           file_path: string
           id?: string
+          ocr_status?: string
           question_code?: string | null
           size_bytes?: number | null
           state_code: string
@@ -301,9 +305,11 @@ export type Database = {
         Update: {
           created_at?: string
           cycle_id?: string | null
+          extracted_text?: string | null
           file_name?: string
           file_path?: string
           id?: string
+          ocr_status?: string
           question_code?: string | null
           size_bytes?: number | null
           state_code?: string
@@ -731,6 +737,8 @@ export type Database = {
       }
       reports: {
         Row: {
+          author_id: string | null
+          body: Json
           created_at: string
           downloads: number
           file_url: string | null
@@ -743,6 +751,8 @@ export type Database = {
           type: string
         }
         Insert: {
+          author_id?: string | null
+          body?: Json
           created_at?: string
           downloads?: number
           file_url?: string | null
@@ -755,6 +765,8 @@ export type Database = {
           type: string
         }
         Update: {
+          author_id?: string | null
+          body?: Json
           created_at?: string
           downloads?: number
           file_url?: string | null
