@@ -130,7 +130,6 @@ function NewReport() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <SectionHeader
-          eyebrow="Research Lab"
           title="Deep-Dive Report Builder"
           description="Compose multi-section briefings with AI-assisted narrative grounded in live state data."
         />

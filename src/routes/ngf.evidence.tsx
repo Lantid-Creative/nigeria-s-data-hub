@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, FileText, Loader2, Sparkles, Eye } from "lucide-react";
+import { Search, FileText, Loader2, Sparkles, Eye, FileCheck2, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -19,8 +19,9 @@ function EvidenceSearch() {
   const [q, setQ] = useState("");
   const [stateFilter, setStateFilter] = useState<string>("_all");
   const [ocrStatus, setOcrStatus] = useState<string>("_all");
-  const [previewPath, setPreviewPath] = useState<string | null>(null);
+  const [preview, setPreview] = useState<{ path: string; name: string } | null>(null);
   const [ocrId, setOcrId] = useState<string | null>(null);
+
 
   const { data: rows = [], isLoading } = useQuery({
     queryKey: ["evidence-search"],
@@ -114,16 +115,16 @@ function EvidenceSearch() {
   return (
     <div className="space-y-6">
       <SectionHeader
-        eyebrow="Operations"
         title="Evidence Search"
         description="Full-text search across all state-submitted evidence. Run OCR on images to make scanned documents searchable."
       />
 
       <div className="grid gap-4 md:grid-cols-3">
-        <StatCard label="Files" value={totals.total} hint="all states" />
-        <StatCard label="OCR indexed" value={totals.indexed} hint="searchable text" />
-        <StatCard label="Pending OCR" value={totals.pending} hint="run on demand" />
+        <StatCard label="Files" value={totals.total} icon={FileText} />
+        <StatCard label="OCR indexed" value={totals.indexed} icon={FileCheck2} accent="info" />
+        <StatCard label="Pending OCR" value={totals.pending} icon={Clock} accent="gold" />
       </div>
+
 
       <Card>
         <CardHeader>
