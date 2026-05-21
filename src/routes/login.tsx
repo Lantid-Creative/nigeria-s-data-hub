@@ -6,9 +6,10 @@ import { ArrowRight, ShieldCheck, Lock } from "lucide-react";
 import ngfLogo from "@/assets/ngf-logo.png";
 import { useState, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth";
-import { supabase } from "@/integrations/supabase/client";
+import { getPostLoginPath, redirectAuthenticatedUser } from "@/lib/auth-guards";
 
 export const Route = createFileRoute("/login")({
+  beforeLoad: () => redirectAuthenticatedUser(),
   component: LoginPage,
   head: () => ({
     meta: [
@@ -36,11 +37,7 @@ function LoginPage() {
       setLoading(false);
       return;
     }
-    // Resolve role with a single query (no extra getUser round-trip)
-    const { data: roles } = await supabase
-      .from("user_roles").select("role").eq("user_id", userId);
-    const isNgf = (roles ?? []).some((r) => r.role === "ngf_staff");
-    navigate({ to: isNgf ? "/ngf" : "/state" });
+    navigate({ to: await getPostLoginPath(userId) });
   }
 
 
